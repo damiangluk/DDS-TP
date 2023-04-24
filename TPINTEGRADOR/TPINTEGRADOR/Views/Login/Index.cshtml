@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="text-center">
+	<h1>Inicio de sesión</h1>
+
+	<form action="/Login/Login" method="POST">
+		@if (ViewBag.ContraseniaSugerida?.Length != 0)
+		{
+			<span>Contraseña sugerida: @ViewBag.ContraseniaSugerida</span><br><br>
+		}
+
+		<label for="nombre">Nombre de usuario:</label>
+		<input type="text" id="username" name="username"><br><br>
+
+		<label for="contrasenia">Contraseña:</label>
+		<input type="password" id="password" name="password"><br><br>
+
+		<input type="submit" id="boton" value="Iniciar sesión">
+		<h6 style="color:red">@ViewBag.MensajeError</h6>
+	</form>
+</div>
