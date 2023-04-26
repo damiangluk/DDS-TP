@@ -20,3 +20,21 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.error {
+    color: red;
+    font-size: small;
+}
+
+#error {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #F8D7DA;
+    border: 1px solid #FFC6C9;
+    border-radius: 5px;
+    color: rgb(0, 0, 0, .6);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
