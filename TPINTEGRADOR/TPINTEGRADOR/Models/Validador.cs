@@ -56,7 +56,7 @@ namespace TPINTEGRADOR.Models
 			string message = $"La contraseña ingresada no debe ser comun";
 			string rutaArchivo = "./static/claves_comunes.txt";
 			string contenidoArchivo = File.ReadAllText(rutaArchivo);
-			List<string> clavesComunes = contenidoArchivo.Split(new string[] { "\r\n" }, StringSplitOptions.None).ToList();
+			List<string> clavesComunes = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.None).ToList();
 			return (!clavesComunes.Contains(password), message);
 		}
 
