@@ -6,9 +6,13 @@
         <script type="text/javascript" src="@Url.Content("~/js/organismosController.js")"></script>
 }
 
-<div class="text-center imp-file">
-    <div class="mb-3">
-        <input class="form-control" type="file" id="formFile">
+<div>
+    <div class="text-center imp-file">
+        <div class="mb-3">
+            <input class="form-control" type="file" id="formFile">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="validarArchivo()">Importar CSV</button>
     </div>
-    <button type="button" class="btn btn-primary" onclick="validarArchivo()">Importar CSV</button>
+    <div id="tableContainer" class="text-center"></div>
+    <div id="msg" class="text-center"></div>
 </div>
