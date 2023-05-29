@@ -39,7 +39,7 @@ validarArchivo = () => {
         var tabla = crearTabla();
 
         cargarParametros(rows);
-        await consultarAPI(["provincias", "municipios", "departamentos"], [provincias, municipios, departamentos]);
+        await consultarAPI(["provincias", "departamentos", "municipios"], [provincias, departamentos, municipios]);
         cargarInformacion(rows, tabla);
 
         var tableContainer = document.getElementById('tableContainer');
@@ -58,7 +58,7 @@ crearTabla = () => {
     var encabezado = document.createElement('tr');
 
     var tipoOrganismoHeader = document.createElement('th');
-    tipoOrganismoHeader.textContent = 'Tipo Organismo';
+    tipoOrganismoHeader.textContent = 'Tipo de organismo';
     encabezado.appendChild(tipoOrganismoHeader);
 
     var entidadHeader = document.createElement('th');
@@ -68,6 +68,14 @@ crearTabla = () => {
     var encargadoHeader = document.createElement('th');
     encargadoHeader.textContent = 'Encargado';
     encabezado.appendChild(encargadoHeader);
+
+    var tipoLocalizacionHeader = document.createElement('th');
+    tipoLocalizacionHeader.textContent = 'Tipo de localizacion';
+    encabezado.appendChild(tipoLocalizacionHeader);
+
+    var nombreLocalizacionHeader = document.createElement('th');
+    nombreLocalizacionHeader.textContent = 'Nombre localizacion';
+    encabezado.appendChild(nombreLocalizacionHeader);
 
     tabla.appendChild(encabezado);
     return tabla;
@@ -86,18 +94,21 @@ cargarParametros = (rows) => {
         if (columnsRow[3] == "DEPARTAMENTO" && !departamentos.departamentos.some(d => d.nombre === columnsRow[4])) {
             departamentos.departamentos.push({
                 nombre: columnsRow[4],
+                campos: "id,nombre",
                 max: 1,
                 exacto: true
             })
         } else if (columnsRow[3] == "MUNICIPIO" && !municipios.municipios.some(m => m.nombre === columnsRow[4])) {
             municipios.municipios.push({
                 nombre: columnsRow[4],
+                campos: "id,nombre",
                 max: 1,
                 exacto: true
             })
         } else if (columnsRow[3] == "PROVINCIA" && !provincias.provincias.some(p => p.nombre === columnsRow[4])) {
             provincias.provincias.push({
                 nombre: columnsRow[4],
+                campos: "id,nombre",
                 max: 1,
                 exacto: true
             })
@@ -111,7 +122,10 @@ cargarInformacion = (rows, tabla) => {
         if (columns[0] == "")
             break;
 
-        if (!validarFila(columns)) rowsError += i + "," ; // sacar ultima letra
+        if (!validarFila(columns)) {
+            rowsError += columns[4] + ",";
+            continue;
+        }
 
         data.push({
             tipoOrganismo: tipoOrganismo,
@@ -122,6 +136,8 @@ cargarInformacion = (rows, tabla) => {
         var tipoOrganismo = columns[0].trim();
         var entidad = columns[1].trim();
         var encargado = columns[2].trim();
+        var tipoLocalizacion = columns[3].trim();
+        var nombreLocalizacion = columns[4].trim();
 
         var fila = document.createElement('tr');
 
@@ -137,22 +153,37 @@ cargarInformacion = (rows, tabla) => {
         encargadoTd.textContent = encargado;
         fila.appendChild(encargadoTd);
 
+        var tipoLocalizacionTd = document.createElement('td');
+        tipoLocalizacionTd.textContent = tipoLocalizacion;
+        fila.appendChild(tipoLocalizacionTd);
+
+        var nombreLocalizacionTd = document.createElement('td');
+        nombreLocalizacionTd.textContent = nombreLocalizacion;
+        fila.appendChild(nombreLocalizacionTd);
+
         tabla.appendChild(fila);
+    }
+
+    if (rowsError !== "") {
+        var msj = document.getElementById('msg');
+        msj.innerHTML = 'No se encontraron las siguiente localizaciones: ' + rowsError.slice(0, -1);
     }
 }
 
 validarFila = (columns) => {
-    if (columns[3] == "PROVINCIA" && provinciasResult.includes(columns[4]))
+    var nombreLoc = columns[4].trim();
+    var tipoLoc = columns[3]
+    if (tipoLoc === "PROVINCIA" && provinciasResult.some(p => p.nombre === nombreLoc))
         return true;
-    else if (columns[3] == "DEPARTAMENTO" && departamentosResult.includes(columns[4]))
+    else if (tipoLoc === "DEPARTAMENTO" && departamentosResult.some(d => d.nombre === nombreLoc))
         return true;
-    else if (columns[3] == "MUNICIPIO" && municipiosResult.includes(columns[4]))
+    else if (tipoLoc === "MUNICIPIO" && municipiosResult.some(m => m.nombre === nombreLoc))
         return true;
     return false;
 }
 
 consultarAPI = async (urls, datas) => {
-    const requestOptions = (data) => {
+    /*const requestOptions = (data) => {
         return {
             method: 'POST',
             headers: {
@@ -164,17 +195,34 @@ consultarAPI = async (urls, datas) => {
 
     var requests = urls.map((url, index) => fetch("https://apis.datos.gob.ar/georef/api/" + url, requestOptions(datas[index])));
 
-    await Promise.all(requests)
-        .then(responses => {
-            var res = responses[0].json().result;
-            provinciasResult = res.resultados.map(res => res.provincias[0]);
-            departamentosResult = responses[1].json().resultados.map(res => res.departamentos[0]);
-            municipiosResult = responses[2].json().resultados.map(res => res.municipios[0])
-            console.log(result);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    try {
+        var responses = await Promise.all(requests);
+        var provinciasResponse = await responses[0].json();
+        var departamentosResponse = await responses[1].json();
+        var municipiosResponse = await responses[2].json();
+
+        provinciasResult = provinciasResponse.resultados.map(res => res.cantidad > 0 ? res.provincias[0] : null).filter(r => r != null);
+        departamentosResult = departamentosResponse.resultados.map(res => res.cantidad > 0 ? res.departamentos[0] : null).filter(r => r != null);
+        municipiosResult = municipiosResponse.resultados.map(res => res.cantidad > 0 ? res.municipios[0] : null).filter(r => r != null);
+
+        console.log(provinciasResult);
+        console.log(departamentosResult);
+        console.log(municipiosResult);
+    } catch (error) {
+        console.error('Error:', error);
+    }*/
+    $.ajax({
+        url: '/Organismos/ConsultarAPI',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify([{ param: provincias.provincias }, { param: municipios.municipios }, { param: departamentos.departamentos }]),
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
 }
 /*
 PROVINCIAS
