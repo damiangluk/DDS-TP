@@ -1,9 +1,10 @@
 ﻿
 namespace TPINTEGRADOR.Models
 {
-    internal enum TipoOrganismo
+    internal enum TipoEntidad
     {
-        EMPRESA,
-        ORGANISMODECONTROL
+        SUBTERRANEO,
+        FERROCARRIL,
+        ORGANIZACION
     }
 }
