@@ -7,5 +7,8 @@ namespace TPINTEGRADOR.Models
         string Apellido { get; set; }
         string CorreoElectronico { get; set; }
         string Contrasenia { get; set; }
+        //intereses
+        //entidadesInteresadas
+        //localizacionDeInteres
     }
 }
