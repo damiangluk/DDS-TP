@@ -12,8 +12,13 @@
         <div class="mb-3">
             <input class="form-control" type="file" id="formFile">
         </div>
-        <button type="button" class="btn btn-primary" onclick="validarArchivo()">Importar CSV</button>
+        <button id="importButton" type="button" class="btn btn-sm btn-dark" onclick="validarArchivo()">
+            <span id="textButton">Importar CSV</span>
+            <div id="loadingButton" style="display:none"  class="spinner-border spinner-border-sm text-light" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </button>
     </div>
     <div id="msg" class="text-center error"></div>
-    <div id="tableContainer" class="text-center"></div>
+    <div id="tableContainer" class="text-center mt-3"></div>
 </div>

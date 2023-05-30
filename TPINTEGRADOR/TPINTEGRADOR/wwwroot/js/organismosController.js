@@ -1,13 +1,13 @@
-﻿var data = [];
-var rowsError = "";
-var provincias;
-var municipios;
-var departamentos;
+﻿var rowsError = "";
+var rows;
 var provinciasResult;
 var municipiosResult;
 var departamentosResult;
+var importButton = document.getElementById('importButton');
+var textImport = document.getElementById('textButton');
+var loadingImport = document.getElementById('loadingButton');
 
-validarArchivo = () => {
+validarArchivo = async () => {
     var inputFile = document.getElementById('formFile');
     var file = inputFile.files[0];
     var allowedExtensions = /(\.csv)$/i;
@@ -22,38 +22,27 @@ validarArchivo = () => {
         return false;
     }
 
-    var reader = new FileReader();
+    importButton.disabled = true
+    textImport.style.display = 'none';
+    loadingImport.style.display = 'flex';
 
-    reader.onload = async (e) => {
-        var contents = e.target.result;
-        var rows = contents.split('\n');
+    rowsError = "";
 
-        var msj = document.getElementById('msg');
+    await enviarArchivo(file);
+    var msj = document.getElementById('msg');
+    msj.innerHTML = '';
+    var tabla = crearTabla();
+    cargarInformacion(tabla);
 
-        if (rows.length < 2 || rows[1] == "") {
-            msj.innerHTML = 'El archivo no contiene informacion';
-            return;
-        }
+    var tableContainer = document.getElementById('tableContainer');
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(tabla);
 
-        msj.innerHTML = '';
-        var tabla = crearTabla();
-
-        cargarParametros(rows);
-        await consultarAPI(["provincias", "departamentos", "municipios"], [provincias, departamentos, municipios]);
-        cargarInformacion(rows, tabla);
-
-        var tableContainer = document.getElementById('tableContainer');
-        tableContainer.innerHTML = '';
-        tableContainer.appendChild(tabla);
-    };
-
-    reader.readAsText(file, 'latin1');
 }
-
 
 crearTabla = () => {
     var tabla = document.createElement('table');
-    tabla.classList.add('table', 'table-bordered', 'table-striped');
+    tabla.classList.add('table', 'table-bordered', 'table-striped', 'table-hover');
 
     var encabezado = document.createElement('tr');
 
@@ -81,57 +70,9 @@ crearTabla = () => {
     return tabla;
 }
 
-cargarParametros = (rows) => {
-    provincias = { provincias: [] };
-    municipios = { municipios: [] };
-    departamentos = { departamentos: [] };
-
-    for (var i = 1; i < rows.length; i++) {
-        var columnsRow = rows[i].split(',');
-        if (columnsRow[0] == "")
-            break;
-        columnsRow[4] = columnsRow[4].replace(/\r$/, '');
-        if (columnsRow[3] == "DEPARTAMENTO" && !departamentos.departamentos.some(d => d.nombre === columnsRow[4])) {
-            departamentos.departamentos.push({
-                nombre: columnsRow[4],
-                campos: "id,nombre",
-                max: 1,
-                exacto: true
-            })
-        } else if (columnsRow[3] == "MUNICIPIO" && !municipios.municipios.some(m => m.nombre === columnsRow[4])) {
-            municipios.municipios.push({
-                nombre: columnsRow[4],
-                campos: "id,nombre",
-                max: 1,
-                exacto: true
-            })
-        } else if (columnsRow[3] == "PROVINCIA" && !provincias.provincias.some(p => p.nombre === columnsRow[4])) {
-            provincias.provincias.push({
-                nombre: columnsRow[4],
-                campos: "id,nombre",
-                max: 1,
-                exacto: true
-            })
-        }
-    }
-}
-
-cargarInformacion = (rows, tabla) => {
-    for (var i = 1; i < rows.length; i++) {
+cargarInformacion = (tabla) => {
+    for (var i = 0; i < rows.length; i++) {
         var columns = rows[i].split(',');
-        if (columns[0] == "")
-            break;
-
-        if (!validarFila(columns)) {
-            rowsError += columns[4] + ",";
-            continue;
-        }
-
-        data.push({
-            tipoOrganismo: tipoOrganismo,
-            entidad: entidad,
-            encargado: encargado
-        });
 
         var tipoOrganismo = columns[0].trim();
         var entidad = columns[1].trim();
@@ -166,121 +107,56 @@ cargarInformacion = (rows, tabla) => {
 
     if (rowsError !== "") {
         var msj = document.getElementById('msg');
-        msj.innerHTML = 'No se encontraron las siguiente localizaciones: ' + rowsError.slice(0, -1);
+        msj.innerHTML = rowsError;
     }
 }
 
-validarFila = (columns) => {
-    var nombreLoc = columns[4].trim();
-    var tipoLoc = columns[3]
-    if (tipoLoc === "PROVINCIA" && provinciasResult.some(p => p.nombre === nombreLoc))
-        return true;
-    else if (tipoLoc === "DEPARTAMENTO" && departamentosResult.some(d => d.nombre === nombreLoc))
-        return true;
-    else if (tipoLoc === "MUNICIPIO" && municipiosResult.some(m => m.nombre === nombreLoc))
-        return true;
-    return false;
-}
+enviarArchivo = (file) => {
 
-consultarAPI = async (urls, datas) => {
-    /*const requestOptions = (data) => {
-        return {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+    var formData = new FormData();
+    formData.append('archivoCSV', file);
+
+    return new Promise((resolve, reject) => {
+
+        $.ajax({
+            url: '/Organismos/ValidarArchivo',
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (response) {
+                var result = JSON.parse(response);
+                if (result.validation) {
+                    provinciasResult = result.content.provinciasResult;
+                    departamentosResult = result.content.departamentosResult;
+                    municipiosResult = result.content.municipiosResult;
+                    rows = result.content.rowsValidated;
+                    rowsError = result.content.rowsError;
+
+                    importButton.disabled = false
+                    textImport.style.display = 'flex';
+                    loadingImport.style.display = 'none';
+
+                    resolve();
+                } else {
+                    console.log("Ocurrio un error", result);
+                    var msj = document.getElementById('msg');
+                    msj.innerHTML = result.message;
+
+                    importButton.disabled = false
+                    textImport.style.display = 'flex';
+                    loadingImport.style.display = 'none';
+
+                    reject("Ocurrió un error en la consulta API");
+                }
             },
-            body: JSON.stringify(data)
-        }
-    };
-
-    var requests = urls.map((url, index) => fetch("https://apis.datos.gob.ar/georef/api/" + url, requestOptions(datas[index])));
-
-    try {
-        var responses = await Promise.all(requests);
-        var provinciasResponse = await responses[0].json();
-        var departamentosResponse = await responses[1].json();
-        var municipiosResponse = await responses[2].json();
-
-        provinciasResult = provinciasResponse.resultados.map(res => res.cantidad > 0 ? res.provincias[0] : null).filter(r => r != null);
-        departamentosResult = departamentosResponse.resultados.map(res => res.cantidad > 0 ? res.departamentos[0] : null).filter(r => r != null);
-        municipiosResult = municipiosResponse.resultados.map(res => res.cantidad > 0 ? res.municipios[0] : null).filter(r => r != null);
-
-        console.log(provinciasResult);
-        console.log(departamentosResult);
-        console.log(municipiosResult);
-    } catch (error) {
-        console.error('Error:', error);
-    }*/
-    $.ajax({
-        url: '/Organismos/ConsultarAPI',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify([{ param: provincias.provincias }, { param: municipios.municipios }, { param: departamentos.departamentos }]),
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
+            error: function (xhr, status, error) {
+                console.error(error);
+                importButton.disabled = false
+                textImport.style.display = 'flex';
+                loadingImport.style.display = 'none';
+                reject("Ocurrió un error en la consulta API");
+            }
+        });
     });
 }
-/*
-PROVINCIAS
-POST https://apis.datos.gob.ar/georef/api/provincias
-HEADER 'Content-Type: application/json'
-{
-    "provincias": [
-        {
-            "nombre": "cordoba",
-            "campos": "nombre"
-        },
-        {
-            "nombre": "chaco",
-            "campos": "nombre"
-        },
-        {
-            "nombre": "san luis",
-            "campos": "nombre"
-        }
-    ]
-}
-
-MUNICIPIOS
-POST "https://apis.datos.gob.ar/georef/api/municipios"
-HEADER 'Content-Type: application/json'
-{
-    "municipios": [
-        {
-            "nombre": "belgrano",
-            "max": 1,
-            "campos": "id, nombre"
-        },
-        {
-            "nombre": "martin",
-            "max": 1,
-            "provincia": "la pampa",
-            "aplanar": true
-        }
-    ]
-}
-
-DEPARTAMENTOS
-POST "https://apis.datos.gob.ar/georef/api/departamentos"
-HEADER 'Content-Type: application/json'
-{
-  "departamentos": [
-    {
-      "id": "string",
-      "nombre": "string",
-      "provincia": "Santa Fe",
-      "interseccion": "provincia:82,departamento:82084,municipio:820196",
-      "orden": "id",
-      "aplanar": true,
-      "campos": "estandar",
-      "max": 10,
-      "inicio": 10,
-      "exacto": true
-    }
-  ]
-}
-*/
