@@ -15,7 +15,7 @@ namespace TPINTEGRADOR.Models
 
     }
 
-    public class Localizacion
+    public class LocalizacionAPI
     {
         public int id { get; set; }
         public string nombre { get; set; } = string.Empty;

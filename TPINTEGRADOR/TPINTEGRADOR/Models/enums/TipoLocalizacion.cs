@@ -1,7 +1,7 @@
 ﻿
 namespace TPINTEGRADOR.Models
 {
-    internal enum TipoLocalizacion
+    public enum TipoLocalizacion
     {
         MUNICIPIO,
         DEPARTAMENTO,

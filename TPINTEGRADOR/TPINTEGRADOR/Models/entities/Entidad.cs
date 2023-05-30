@@ -8,6 +8,6 @@ namespace TPINTEGRADOR.Models
         string Nombre { get; set; }
         TipoEntidad Tipo { get; set; }
         //Sucursales
-        //Localizacion
+        Localizacion Localizacion { get; set; }
     }
 }

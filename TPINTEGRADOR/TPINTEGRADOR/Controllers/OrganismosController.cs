@@ -56,7 +56,7 @@ namespace TPINTEGRADOR.Controllers
 
             List<object> rowsValidated = new List<object>();
             var rowsError = "";
-            Tuple<List<Localizacion>, List<Localizacion>, List<Localizacion>> results;
+            Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>> results;
 
             try
             {
@@ -67,7 +67,10 @@ namespace TPINTEGRADOR.Controllers
                 {
                     string[] columns = rows[i].Split(',');
                     if (ValidarFila(columns, results))
+                    {
                         rowsValidated.Add(rows[i]);
+                        ConvertirRowAOrganismo(columns);
+                    }
                     else
                         rowsError += (columns[4] + ",");
                 }
@@ -157,60 +160,7 @@ namespace TPINTEGRADOR.Controllers
             return geoApiParams;
         }
 
-        private List<GeoApiParam> ValidarInformacion(string[] rows)
-        {
-            var geoApiParams = new List<GeoApiParam>();
-
-            var provincias = new GeoApiParam();
-            var municipios = new GeoApiParam();
-            var departamentos = new GeoApiParam();
-
-            for (int i = 1; i < rows.Length; i++)
-            {
-                string[] columnsRow = rows[i].Split(',');
-
-                if (columnsRow[0] == string.Empty) break;
-                columnsRow[4] = columnsRow[4].Replace("\r$", "");
-
-                if (columnsRow[3] == "DEPARTAMENTO" && !departamentos.Param.Any(d => d.nombre == columnsRow[4]))
-                {
-                    departamentos.Param.Add(new Param
-                    {
-                        nombre = columnsRow[4],
-                        campos = "id,nombre",
-                        max = 1,
-                        exacto = true
-                    });
-                }
-                else if (columnsRow[3] == "MUNICIPIO" && !municipios.Param.Any(m => m.nombre == columnsRow[4]))
-                {
-                    municipios.Param.Add(new Param
-                    {
-                        nombre = columnsRow[4],
-                        campos = "id,nombre",
-                        max = 1,
-                        exacto = true
-                    });
-                }
-                else if (columnsRow[3] == "PROVINCIA" && !provincias.Param.Any(p => p.nombre == columnsRow[4]))
-                {
-                    provincias.Param.Add(new Param
-                    {
-                        nombre = columnsRow[4],
-                        campos = "id,nombre",
-                        max = 1,
-                        exacto = true
-                    });
-                }
-            }
-            geoApiParams.Add(provincias);
-            geoApiParams.Add(municipios);
-            geoApiParams.Add(departamentos);
-
-            return geoApiParams;
-        }
-
-        private bool ValidarFila(string[] columns, Tuple<List<Localizacion>,List<Localizacion>,List<Localizacion>>  results)
+        private bool ValidarFila(string[] columns, Tuple<List<LocalizacionAPI>,List<LocalizacionAPI>,List<LocalizacionAPI>>  results)
         {
             string nombreLoc = columns[4].Trim();
             string tipoLoc = columns[3];
@@ -225,7 +175,7 @@ namespace TPINTEGRADOR.Controllers
             return false;
         }
 
-        public async Task<Tuple<List<Localizacion>, List<Localizacion>, List<Localizacion>>> ConsultarAPI(List<GeoApiParam> parametros)
+        public async Task<Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>>> ConsultarAPI(List<GeoApiParam> parametros)
         {
             HttpClient httpClient = new HttpClient();
 
@@ -250,9 +200,9 @@ namespace TPINTEGRADOR.Controllers
                 i++;
             }
 
-            List<Localizacion> provinciasResult = new List<Localizacion>();
-            List<Localizacion> departamentosResult = new List<Localizacion>();
-            List<Localizacion> municipiosResult = new List<Localizacion>();
+            List<LocalizacionAPI> provinciasResult = new List<LocalizacionAPI>();
+            List<LocalizacionAPI> departamentosResult = new List<LocalizacionAPI>();
+            List<LocalizacionAPI> municipiosResult = new List<LocalizacionAPI>();
 
             GeoApiResponse? provinciasContent = JsonConvert.DeserializeObject<GeoApiResponse>(await responses[0].Content.ReadAsStringAsync());
             GeoApiResponse? municipiosContent = JsonConvert.DeserializeObject<GeoApiResponse>(await responses[1].Content.ReadAsStringAsync());
@@ -261,19 +211,28 @@ namespace TPINTEGRADOR.Controllers
             provinciasResult = provinciasContent != null ? provinciasContent.resultados
                 .Where(res => res.cantidad > 0)
                 .Select(res => res.provincias[0])
-                .ToList() : new List<Localizacion>();
+                .ToList() : new List<LocalizacionAPI>();
 
             municipiosResult = municipiosContent != null ? municipiosContent.resultados
                 .Where(res => res.cantidad > 0)
                 .Select(res => res.municipios[0])
-                .ToList() : new List<Localizacion>();
+                .ToList() : new List<LocalizacionAPI>();
 
             departamentosResult = departamentosContent != null ? departamentosContent.resultados
                 .Where(res => res.cantidad > 0)
                 .Select(res => res.departamentos[0])
-                .ToList() : new List<Localizacion>();
+                .ToList() : new List<LocalizacionAPI>();
 
-            return new Tuple<List<Localizacion>, List<Localizacion>, List<Localizacion>>(provinciasResult, municipiosResult, departamentosResult);
+            return new Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>>(provinciasResult, municipiosResult, departamentosResult);
+        }
+
+        private Organismo ConvertirRowAOrganismo(string[] columns)
+        {
+            TipoOrganismo? tipoOrganismo = TipoOrganismoExtensions.GetType(columns[0]);
+
+            Organismo organismo = new Organismo(tipoOrganismo.Value, null, null);
+
+            return organismo;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

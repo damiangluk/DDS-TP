@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TPINTEGRADOR.Models
 {
-    public class Loacalizacion
+    public class Localizacion
     {
         TipoLocalizacion Tipo { get; set; }
-        //string Nombre
+        string Nombre { get; set; }
     }
 }

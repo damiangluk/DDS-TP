@@ -1,7 +1,7 @@
 ﻿
 namespace TPINTEGRADOR.Models
 {
-    internal enum TipoEntidad
+    public enum TipoEntidad
     {
         SUBTERRANEO,
         FERROCARRIL,
