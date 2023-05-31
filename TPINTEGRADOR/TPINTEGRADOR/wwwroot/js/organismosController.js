@@ -1,5 +1,5 @@
 ﻿var rowsError = "";
-var rows;
+var organismos;
 var provinciasResult;
 var municipiosResult;
 var departamentosResult;
@@ -37,7 +37,7 @@ validarArchivo = async () => {
     var tableContainer = document.getElementById('tableContainer');
     tableContainer.innerHTML = '';
     tableContainer.appendChild(tabla);
-
+    inputFile.value = "";
 }
 
 crearTabla = () => {
@@ -54,9 +54,9 @@ crearTabla = () => {
     entidadHeader.textContent = 'Entidad';
     encabezado.appendChild(entidadHeader);
 
-    var encargadoHeader = document.createElement('th');
-    encargadoHeader.textContent = 'Encargado';
-    encabezado.appendChild(encargadoHeader);
+    var entidadTipoHeader = document.createElement('th');
+    entidadTipoHeader.textContent = 'Encargado';
+    encabezado.appendChild(entidadTipoHeader);
 
     var tipoLocalizacionHeader = document.createElement('th');
     tipoLocalizacionHeader.textContent = 'Tipo de localizacion';
@@ -66,19 +66,37 @@ crearTabla = () => {
     nombreLocalizacionHeader.textContent = 'Nombre localizacion';
     encabezado.appendChild(nombreLocalizacionHeader);
 
+    var encargadoNombreHeader = document.createElement('th');
+    encargadoNombreHeader.textContent = 'Nombre encargado';
+    encabezado.appendChild(encargadoNombreHeader);
+    
+    var encargadoApellidoHeader = document.createElement('th');
+    encargadoApellidoHeader.textContent = 'Apellido encargado';
+    encabezado.appendChild(encargadoApellidoHeader);
+
+    var encargadoCorreoElectronicoHeader = document.createElement('th');
+    encargadoCorreoElectronicoHeader.textContent = 'Correo electronico encargado';
+    encabezado.appendChild(encargadoCorreoElectronicoHeader);
+
+    var encargadoContraseniaHeader = document.createElement('th');
+    encargadoContraseniaHeader.textContent = 'Contraseña encargado';
+    encabezado.appendChild(encargadoContraseniaHeader);
+
     tabla.appendChild(encabezado);
     return tabla;
 }
 
 cargarInformacion = (tabla) => {
-    for (var i = 0; i < rows.length; i++) {
-        var columns = rows[i].split(',');
-
-        var tipoOrganismo = columns[0].trim();
-        var entidad = columns[1].trim();
-        var encargado = columns[2].trim();
-        var tipoLocalizacion = columns[3].trim();
-        var nombreLocalizacion = columns[4].trim();
+    for (var i = 0; i < organismos.length; i++) {
+        var tipoOrganismo = organismos[i].TipoOrganismo.trim();
+        var entidad = organismos[i].EntidadNombre.trim();
+        var entidadTipo = organismos[i].TipoEntidad.trim();
+        var tipoLocalizacion = organismos[i].TipoLocalizacion.trim();
+        var nombreLocalizacion = organismos[i].NombreLocalizacion.trim();
+        var encargadoNombre = organismos[i].EncargadoNombre.trim();
+        var encargadoApellido = organismos[i].EncargadoApellido.trim();
+        var encargadoCorreoElectronico = organismos[i].EncargadoCorreoElectronico.trim();
+        var encargadoContrasenia = organismos[i].EncargadoContrasenia.trim();
 
         var fila = document.createElement('tr');
 
@@ -90,9 +108,9 @@ cargarInformacion = (tabla) => {
         entidadTd.textContent = entidad;
         fila.appendChild(entidadTd);
 
-        var encargadoTd = document.createElement('td');
-        encargadoTd.textContent = encargado;
-        fila.appendChild(encargadoTd);
+        var entidadTipoTd = document.createElement('td');
+        entidadTipoTd.textContent = entidadTipo;
+        fila.appendChild(entidadTipoTd);
 
         var tipoLocalizacionTd = document.createElement('td');
         tipoLocalizacionTd.textContent = tipoLocalizacion;
@@ -101,6 +119,22 @@ cargarInformacion = (tabla) => {
         var nombreLocalizacionTd = document.createElement('td');
         nombreLocalizacionTd.textContent = nombreLocalizacion;
         fila.appendChild(nombreLocalizacionTd);
+
+        var encargadoNombreTd = document.createElement('td');
+        encargadoNombreTd.textContent = encargadoNombre;
+        fila.appendChild(encargadoNombreTd);
+
+        var encargadoApellidoTd = document.createElement('td');
+        encargadoApellidoTd.textContent = encargadoApellido;
+        fila.appendChild(encargadoApellidoTd);
+
+        var encargadoCorreoElectronicoTd = document.createElement('td');
+        encargadoCorreoElectronicoTd.textContent = encargadoCorreoElectronico;
+        fila.appendChild(encargadoCorreoElectronicoTd);
+
+        var encargadoContraseniaTd = document.createElement('td');
+        encargadoContraseniaTd.textContent = encargadoContrasenia;
+        fila.appendChild(encargadoContraseniaTd);
 
         tabla.appendChild(fila);
     }
@@ -127,10 +161,7 @@ enviarArchivo = (file) => {
             success: function (response) {
                 var result = JSON.parse(response);
                 if (result.validation) {
-                    provinciasResult = result.content.provinciasResult;
-                    departamentosResult = result.content.departamentosResult;
-                    municipiosResult = result.content.municipiosResult;
-                    rows = result.content.rowsValidated;
+                    organismos = result.content.organismos;
                     rowsError = result.content.rowsError;
 
                     importButton.disabled = false

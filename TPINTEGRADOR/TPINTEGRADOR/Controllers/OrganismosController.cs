@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 using TPINTEGRADOR.Models;
 
@@ -23,6 +25,7 @@ namespace TPINTEGRADOR.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<string> ValidarArchivo(IFormFile archivoCSV)
         {
+            Sistema system = Sistema.GetInstance;
             string[] rows;
             using (var reader = new StreamReader(archivoCSV.OpenReadStream(), Encoding.Latin1))
             {
@@ -54,7 +57,6 @@ namespace TPINTEGRADOR.Controllers
                 }
             }
 
-            List<object> rowsValidated = new List<object>();
             var rowsError = "";
             Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>> results;
 
@@ -65,14 +67,14 @@ namespace TPINTEGRADOR.Controllers
 
                 for(int i = 1; i < (rows.Length - 1); i++)
                 {
-                    string[] columns = rows[i].Split(',');
-                    if (ValidarFila(columns, results))
+                    Organismo? organismo = ConvertirFilaAOrganismo(rows[i]);
+
+                    if (organismo != null && ValidarFila(organismo, results))
                     {
-                        rowsValidated.Add(rows[i]);
-                        ConvertirRowAOrganismo(columns);
+                        system.AgregarOrganismo(organismo);
                     }
                     else
-                        rowsError += (columns[4] + ",");
+                        rowsError += (i + ",");
                 }
 
             } catch(Exception e) 
@@ -89,7 +91,7 @@ namespace TPINTEGRADOR.Controllers
 
             if (!string.IsNullOrEmpty(rowsError))
             {
-                rowsError = "No se encontraron las siguiente localizaciones: " + rowsError.Substring(0, rowsError.Length - 1);
+                rowsError = "Las siguientes filas son invalidas: " + rowsError.Substring(0, rowsError.Length - 1);
             }
 
             object result = new
@@ -98,14 +100,12 @@ namespace TPINTEGRADOR.Controllers
                 validation = true,
                 content = new { 
                     rowsError,
-                    rowsValidated,
-                    provinciasResult = results.Item1,
-                    municipiosResult = results.Item2,
-                    departamentosResult = results.Item3
+                    organismos = OrganismosForFront(system.Organismos),
                 }
             };
 
-            return JsonHelper.SerializeObject(result, 4);
+            var aa = JsonHelper.SerializeObject(result, 4);
+            return aa;
         }
 
         private List<GeoApiParam> CargarParametros(string[] rows) {
@@ -160,19 +160,13 @@ namespace TPINTEGRADOR.Controllers
             return geoApiParams;
         }
 
-        private bool ValidarFila(string[] columns, Tuple<List<LocalizacionAPI>,List<LocalizacionAPI>,List<LocalizacionAPI>>  results)
+        private bool ValidarFila(Organismo organismo, Tuple<List<LocalizacionAPI>,List<LocalizacionAPI>,List<LocalizacionAPI>>  results)
         {
-            string nombreLoc = columns[4].Trim();
-            string tipoLoc = columns[3];
+            string nombreLoc = organismo.Entidad.Localizacion.Nombre;
+            TipoLocalizacion tipoLoc = organismo.Entidad.Localizacion.TipoLocalizacion;
 
-            if (tipoLoc == "PROVINCIA" && results.Item1.Any(p => p.nombre == nombreLoc))
-                return true;
-            else if (tipoLoc == "MUNICIPIO" && results.Item2.Any(m => m.nombre == nombreLoc))
-                return true;
-            else if (tipoLoc == "DEPARTAMENTO" && results.Item3.Any(d => d.nombre == nombreLoc))
-                return true;
-
-            return false;
+            return Enum.IsDefined(typeof(TipoLocalizacion), tipoLoc) &&
+                (results.Item1.Any(p => p.nombre == nombreLoc) || results.Item2.Any(m => m.nombre == nombreLoc) || results.Item3.Any(d => d.nombre == nombreLoc));
         }
 
         public async Task<Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>>> ConsultarAPI(List<GeoApiParam> parametros)
@@ -226,13 +220,53 @@ namespace TPINTEGRADOR.Controllers
             return new Tuple<List<LocalizacionAPI>, List<LocalizacionAPI>, List<LocalizacionAPI>>(provinciasResult, municipiosResult, departamentosResult);
         }
 
-        private Organismo ConvertirRowAOrganismo(string[] columns)
+        private Organismo? ConvertirFilaAOrganismo(string row)
         {
-            TipoOrganismo? tipoOrganismo = TipoOrganismoExtensions.GetType(columns[0]);
+            string[] columns = row.Split(',');
+            TipoOrganismo? tipoOrganismo = TipoOrganismoExtensions.GetType(columns[0].Trim());
+            string nombreEntidad = columns[1].Trim();
+            TipoEntidad? tipoEntidad = TipoEntidadExtensions.GetType(columns[2].Trim());
+            TipoLocalizacion? tipoLocalizacionEntidad = TipoLocalizacionExtensions.GetType(columns[3].Trim());
+            string nombreLocalizacionEntidad = columns[4].Trim();
+            string nombreEncargado = columns[5].Trim();
+            string apellidoEncargado = columns[6].Trim();
+            string correoEncargado = columns[7].Trim();
+            string contraseniaEncargado = columns[8].Trim();
 
-            Organismo organismo = new Organismo(tipoOrganismo.Value, null, null);
+            if (!tipoOrganismo.HasValue || !tipoEntidad.HasValue || !tipoLocalizacionEntidad.HasValue)
+                return null;
+
+            Persona encargado = new Persona(nombreEncargado, apellidoEncargado, correoEncargado, contraseniaEncargado);
+            Localizacion localizacion = new Localizacion(tipoLocalizacionEntidad.Value, nombreLocalizacionEntidad);
+            Entidad entidad = new Entidad(nombreEntidad, tipoEntidad.Value, localizacion);
+            Organismo organismo = new Organismo(tipoOrganismo.Value, encargado, entidad);
 
             return organismo;
+        }
+
+        private List<object> OrganismosForFront(List<Organismo> organismos)
+        {
+            List<object> organismosFront = new List<object>();
+            
+            foreach(Organismo org in organismos)
+            {
+                var orgFront = new
+                {
+                    TipoOrganismo = TipoOrganismoExtensions.GetNombre(org.TipoOrganismo),
+                    EntidadNombre = org.Entidad.Nombre,
+                    TipoEntidad = TipoEntidadExtensions.GetNombre(org.Entidad.TipoEntidad),
+                    TipoLocalizacion = TipoLocalizacionExtensions.GetNombre(org.Entidad.Localizacion.TipoLocalizacion),
+                    NombreLocalizacion = org.Entidad.Localizacion.Nombre,
+                    EncargadoNombre = org.Encargado.Nombre,
+                    EncargadoApellido = org.Encargado.Apellido,
+                    EncargadoCorreoElectronico = org.Encargado.CorreoElectronico,
+                    EncargadoContrasenia = org.Encargado.Contrasenia
+                };
+
+                organismosFront.Add(orgFront);
+            }
+
+            return organismosFront;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

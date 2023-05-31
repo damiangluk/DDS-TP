@@ -3,9 +3,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TPINTEGRADOR.Models
 {
-    public class Localizacion
+    public class Localizacion : Identidad
     {
-        TipoLocalizacion Tipo { get; set; }
-        string Nombre { get; set; }
+        public Localizacion(TipoLocalizacion tipo, string nombre) 
+        {
+            TipoLocalizacion = tipo;
+            Nombre = nombre;
+        }
+
+        public TipoLocalizacion TipoLocalizacion;
+        public string Nombre;
     }
 }

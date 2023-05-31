@@ -22,5 +22,19 @@ namespace TPINTEGRADOR.Models
 
             }
         }
+
+        public static string GetNombre(TipoOrganismo type)
+        {
+            switch (type)
+            {
+                case TipoOrganismo.EMPRESA:
+                    return "EMPRESA";
+                case TipoOrganismo.ORGANISMODECONTROL:
+                    return "ORGANISMODECONTROL";
+                default:
+                    return string.Empty;
+
+            }
+        }
     }
 }

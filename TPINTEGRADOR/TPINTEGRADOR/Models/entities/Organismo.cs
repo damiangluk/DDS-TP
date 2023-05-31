@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using TPINTEGRADOR.Models;
 
 namespace TPINTEGRADOR.Models
 {
-    public class Organismo
+    public class Organismo : Identidad
     {
         public Organismo(TipoOrganismo tipoOrganismo, Persona encargado, Entidad entidad)
         {
@@ -12,8 +13,8 @@ namespace TPINTEGRADOR.Models
             Entidad = entidad;
         }
 
-        TipoOrganismo TipoOrganismo { get; set; }
-        Persona Encargado { get; set; }
-        Entidad Entidad { get; set; }
+        public TipoOrganismo TipoOrganismo;
+        public Persona Encargado;
+        public Entidad Entidad;
     }
 }

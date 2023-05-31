@@ -9,9 +9,9 @@ namespace TPINTEGRADOR.Models
     public class Resultado
     {
         public int cantidad { get; set; }
-        public List<Localizacion> provincias { get; set; } = new List<Localizacion>();
-        public List<Localizacion> municipios { get; set; } = new List<Localizacion>();
-        public List<Localizacion> departamentos { get; set; } = new List<Localizacion>();
+        public List<LocalizacionAPI> provincias { get; set; } = new List<LocalizacionAPI>();
+        public List<LocalizacionAPI> municipios { get; set; } = new List<LocalizacionAPI>();
+        public List<LocalizacionAPI> departamentos { get; set; } = new List<LocalizacionAPI>();
 
     }
 

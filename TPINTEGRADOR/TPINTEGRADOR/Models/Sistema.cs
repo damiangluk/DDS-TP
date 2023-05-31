@@ -1,15 +1,15 @@
-
+﻿
 namespace TPINTEGRADOR.Models
 {
 
-    public sealed class System
+    public sealed class Sistema
     {
-        public List<Organismo> Organismos = new List<Organismo>();
-        private static readonly System instance = new System();
+        public List<Organismo> Organismos { get; set; } = new List<Organismo>();
+        private static readonly Sistema instance = new Sistema();
 
-        private System() { }
+        private Sistema() { }
 
-        public static System GetInstance
+        public static Sistema GetInstance
         {
             get
             {

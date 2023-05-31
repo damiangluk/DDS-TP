@@ -3,11 +3,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TPINTEGRADOR.Models
 {
-    public class Entidad
+    public class Entidad : Identidad
     {
-        string Nombre { get; set; }
-        TipoEntidad Tipo { get; set; }
+        public Entidad(string nombre, TipoEntidad tipoEntidad, Localizacion localizacion) 
+        {
+            Nombre = nombre;
+            TipoEntidad = tipoEntidad;
+            Localizacion = localizacion;
+        }
+
+        public string Nombre;
+        public TipoEntidad TipoEntidad;
+        public Localizacion Localizacion;
         //Sucursales
-        Localizacion Localizacion { get; set; }
     }
 }
