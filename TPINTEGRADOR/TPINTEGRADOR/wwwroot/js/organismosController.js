@@ -50,13 +50,21 @@ crearTabla = () => {
     tipoOrganismoHeader.textContent = 'Tipo de organismo';
     encabezado.appendChild(tipoOrganismoHeader);
 
-    var entidadHeader = document.createElement('th');
+    var nombreOrganismoHeader = document.createElement('th');
+    nombreOrganismoHeader.textContent = 'Nombre de organismo';
+    encabezado.appendChild(nombreOrganismoHeader);
+
+   /* var entidadHeader = document.createElement('th');
     entidadHeader.textContent = 'Entidad';
     encabezado.appendChild(entidadHeader);
 
     var entidadTipoHeader = document.createElement('th');
     entidadTipoHeader.textContent = 'Encargado';
     encabezado.appendChild(entidadTipoHeader);
+
+    var LocalizacionesHeader = document.createElement('th');
+    LocalizacionesHeader.textContent = 'Localizaciones';
+    encabezado.appendChild(LocalizacionesHeader);
 
     var tipoLocalizacionHeader = document.createElement('th');
     tipoLocalizacionHeader.textContent = 'Tipo de localizacion';
@@ -81,6 +89,7 @@ crearTabla = () => {
     var encargadoContraseniaHeader = document.createElement('th');
     encargadoContraseniaHeader.textContent = 'Contraseña encargado';
     encabezado.appendChild(encargadoContraseniaHeader);
+    */
 
     tabla.appendChild(encabezado);
     return tabla;
@@ -88,15 +97,22 @@ crearTabla = () => {
 
 cargarInformacion = (tabla) => {
     for (var i = 0; i < organismos.length; i++) {
-        var tipoOrganismo = organismos[i].TipoOrganismo.trim();
-        var entidad = organismos[i].EntidadNombre.trim();
+        var tipoOrganismo = organismos[i].tipoOrganismo.trim();
+        var nombreOrganismo = organismos[i].nombreOrganismo.trim();
+
+       /* var entidad = organismos[i].EntidadNombre.trim();
         var entidadTipo = organismos[i].TipoEntidad.trim();
-        var tipoLocalizacion = organismos[i].TipoLocalizacion.trim();
-        var nombreLocalizacion = organismos[i].NombreLocalizacion.trim();
+        var localizaciones = '';
+        for (var j = 0; i < organismos[i].localizaciones.length; i++) {
+            localizaciones += organismos[i].localizaciones[j].trim();
+        }
+        //var tipoLocalizacion = organismos[i].TipoLocalizacion.trim();
+        //var nombreLocalizacion = organismos[i].NombreLocalizacion.trim();
         var encargadoNombre = organismos[i].EncargadoNombre.trim();
         var encargadoApellido = organismos[i].EncargadoApellido.trim();
         var encargadoCorreoElectronico = organismos[i].EncargadoCorreoElectronico.trim();
         var encargadoContrasenia = organismos[i].EncargadoContrasenia.trim();
+        */
 
         var fila = document.createElement('tr');
 
@@ -104,7 +120,11 @@ cargarInformacion = (tabla) => {
         tipoOrganismoTd.textContent = tipoOrganismo;
         fila.appendChild(tipoOrganismoTd);
 
-        var entidadTd = document.createElement('td');
+        var nombreOrganismoTd = document.createElement('td');
+        nombreOrganismoTd.textContent = nombreOrganismo;
+        fila.appendChild(nombreOrganismoTd);
+
+       /* var entidadTd = document.createElement('td');
         entidadTd.textContent = entidad;
         fila.appendChild(entidadTd);
 
@@ -135,6 +155,7 @@ cargarInformacion = (tabla) => {
         var encargadoContraseniaTd = document.createElement('td');
         encargadoContraseniaTd.textContent = encargadoContrasenia;
         fila.appendChild(encargadoContraseniaTd);
+        */
 
         tabla.appendChild(fila);
     }
