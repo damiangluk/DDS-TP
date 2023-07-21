@@ -1,25 +1,25 @@
-﻿
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace TPINTEGRADOR.Models
+﻿namespace TPINTEGRADOR.Models
 {
 
-    public sealed class Sistema
+    public sealed class SistemaServiciosPublicos
     {
-        public List<Organismo> Organismos { get; set; } = new List<Organismo>();
-        private static readonly Sistema instance = new Sistema();
+        #region instance
+        private static readonly SistemaServiciosPublicos instance = new SistemaServiciosPublicos();
 
-        private Sistema() { }
+        private SistemaServiciosPublicos() { }
 
-        public static Sistema GetInstance
+        public static SistemaServiciosPublicos GetInstance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
-        // OBTENER SISTEMA: System s = System.GetInstance;
+        #endregion
 
+        #region properties
+        public List<Organismo> Organismos { get; set; } = new List<Organismo>();
+
+        #endregion
+
+        #region methods
         public bool AgregarOrganismo(string[] columns)
         {
             if (columns.Length < 2)
@@ -46,5 +46,6 @@ namespace TPINTEGRADOR.Models
 
             return true;
         }
+        #endregion
     }
 }

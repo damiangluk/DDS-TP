@@ -25,7 +25,7 @@ namespace TPINTEGRADOR.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<string> ValidarArchivo(IFormFile archivoCSV)
         {
-            Sistema system = Sistema.GetInstance;
+            SistemaServiciosPublicos system = SistemaServiciosPublicos.GetInstance;
             LectorCSV lectorCSV = new LectorCSV();
             List<string[]> rows = await lectorCSV.LeerArchivo(archivoCSV);
             if(!lectorCSV.Valido) 

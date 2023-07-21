@@ -9,41 +9,41 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TPINTEGRADOR
 build_property.RootNamespace = TPINTEGRADOR
-build_property.ProjectDir = C:\Users\damig\Documents\Documentos\UTN_Repositorios\DDS-TP\TPINTEGRADOR\TPINTEGRADOR\
+build_property.ProjectDir = C:\Users\damig\Documents\Documentos\UTN_Repositorios\DDS-TP\TPINTEGRADOR_E3\TPINTEGRADOR\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\damig\Documents\Documentos\UTN_Repositorios\DDS-TP\TPINTEGRADOR\TPINTEGRADOR
+build_property.MSBuildProjectDirectory = C:\Users\damig\Documents\Documentos\UTN_Repositorios\DDS-TP\TPINTEGRADOR_E3\TPINTEGRADOR
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Home/Index.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Login/Login.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Organismos/Index.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Organismos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JnYW5pc21vc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Shared/Error.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/_ViewImports.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/_ViewStart.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR/TPINTEGRADOR/Views/Shared/_Layout.cshtml]
+[C:/Users/damig/Documents/Documentos/UTN_Repositorios/DDS-TP/TPINTEGRADOR_E3/TPINTEGRADOR/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-vxseaco91u
