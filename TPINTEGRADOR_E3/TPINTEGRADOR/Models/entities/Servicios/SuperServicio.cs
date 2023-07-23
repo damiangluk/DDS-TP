@@ -1,15 +1,16 @@
 
-using Microsoft.AspNetCore.Identity;
-
 namespace TPINTEGRADOR.Models
 {
-    public class SuperServicio : Identidad
+    public abstract class SuperServicio : Identidad
     {
-        public SuperServicio(string nombre)
+        public SuperServicio(string nombre, Entidad entidad)
         {
             Nombre = nombre;
+            Entidad = entidad;
         }
 
         public string Nombre;
+        public Entidad Entidad;
+
     }
 }
