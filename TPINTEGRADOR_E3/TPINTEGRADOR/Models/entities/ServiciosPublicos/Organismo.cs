@@ -6,13 +6,6 @@ namespace TPINTEGRADOR.Models
 {
     public class Organismo : Identidad
     {
-        public Organismo(TipoOrganismo tipoOrganismo, string nombre, Persona encargado, Entidad entidad)
-        {
-            TipoOrganismo = tipoOrganismo;
-            Nombre = nombre;
-            Encargado = encargado;
-        }         
-
         public Organismo(TipoOrganismo tipoOrganismo, string nombre)
         {
             TipoOrganismo = tipoOrganismo;
@@ -21,14 +14,14 @@ namespace TPINTEGRADOR.Models
 
         public TipoOrganismo TipoOrganismo;
         public string Nombre;
-        public Persona Encargado;        public Entidad Entidad;
+        public Persona Encargado;        public List<Entidad> Entidades;
 
         public object OrganismosForFront()
         {
             object organismosFront = new
-           {
-            tipoOrganismo = TipoOrganismoExtensions.GetNombre(this.TipoOrganismo),
-            nombreOrganismo = this.Nombre,
+            {
+                tipoOrganismo = TipoOrganismoExtensions.GetNombre(TipoOrganismo),
+                nombreOrganismo = Nombre,
             };
 
             return organismosFront;

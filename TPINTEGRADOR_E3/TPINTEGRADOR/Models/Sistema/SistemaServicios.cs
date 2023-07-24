@@ -17,23 +17,23 @@
         #region properties
 
         public List<Incidente> Incidentes { get; set; } = new List<Incidente>();
-
+        public List<SuperServicio> Servicios { get; set; } = new List<SuperServicio>();
         #endregion
 
         #region methods
 
-        public void CrearIncidente(Incidente incidente, int idComunidad)
+        public void CrearIncidente(Incidente incidente, int idServicio)
         {   
-            Comunidad comunidad = Comunidades.Find(c => c.Id == idComunidad);
-            incidente.Comunidad = comunidad;
+            SuperServicio servicio = Servicios.Find(s => s.Id == idServicio);
+            incidente.Servicio = servicio;
             Incidentes.Add(incidente);
-            comunidad.Incidentes.Add(incidente);
-            Participaciones.Where(p => p.Comunidad.Id == idComunidad).ToList().ForEach(p => p.NotificarIncidente(incidente));
+            servicio.Incidentes.Add(incidente);
+            servicio.Comunidades.ForEach(c => c.NotificarMiembros(incidente));
         }
 
-        public void CerrarIncidente(int idIncidente, int idComunidad)
+        public void CerrarIncidente(int idIncidente)
         {      
-            Incidente incidente = Incidentes.Find(i => i.Id == idIncidente && i.Comunidad.Id == idComunidad);
+            Incidente incidente = Incidentes.Find(i => i.Id == idIncidente);
             incidente.FechaCierre = DateTime.Now;
         }
         
@@ -45,14 +45,45 @@
             return Incidentes.Where(i => i.EstaAbierto() == estado).ToList();
         }
 
-        public List<Entidad> GenerarRanking()
+        public List<Entidad> RankingEntidadesTiempoPromedioIncidentesParaProveedor(ProveedorDeServicio proveedor)
+        {
+            var incidentesNecesarios = Incidentes.Where(i => i.Servicio.Proveedor.Equals(proveedor) && !i.EstaAbierto() && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
+            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
+            return diccionario.Keys.OrderByDescending(e => diccionario[e].Average(e => e.CalcularTiempoDeCierre())).ToList();
+        }
+
+
+        public List<Entidad> RankingEntidadesMayorCantidadIncidentesParaProveedor(ProveedorDeServicio proveedor)
+        {
+            var incidentesNecesarios = Incidentes.Where(i => i.Servicio.Proveedor.Equals(proveedor) && (!i.EstaAbierto() || (DateTime.Now - i.FechaApertura).TotalHours > 24) && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
+            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
+            return diccionario.Keys.OrderByDescending(e => diccionario[e].Count()).ToList();
+        }
+
+        public List<Entidad> RankingEntidadesTiempoPromedioIncidentesParaOrganismo(Organismo organismo)
+        {
+            var incidentesNecesarios = organismo.Entidades.SelectMany(e => e.Servicios).SelectMany(s => s.Incidentes)
+                .Where(i => !i.EstaAbierto() && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
+            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
+            return diccionario.Keys.OrderByDescending(e => diccionario[e].Average(e => e.CalcularTiempoDeCierre())).ToList();
+        }
+
+
+        public List<Entidad> RankingEntidadesMayorCantidadIncidentesParaOrganismo(Organismo organismo)
+        {
+            var incidentesNecesarios = organismo.Entidades.SelectMany(e => e.Servicios).SelectMany(s => s.Incidentes)
+                .Where(i => (!i.EstaAbierto() || (DateTime.Now - i.FechaApertura).TotalHours > 24) && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
+            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
+            return diccionario.Keys.OrderByDescending(e => diccionario[e].Count()).ToList();
+        }
+
+        private Dictionary<Entidad, List<Incidente>> AgruparIncidentesPorEntidad(List<Incidente> incidentes)
         {
             Dictionary<Entidad, List<Incidente>> diccionario = new Dictionary<Entidad, List<Incidente>>();
-            foreach(var incidente in Incidentes)
+
+            foreach (var incidente in incidentes)
             {
-                if(indicente.EstaAbierto()) continue;
-                
-                foreach(var entidad in incidente.Entidades)
+                foreach (var entidad in incidente.Servicio.Entidades)
                 {
                     if (!diccionario.ContainsKey(entidad))
                     {
@@ -62,7 +93,8 @@
                     diccionario[entidad].Add(incidente);
                 }
             }
-            return diccionario.Keys.OrderBy(e => diccionario[e].Average(e => e.CalcularTiempoDeCierre()));
+
+            return diccionario;
         }
 
         #endregion

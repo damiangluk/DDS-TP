@@ -19,9 +19,9 @@ namespace TPINTEGRADOR.Models
 
         public void AvisoCambioLocalizacion(Persona persona)
         {  
-            List<Incidente> incidentes = Intereses.SelectMany(interes => interes.Incidentes);
+            List<Incidente> incidentes = Intereses.SelectMany(interes => interes.Incidentes).ToList();
             incidentes = incidentes.Where(i => i.Localizacion == persona.LocalizacionActual).ToList();
-            incidentes.ForEach(i => sugerirInforme(persona,i));
+            //incidentes.ForEach(i => sugerirInforme(persona,i));
         }
 
         public void AgregarUsuario(Persona persona, Rol rol, Medio medio)
@@ -44,7 +44,15 @@ namespace TPINTEGRADOR.Models
 
         public int calcularCantMiembrosAfectados()
         {
-            return Miembros.Count(miembro => miembro.Rol == USUARIOAFECTADO);
+            return Miembros.Count(miembro => miembro.Rol == Rol.USUARIOAFECTADO);
+        }
+
+        public void NotificarMiembros(Incidente incidente)
+        {
+            foreach (var miembro in Miembros)
+            {
+                miembro.NotificarIncidente(incidente);
+            }
         }
     }
 }

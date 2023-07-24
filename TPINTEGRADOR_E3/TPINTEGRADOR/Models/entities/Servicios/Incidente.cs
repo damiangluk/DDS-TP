@@ -3,9 +3,8 @@ namespace TPINTEGRADOR.Models
 {
     public class Incidente : Identidad
     {
-        public Incidente(Comunidad comunidad, SuperServicio servicio, DateTime fechaApertura, DateTime fechaCierre, Localizacion localizacion, string informe, string estado)
+        public Incidente(SuperServicio servicio, DateTime fechaApertura, DateTime fechaCierre, Localizacion localizacion, string informe, string estado)
         {
-            Comunidad = comunidad;
             Servicio = servicio;
             FechaApertura = fechaApertura;
             FechaCierre = fechaCierre;
@@ -14,7 +13,6 @@ namespace TPINTEGRADOR.Models
             Estado = estado;
         }
 
-        public Comunidad Comunidad;
         public SuperServicio Servicio;
         public DateTime FechaApertura;
         public DateTime? FechaCierre;
