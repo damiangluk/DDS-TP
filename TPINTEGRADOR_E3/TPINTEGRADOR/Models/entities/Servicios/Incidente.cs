@@ -16,7 +16,7 @@ namespace TPINTEGRADOR.Models
 
         public Comunidad Comunidad;
         public SuperServicio Servicio;
-        public DateTime? FechaApertura;
+        public DateTime FechaApertura;
         public DateTime? FechaCierre;
         public Localizacion Localizacion;
         public string Informe;
@@ -26,5 +26,12 @@ namespace TPINTEGRADOR.Models
         {
             return !FechaCierre.HasValue;
         }
+
+        public int CalcularTiempoDeCierre()
+        {
+            TimeSpan diferencia = FechaCierre.Value - FechaApertura;
+            return (int)diferencia.TotalSeconds;
+        }
+
     }
 }

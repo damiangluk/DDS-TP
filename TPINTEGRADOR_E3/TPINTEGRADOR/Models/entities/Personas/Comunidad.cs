@@ -6,7 +6,6 @@ namespace TPINTEGRADOR.Models
         public Comunidad(List<SuperServicio> intereses, int cantidadMiembrosAfectados, Persona administrador) 
         {
             Miembros = new List<Participacion>();
-            Incidentes = new List<Incidente>();
             Intereses = intereses;
             CantidadMiembrosAfectados = cantidadMiembrosAfectados;
             Administrador = administrador;
@@ -14,14 +13,15 @@ namespace TPINTEGRADOR.Models
 
         public List<Participacion> Miembros;
         public List<SuperServicio> Intereses;
-        public List<Incidente> Incidentes;
+        // public List<Incidente> Incidentes;
         public int CantidadMiembrosAfectados;
         public Persona Administrador;
 
         public void AvisoCambioLocalizacion(Persona persona)
         {  
-            List<Incidente> incidentes = Incidentes.Where(i => i.Localizacion == persona.LocalizacionActual).ToList();
-            //incidentes.ForEach(i => sugerirInforme(persona,i));
+            List<Incidente> incidentes = Intereses.SelectMany(interes => interes.Incidentes);
+            incidentes = incidentes.Where(i => i.Localizacion == persona.LocalizacionActual).ToList();
+            incidentes.ForEach(i => sugerirInforme(persona,i));
         }
 
         public void AgregarUsuario(Persona persona, Rol rol, Medio medio)
@@ -40,6 +40,11 @@ namespace TPINTEGRADOR.Models
             participacion.Persona.Participaciones.Remove(participacion);
             SistemaPersonas sistema = SistemaPersonas.GetInstance;
             sistema.Participaciones.Remove(participacion);
+        }
+
+        public int calcularCantMiembrosAfectados()
+        {
+            return Miembros.Count(miembro => miembro.Rol == USUARIOAFECTADO);
         }
     }
 }
