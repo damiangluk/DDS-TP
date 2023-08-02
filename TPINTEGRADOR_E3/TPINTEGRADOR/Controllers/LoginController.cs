@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
+using System.Security.Claims;
 using TPINTEGRADOR.Models;
 
 namespace TPINTEGRADOR.Controllers
@@ -12,6 +16,29 @@ namespace TPINTEGRADOR.Controllers
         public LoginController(ILogger<LoginController> logger)
         { 
             _logger = logger;
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public async Task LoginAuth(string returnUrl = "/")
+        {
+            string toMove = string.IsNullOrEmpty(returnUrl) ? Url?.Action("Index", "Home") ?? "" : returnUrl;
+            var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
+                      .WithRedirectUri(returnUrl)
+                      .Build();
+            await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+
+        }
+
+        public async Task LogoutAuth()
+        {
+            var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
+                .WithRedirectUri(Url?.Action("Index", "Home") ?? "")
+                .Build();
+            // Logout from Auth0
+            await HttpContext.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+            // Logout from the application
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
         }
         #region routes
 

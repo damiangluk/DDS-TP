@@ -16,6 +16,25 @@ disableButton = () => {
     }, 2000);
 }
 
+LoginWithAuth = () => {
+    var url = "/Login/LoginAuth";
+
+    return new Promise((resolve, reject) => {
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+}
+
 validateForm = () => {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;

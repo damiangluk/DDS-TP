@@ -47,10 +47,16 @@
                         </div>
 
                         <input type="submit" id="submit" value="Iniciar sesión" class="btn btn-primary">
+                        <button type="button" onclick="LoginWithAuth()" value="Iniciar sesión con Auth0" class="btn btn-warning"/>
+
                         @if (!string.IsNullOrEmpty(@ViewBag.MensajeError))
                         {
                             <h6 id="error">@ViewBag.MensajeError</h6>
                         }
+                    </form>
+                    <form action="/Login/LoginAuth" method="post">
+                        <!-- Campos y elementos del formulario -->
+                        <input type="submit" value="Iniciar sesión con Auth0" class="btn btn-primary" style="margin-top: 10px;">
                     </form>
                 </div>
             </div>
