@@ -1,11 +1,13 @@
 ﻿using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using System.Security.Claims;
 using TPINTEGRADOR.Models;
+
 
 namespace TPINTEGRADOR.Controllers
 {
@@ -23,16 +25,17 @@ namespace TPINTEGRADOR.Controllers
         {
             string toMove = string.IsNullOrEmpty(returnUrl) ? Url?.Action("Index", "Home") ?? "" : returnUrl;
             var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-                      .WithRedirectUri(returnUrl)
+                      .WithRedirectUri(Url?.Action("Index", "Home") ?? "")
                       .Build();
             await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
 
         }
 
+        [Authorize]
         public async Task LogoutAuth()
         {
             var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
-                .WithRedirectUri(Url?.Action("Index", "Home") ?? "")
+                .WithRedirectUri(Url?.Action("Login", "Login") ?? "")
                 .Build();
             // Logout from Auth0
             await HttpContext.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
