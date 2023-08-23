@@ -59,7 +59,7 @@ namespace TPINTEGRADOR.Controllers
         }
         #endregion
 
-        [HttpPost]
+        /*[HttpPost]
 		public IActionResult Login(LoginViewModel model)
 		{
             (bool, string) resultado = Validador.GetVerificador().EsClaveSegura(model.Password);
@@ -73,6 +73,6 @@ namespace TPINTEGRADOR.Controllers
 				ViewBag.MensajeError = resultado.Item2;
 				return View("login", model);
 			}
-        }
+        } */
     }
 }

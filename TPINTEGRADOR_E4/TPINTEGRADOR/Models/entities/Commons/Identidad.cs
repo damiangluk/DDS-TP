@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPINTEGRADOR.Models
 {
     public class Identidad
     {
-        public int Id = 0;
+        [Key]
+        public int Id { get; set; }
 
         public bool Equals(object obj)
         {
