@@ -11,9 +11,9 @@ namespace TPINTEGRADOR.Models
             Persona = persona;
         }
 
-        public string CorreoElectronico;
-        public string Contrasenia;
-        public bool Activo;
-        public Persona Persona;
+        public string CorreoElectronico { get; set; }
+        public string Contrasenia { get; set; }
+        public bool Activo { get; set; }
+        public Persona? Persona { get; set; }
     }
 }

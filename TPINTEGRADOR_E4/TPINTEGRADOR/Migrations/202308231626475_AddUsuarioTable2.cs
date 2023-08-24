@@ -12,8 +12,9 @@
                 c => new
                 {
                     Id = c.Int(nullable: false, identity: true),
-                    CorreoElectronico = c.String(nullable: false, maxLength: 50, unicode: true),
+                    CorreoElectronico = c.String(nullable: false, maxLength: 50),
                     Contrasenia = c.String(nullable: false),
+                    Activo = c.Boolean(nullable: false),
                     //Persona = c.Int(nullable: false),
                 })
                 .PrimaryKey(t => t.Id);
