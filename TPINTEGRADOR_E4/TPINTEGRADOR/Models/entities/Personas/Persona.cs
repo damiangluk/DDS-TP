@@ -3,6 +3,7 @@ namespace TPINTEGRADOR.Models
 {
     public class Persona : Identidad
     {
+        public Persona() { }
         public Persona(string nombre, string apellido, List<SuperServicio> intereses, List<Entidad> entidadesInteresadas, Localizacion localizacionDeInteres, Localizacion localizacionActual, List<Participacion> participaciones, List<DateTime> horariosParaNotificacion, Usuario usuario) 
         {
             Nombre = nombre;
@@ -16,15 +17,15 @@ namespace TPINTEGRADOR.Models
             Usuario = usuario;
         }
 
-        public string Nombre;
-        public string Apellido;
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
         public List<SuperServicio> Intereses;
         public List<Entidad> EntidadesInteresadas;
         public Localizacion LocalizacionDeInteres;
         public Localizacion LocalizacionActual;
         public List<Participacion> Participaciones;
         public List<DateTime> HorariosParaNotificacion;
-        public Usuario Usuario;
+        public virtual Usuario Usuario { get; set; }
 
         //intereses
         //entidadesInteresadas
