@@ -1,22 +1,30 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPINTEGRADOR.Models
 {
     public class Entidad : Identidad
     {
-        public Entidad(string nombre, TipoEntidad tipoEntidad, List<Localizacion> localizaciones) 
+        public Entidad() {}
+        public Entidad(string nombre, TipoEntidad tipoEntidad) 
         {
             Nombre = nombre;
             TipoEntidad = tipoEntidad;
-            Localizaciones = localizaciones;
             Servicios = new List<SuperServicio>();
         }
 
-        public string Nombre;
-        public TipoEntidad TipoEntidad;
-        public List<Localizacion> Localizaciones;
+        public string Nombre { get; set; }
+        public TipoEntidad TipoEntidad { get; set; }
+        public ICollection<Localizacion> Localizaciones { get; set; }
         public List<SuperServicio> Servicios;
+
+        [Column("TipoEntidad")]
+        public int TipoEntidadValue
+        {
+            get { return (int)TipoEntidad; } 
+            private set { TipoEntidad = (TipoEntidad)value; }
+        }
         //Sucursales
     }
 }

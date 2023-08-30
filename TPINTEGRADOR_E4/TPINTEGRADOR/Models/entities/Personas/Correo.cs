@@ -1,9 +1,11 @@
 
 namespace TPINTEGRADOR.Models
 {
-    public class Email : Medio
+    public class Correo : Medio
     {
-        public Email(string contacto) : base(contacto)
+        public Correo() { }
+
+        public Correo(string contacto) : base(contacto)
         {
 
         }

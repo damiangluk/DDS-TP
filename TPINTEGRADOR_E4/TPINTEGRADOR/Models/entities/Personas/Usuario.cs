@@ -13,6 +13,7 @@ namespace TPINTEGRADOR.Models
             Activo = activo;
             Persona = persona;
         }
+        
 
         public string CorreoElectronico { get; set; }
         public string Contrasenia { get; set; }

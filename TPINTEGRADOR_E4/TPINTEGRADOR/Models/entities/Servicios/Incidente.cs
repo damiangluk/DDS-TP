@@ -1,8 +1,11 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TPINTEGRADOR.Models
 {
     public class Incidente : Identidad
     {
+        public Incidente() {}
         public Incidente(SuperServicio servicio, DateTime fechaApertura, DateTime fechaCierre, Localizacion localizacion, string informe, string estado)
         {
             Servicio = servicio;
@@ -13,12 +16,16 @@ namespace TPINTEGRADOR.Models
             Estado = estado;
         }
 
+
         public SuperServicio Servicio;
-        public DateTime FechaApertura;
-        public DateTime? FechaCierre;
-        public Localizacion Localizacion;
-        public string Informe;
-        public string Estado;
+        [ForeignKey("Id")]
+        public virtual Localizacion Localizacion { get; set; }
+        public  string Informe { get; set; }
+        public  string Estado { get; set; }
+
+        public DateTime FechaApertura { get; set; }
+        public DateTime? FechaCierre { get; set; }
+
 
         public bool EstaAbierto()
         {

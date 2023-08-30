@@ -3,6 +3,7 @@ namespace TPINTEGRADOR.Models
 {
     public class Whatsapp : Medio
     {
+        public Whatsapp() { }
         public Whatsapp(string contacto) : base(contacto)
         {
 

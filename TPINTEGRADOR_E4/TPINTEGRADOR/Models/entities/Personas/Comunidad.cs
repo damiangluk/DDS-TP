@@ -1,21 +1,31 @@
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TPINTEGRADOR.Models
 {
     public class Comunidad : Identidad
     {
+        public Comunidad() { }
+
         public Comunidad(List<SuperServicio> intereses, int cantidadMiembrosAfectados, Persona administrador) 
         {
-            Miembros = new List<Participacion>();
             Intereses = intereses;
             CantidadMiembrosAfectados = cantidadMiembrosAfectados;
             Administrador = administrador;
         }
 
-        public List<Participacion> Miembros;
+        
+        public int CantidadMiembrosAfectados { get; set; }
+
+        public int AdministradorId { get; set; }
+
+        [ForeignKey("Id")]
+        public virtual Persona Administrador { get; set; }
+
+
+        public virtual ICollection<Participacion> Miembros { get; set; }
         public List<SuperServicio> Intereses;
-        // public List<Incidente> Incidentes;
-        public int CantidadMiembrosAfectados;
-        public Persona Administrador;
+        
 
         public void AvisoCambioLocalizacion(Persona persona)
         {  
@@ -35,7 +45,7 @@ namespace TPINTEGRADOR.Models
 
         public void EliminiarUsuario(int idPersona)
         {
-            Participacion participacion = Miembros.Find(p => p.Persona.Id == idPersona);
+            Participacion participacion = Miembros.ToList().Find(p => p.Persona.Id == idPersona);
             Miembros.Remove(participacion);
             participacion.Persona.Participaciones.Remove(participacion);
             SistemaPersonas sistema = SistemaPersonas.GetInstance;
