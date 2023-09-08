@@ -17,14 +17,11 @@ namespace TPINTEGRADOR.Models
         public string Nombre { get; set; }
         public TipoEntidad TipoEntidad { get; set; }
         public ICollection<Localizacion> Localizaciones { get; set; }
-        public List<SuperServicio> Servicios;
+        [InverseProperty("Entidades")]
+        public ICollection<SuperServicio> Servicios { get; set; }
 
         [Column("TipoEntidad")]
-        public int TipoEntidadValue
-        {
-            get { return (int)TipoEntidad; } 
-            private set { TipoEntidad = (TipoEntidad)value; }
-        }
+        public int TipoEntidadValue { get { return (int)TipoEntidad; } private set { TipoEntidad = (TipoEntidad)value; } }
         //Sucursales
     }
 }

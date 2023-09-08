@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TPINTEGRADOR.Models.Sistema;
 
@@ -11,9 +12,11 @@ using TPINTEGRADOR.Models.Sistema;
 namespace TPINTEGRADOR.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230908222425_persistencia_entrega_4")]
+    partial class persistencia_entrega_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,66 +24,6 @@ namespace TPINTEGRADOR.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ComunidadSuperServicio", b =>
-                {
-                    b.Property<int>("ComunidadesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InteresesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ComunidadesId", "InteresesId");
-
-                    b.HasIndex("InteresesId");
-
-                    b.ToTable("ComunidadSuperServicio");
-                });
-
-            modelBuilder.Entity("EntidadSuperServicio", b =>
-                {
-                    b.Property<int>("EntidadesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiciosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EntidadesId", "ServiciosId");
-
-                    b.HasIndex("ServiciosId");
-
-                    b.ToTable("EntidadSuperServicio");
-                });
-
-            modelBuilder.Entity("PersonaSuperServicio", b =>
-                {
-                    b.Property<int>("InteresesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonasId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InteresesId", "PersonasId");
-
-                    b.HasIndex("PersonasId");
-
-                    b.ToTable("PersonaSuperServicio");
-                });
-
-            modelBuilder.Entity("ServicioServicioAgrupado", b =>
-                {
-                    b.Property<int>("AgrupacionesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiciosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AgrupacionesId", "ServiciosId");
-
-                    b.HasIndex("ServiciosId");
-
-                    b.ToTable("ServiciosPorGrupos", (string)null);
-                });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Comunidad", b =>
                 {
@@ -100,7 +43,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("AdministradorId");
 
-                    b.ToTable("Comunidades");
+                    b.ToTable("Comunidad");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Entidad", b =>
@@ -129,7 +72,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("Entidades", t =>
+                    b.ToTable("Entidad", t =>
                         {
                             t.Property("TipoEntidad")
                                 .HasColumnName("TipoEntidad1");
@@ -185,7 +128,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Incidentes");
+                    b.ToTable("Incidente");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Localizacion", b =>
@@ -324,32 +267,6 @@ namespace TPINTEGRADOR.Migrations
                     b.ToTable("ProveedorDeServicio");
                 });
 
-            modelBuilder.Entity("TPINTEGRADOR.Models.SuperServicio", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProveedorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SuperServicio");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("SuperServicio");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("TPINTEGRADOR.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -389,84 +306,6 @@ namespace TPINTEGRADOR.Migrations
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("TPINTEGRADOR.Models.Servicio", b =>
-                {
-                    b.HasBaseType("TPINTEGRADOR.Models.SuperServicio");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Servicio");
-                });
-
-            modelBuilder.Entity("TPINTEGRADOR.Models.ServicioAgrupado", b =>
-                {
-                    b.HasBaseType("TPINTEGRADOR.Models.SuperServicio");
-
-                    b.HasDiscriminator().HasValue("ServicioAgrupado");
-                });
-
-            modelBuilder.Entity("ComunidadSuperServicio", b =>
-                {
-                    b.HasOne("TPINTEGRADOR.Models.Comunidad", null)
-                        .WithMany()
-                        .HasForeignKey("ComunidadesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TPINTEGRADOR.Models.SuperServicio", null)
-                        .WithMany()
-                        .HasForeignKey("InteresesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EntidadSuperServicio", b =>
-                {
-                    b.HasOne("TPINTEGRADOR.Models.Entidad", null)
-                        .WithMany()
-                        .HasForeignKey("EntidadesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TPINTEGRADOR.Models.SuperServicio", null)
-                        .WithMany()
-                        .HasForeignKey("ServiciosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PersonaSuperServicio", b =>
-                {
-                    b.HasOne("TPINTEGRADOR.Models.SuperServicio", null)
-                        .WithMany()
-                        .HasForeignKey("InteresesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TPINTEGRADOR.Models.Persona", null)
-                        .WithMany()
-                        .HasForeignKey("PersonasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ServicioServicioAgrupado", b =>
-                {
-                    b.HasOne("TPINTEGRADOR.Models.ServicioAgrupado", null)
-                        .WithMany()
-                        .HasForeignKey("AgrupacionesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TPINTEGRADOR.Models.Servicio", null)
-                        .WithMany()
-                        .HasForeignKey("ServiciosId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TPINTEGRADOR.Models.Comunidad", b =>
                 {
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Administrador")
@@ -504,15 +343,7 @@ namespace TPINTEGRADOR.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TPINTEGRADOR.Models.SuperServicio", "Servicio")
-                        .WithMany("Incidentes")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Localizacion");
-
-                    b.Navigation("Servicio");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Localizacion", b =>
@@ -572,17 +403,6 @@ namespace TPINTEGRADOR.Migrations
                     b.Navigation("LocalizacionDeInteres");
                 });
 
-            modelBuilder.Entity("TPINTEGRADOR.Models.SuperServicio", b =>
-                {
-                    b.HasOne("TPINTEGRADOR.Models.ProveedorDeServicio", "Proveedor")
-                        .WithMany("SuperServicio")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Proveedor");
-                });
-
             modelBuilder.Entity("TPINTEGRADOR.Models.Usuario", b =>
                 {
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Persona")
@@ -614,16 +434,6 @@ namespace TPINTEGRADOR.Migrations
 
                     b.Navigation("Usuario")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TPINTEGRADOR.Models.ProveedorDeServicio", b =>
-                {
-                    b.Navigation("SuperServicio");
-                });
-
-            modelBuilder.Entity("TPINTEGRADOR.Models.SuperServicio", b =>
-                {
-                    b.Navigation("Incidentes");
                 });
 #pragma warning restore 612, 618
         }

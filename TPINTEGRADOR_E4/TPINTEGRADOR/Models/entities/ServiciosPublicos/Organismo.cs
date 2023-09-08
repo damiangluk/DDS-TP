@@ -6,28 +6,28 @@ namespace TPINTEGRADOR.Models
 {
     public class Organismo : Identidad
     {
+        #region constructores
         public Organismo() { }
         public Organismo(TipoOrganismo tipoOrganismo, string nombre)
         {
             TipoOrganismo = tipoOrganismo;
             Nombre = nombre;
         }
+        #endregion
 
+        #region propiedades
+        public int EncargadoId { get; set; }
+        public string Nombre { get; set; }
         public TipoOrganismo TipoOrganismo { get; set; }
 
-        public string Nombre;
-        public int EncargadoId { get; set; }
         public ICollection<Entidad> Entidades { get; set; }
-
         [Column("TipoOrganismo")]
-        public int TipoOrganismoValue
-        {
-            get { return (int)TipoOrganismo; }
-            set { TipoOrganismo = (TipoOrganismo)value; }
-        }
+        public int TipoOrganismoValue { get { return (int)TipoOrganismo; } set { TipoOrganismo = (TipoOrganismo)value; } }
         [ForeignKey("Id")]
         public virtual Persona Encargado { get; set; }
+        #endregion
 
+        #region metodos
         public object OrganismosForFront()
         {
             object organismosFront = new
@@ -38,6 +38,7 @@ namespace TPINTEGRADOR.Models
 
             return organismosFront;
         }
+        #endregion
 
     }
 }

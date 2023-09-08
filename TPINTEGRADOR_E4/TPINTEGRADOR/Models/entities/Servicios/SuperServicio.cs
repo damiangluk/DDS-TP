@@ -1,22 +1,22 @@
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TPINTEGRADOR.Models
 {
     public abstract class SuperServicio : Identidad
     {
-        public SuperServicio(string nombre, List<Entidad> entidades, ProveedorDeServicio proveedor)
-        {
-            Nombre = nombre;
-            Entidades = entidades;
-            Proveedor = proveedor;
-            Incidentes = new List<Incidente>();
-            Comunidades = new List<Comunidad>();
+        public string Nombre { get; set; }
+        public int ProveedorId { get; set; }
 
-        }
+        [ForeignKey("Id")]
+        public virtual ProveedorDeServicio Proveedor { get; set; }
 
-        public string Nombre;
-        public List<Entidad> Entidades;
-        public ProveedorDeServicio Proveedor;
-        public List<Incidente> Incidentes;
-        public List<Comunidad> Comunidades;
+        [InverseProperty("Servicios")]
+        public virtual ICollection<Entidad> Entidades { get; set; }
+        public virtual ICollection<Incidente> Incidentes { get; set; }
+        [InverseProperty("Intereses")]
+        public virtual ICollection<Comunidad> Comunidades { get; set; }
+        [InverseProperty("Intereses")]
+        public virtual ICollection<Persona> Personas { get; set; }
     }
 }

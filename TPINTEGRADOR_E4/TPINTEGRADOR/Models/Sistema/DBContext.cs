@@ -13,26 +13,30 @@ namespace TPINTEGRADOR.Models.Sistema
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Medio> Medios { get; set; }
+        public DbSet<Comunidad> Comunidades { get; set; }
+        public DbSet<Servicio> Servicios { get; set; }
+        public DbSet<ServicioAgrupado> ServiciosAgrupados { get; set; }
+        public DbSet<Entidad> Entidades { get; set; }
+        public DbSet<Incidente> Incidentes { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Servicio>()
+                .HasMany(s1 => s1.Agrupaciones)
+                .WithMany(s2 => s2.Servicios)
+                .UsingEntity(j => j.ToTable("ServiciosPorGrupos"));
+
             modelBuilder.Entity<Medio>()
             .HasDiscriminator<int>("TipoMedio")
             .HasValue<Whatsapp>(1)
             .HasValue<Correo>(2);
-            
 
-            // modelBuilder.Entity<Medio>()
-            //.HasDiscriminator<string>("TipoMedio")
-            //.HasValue<Whatsapp>("WhatsApp")
-            //.HasValue<Correo>("Correo");
-
-
-            modelBuilder.Entity<Participacion>()
-               .HasOne(p => p.Persona)
+            modelBuilder.Entity<Comunidad>()
+               .HasOne(c => c.Administrador)
                .WithMany()
-               .HasForeignKey(p => p.PersonaId)
+               .HasForeignKey(p => p.AdministradorId)
                .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
 
             modelBuilder.Entity<Persona>()
@@ -46,7 +50,6 @@ namespace TPINTEGRADOR.Models.Sistema
                .WithMany()
                .HasForeignKey(p => p.LocalizacionActualId)
                .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
-
 
             base.OnModelCreating(modelBuilder);
         }

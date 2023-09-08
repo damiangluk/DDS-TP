@@ -1,14 +1,19 @@
 namespace TPINTEGRADOR.Models
 {
-    public abstract class ProveedorDeServicio : Identidad
+    public class ProveedorDeServicio : Identidad
     {
-        public ProveedorDeServicio(string nombre, List<SuperServicio> superServicio)
+        #region constructores
+        public ProveedorDeServicio() { }
+        public ProveedorDeServicio(string nombre)
         {
             Nombre = nombre;
-            SuperServicio = superServicio;
         }
+        #endregion
 
-        public string Nombre;
-        public List<SuperServicio> SuperServicio;
+        #region propiedades
+        public string Nombre { get; set; }
+
+        public ICollection<SuperServicio> SuperServicio { get; set; }
+        #endregion
     }
 }

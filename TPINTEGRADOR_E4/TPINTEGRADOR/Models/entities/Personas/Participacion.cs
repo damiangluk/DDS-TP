@@ -4,6 +4,7 @@ namespace TPINTEGRADOR.Models
 {
     public class Participacion : Identidad
     {
+        #region constructores
         public Participacion() { }
         public Participacion(Persona persona, Comunidad comunidad, Rol rol, Medio medio)
         {
@@ -12,26 +13,25 @@ namespace TPINTEGRADOR.Models
             Rol = rol;
             Medio = medio;
         }
+        #endregion
 
-
+        #region propiedades
         public Rol Rol { get; set; }
-        public int PersonaId { get; set; }
         public int ComunidadId { get; set; }
+        public int PersonaId { get; set; }
         public int MedioId { get; set; }
 
         [ForeignKey("Id")]
-        public virtual Persona Persona { get; set; }
-        [ForeignKey("Id")]
         public virtual Comunidad Comunidad { get; set; }
+        [ForeignKey("Id")]
+        public virtual Persona Persona { get; set; }
         [ForeignKey("Id")]
         public virtual Medio Medio { get; set; }
         [Column("Rol")]
-        public int RolValue
-        {
-            get { return (int)Rol; }
-            private set { Rol = (Rol)value; }
-        }
+        public int RolValue { get { return (int)Rol; } private set { Rol = (Rol)value; } }
+        #endregion
 
+        #region metodos
         public void NotificarIncidente(Incidente incidente)
         {
             Medio.Notificar(incidente.Informe, Persona);
@@ -41,5 +41,6 @@ namespace TPINTEGRADOR.Models
         {
             Rol = rol;
         }
+        #endregion
     }
 }

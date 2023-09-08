@@ -28,7 +28,7 @@
             incidente.Servicio = servicio;
             Incidentes.Add(incidente);
             servicio.Incidentes.Add(incidente);
-            servicio.Comunidades.ForEach(c => c.NotificarMiembros(incidente));
+            servicio.Comunidades.ToList().ForEach(c => c.NotificarMiembros(incidente));
         }
 
         public void CerrarIncidente(int idIncidente)

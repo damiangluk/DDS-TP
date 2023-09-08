@@ -1,14 +1,21 @@
-using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPINTEGRADOR.Models
 {
     public class ServicioAgrupado : SuperServicio
     {
-        public ServicioAgrupado(List<Servicio> servicios, string nombre, List<Entidad> entidad, ProveedorDeServicio proveedor) : base(nombre, entidad, proveedor)
+        #region constructores
+        public ServicioAgrupado() { }
+        public ServicioAgrupado(string nombre, ProveedorDeServicio proveedor)
         {
-            Servicios = servicios;
+            Nombre = nombre;
+            Proveedor = proveedor;
         }
+        #endregion
 
-        public List<Servicio> Servicios;
+        #region propiedades
+        [InverseProperty("Agrupaciones")]
+        public ICollection<Servicio> Servicios { get; set; }
+        #endregion
     }
 }

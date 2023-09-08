@@ -5,6 +5,7 @@ namespace TPINTEGRADOR.Models
 {
     public class Comunidad : Identidad
     {
+        #region constructores
         public Comunidad() { }
 
         public Comunidad(List<SuperServicio> intereses, int cantidadMiembrosAfectados, Persona administrador) 
@@ -14,19 +15,20 @@ namespace TPINTEGRADOR.Models
             Administrador = administrador;
         }
 
-        
+        #endregion
+
+        #region propiedades
         public int CantidadMiembrosAfectados { get; set; }
-
         public int AdministradorId { get; set; }
-
         [ForeignKey("Id")]
         public virtual Persona Administrador { get; set; }
 
-
         public virtual ICollection<Participacion> Miembros { get; set; }
-        public List<SuperServicio> Intereses;
-        
+        [InverseProperty("Comunidades")]
+        public ICollection<SuperServicio> Intereses { get; set; }
+        #endregion
 
+        #region metodos
         public void AvisoCambioLocalizacion(Persona persona)
         {  
             List<Incidente> incidentes = Intereses.SelectMany(interes => interes.Incidentes).ToList();
@@ -64,5 +66,6 @@ namespace TPINTEGRADOR.Models
                 miembro.NotificarIncidente(incidente);
             }
         }
+        #endregion
     }
 }
