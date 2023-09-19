@@ -21,6 +21,7 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public int ServicioId { get; set; }
         public int LocalizacionId { get; set; }
+        public int? ProveedorId { get; set; }
         public  string Informe { get; set; }
         public  string Estado { get; set; }
         public DateTime FechaApertura { get; set; }
@@ -30,6 +31,12 @@ namespace TPINTEGRADOR.Models
         public virtual SuperServicio Servicio { get; set; }
         [ForeignKey("Id")]
         public virtual Localizacion Localizacion { get; set; }
+
+        [ForeignKey("Id")]
+        public virtual ProveedorDeServicio Proveedor { get; set; }
+
+        [InverseProperty("Incidentes")]
+        public ICollection<Comunidad> Comunidades { get; set; }
         #endregion
 
         #region metodos

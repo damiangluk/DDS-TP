@@ -24,8 +24,12 @@ namespace TPINTEGRADOR.Models
         public virtual Persona Administrador { get; set; }
 
         public virtual ICollection<Participacion> Miembros { get; set; }
+
         [InverseProperty("Comunidades")]
         public ICollection<SuperServicio> Intereses { get; set; }
+
+        [InverseProperty("Comunidades")]
+        public ICollection<Incidente> Incidentes{ get; set; }
         #endregion
 
         #region metodos

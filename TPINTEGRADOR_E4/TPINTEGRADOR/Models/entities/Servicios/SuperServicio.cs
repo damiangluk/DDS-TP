@@ -18,5 +18,6 @@ namespace TPINTEGRADOR.Models
         public virtual ICollection<Comunidad> Comunidades { get; set; }
         [InverseProperty("Intereses")]
         public virtual ICollection<Persona> Personas { get; set; }
+        public virtual ICollection<Prestacion> Prestaciones{ get; set; }
     }
 }

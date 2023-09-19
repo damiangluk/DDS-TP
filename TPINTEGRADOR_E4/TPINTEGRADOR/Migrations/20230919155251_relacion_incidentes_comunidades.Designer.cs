@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TPINTEGRADOR.Models.Sistema;
 
@@ -11,9 +12,11 @@ using TPINTEGRADOR.Models.Sistema;
 namespace TPINTEGRADOR.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20230919155251_relacion_incidentes_comunidades")]
+    partial class relacion_incidentes_comunidades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("IncidentesId");
 
-                    b.ToTable("ComunidadIncidente", (string)null);
+                    b.ToTable("ComunidadIncidente");
                 });
 
             modelBuilder.Entity("ComunidadSuperServicio", b =>
@@ -49,7 +52,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("InteresesId");
 
-                    b.ToTable("ComunidadSuperServicio", (string)null);
+                    b.ToTable("ComunidadSuperServicio");
                 });
 
             modelBuilder.Entity("EntidadLocalizacion", b =>
@@ -64,7 +67,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("LocalizacionesId");
 
-                    b.ToTable("EntidadLocalizacion", (string)null);
+                    b.ToTable("EntidadLocalizacion");
                 });
 
             modelBuilder.Entity("EntidadOrganismo", b =>
@@ -79,7 +82,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("OrganismosId");
 
-                    b.ToTable("EntidadOrganismo", (string)null);
+                    b.ToTable("EntidadOrganismo");
                 });
 
             modelBuilder.Entity("EntidadPersona", b =>
@@ -94,7 +97,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonasId");
 
-                    b.ToTable("EntidadPersona", (string)null);
+                    b.ToTable("EntidadPersona");
                 });
 
             modelBuilder.Entity("EntidadSuperServicio", b =>
@@ -109,7 +112,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("ServiciosId");
 
-                    b.ToTable("EntidadSuperServicio", (string)null);
+                    b.ToTable("EntidadSuperServicio");
                 });
 
             modelBuilder.Entity("PersonaSuperServicio", b =>
@@ -124,7 +127,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonasId");
 
-                    b.ToTable("PersonaSuperServicio", (string)null);
+                    b.ToTable("PersonaSuperServicio");
                 });
 
             modelBuilder.Entity("ServicioServicioAgrupado", b =>
@@ -160,7 +163,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("AdministradorId");
 
-                    b.ToTable("Comunidades", (string)null);
+                    b.ToTable("Comunidades");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Entidad", b =>
@@ -181,7 +184,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Entidades", (string)null);
+                    b.ToTable("Entidades");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Establecimiento", b =>
@@ -199,7 +202,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Establecimiento", (string)null);
+                    b.ToTable("Establecimiento");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.FechasNotificacion", b =>
@@ -220,7 +223,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("FechasNotificacion", (string)null);
+                    b.ToTable("FechasNotificacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Incidente", b =>
@@ -261,7 +264,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("ProveedorId");
 
-                    b.ToTable("Incidentes", (string)null);
+                    b.ToTable("Incidentes");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Localizacion", b =>
@@ -282,7 +285,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Localizacion", (string)null);
+                    b.ToTable("Localizacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Medio", b =>
@@ -302,7 +305,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Medios", (string)null);
+                    b.ToTable("Medios");
 
                     b.HasDiscriminator<int>("TipoMedio");
 
@@ -328,7 +331,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Organismo", (string)null);
+                    b.ToTable("Organismo");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Participacion", b =>
@@ -352,7 +355,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Participacion", (string)null);
+                    b.ToTable("Participacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Persona", b =>
@@ -383,7 +386,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("LocalizacionDeInteresId");
 
-                    b.ToTable("Persona", (string)null);
+                    b.ToTable("Persona");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Prestacion", b =>
@@ -403,7 +406,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Prestacion", (string)null);
+                    b.ToTable("Prestacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.ProveedorDeServicio", b =>
@@ -420,7 +423,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProveedorDeServicio", (string)null);
+                    b.ToTable("ProveedorDeServicio");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Sucursal", b =>
@@ -440,7 +443,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sucursal", (string)null);
+                    b.ToTable("Sucursal");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.SuperServicio", b =>
@@ -462,7 +465,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SuperServicio", (string)null);
+                    b.ToTable("SuperServicio");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("SuperServicio");
 
@@ -485,7 +488,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ubicacion", (string)null);
+                    b.ToTable("Ubicacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Usuario", b =>
@@ -510,7 +513,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Correo", b =>

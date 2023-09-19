@@ -13,6 +13,7 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public string Nombre { get; set; }
 
+        public ICollection<Incidente> Incidentes { get; set; }
         public ICollection<SuperServicio> SuperServicio { get; set; }
         #endregion
     }

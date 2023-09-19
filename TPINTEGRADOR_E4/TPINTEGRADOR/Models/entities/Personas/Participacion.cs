@@ -16,6 +16,7 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
+        [Column("Rol")]
         public Rol Rol { get; set; }
         public int ComunidadId { get; set; }
         public int PersonaId { get; set; }
@@ -27,8 +28,6 @@ namespace TPINTEGRADOR.Models
         public virtual Persona Persona { get; set; }
         [ForeignKey("Id")]
         public virtual Medio Medio { get; set; }
-        [Column("Rol")]
-        public int RolValue { get { return (int)Rol; } private set { Rol = (Rol)value; } }
         #endregion
 
         #region metodos

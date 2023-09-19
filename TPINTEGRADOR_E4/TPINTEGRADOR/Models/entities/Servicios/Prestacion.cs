@@ -8,21 +8,23 @@ namespace TPINTEGRADOR.Models
     {
         #region constructores
         public Prestacion() { }
-        public Prestacion(SuperServicio servicio/*, Establecimiento establecimiento*/, bool habilitado) 
+        public Prestacion(SuperServicio servicio, Establecimiento establecimiento, bool habilitado) 
         {
             Servicio = servicio;
-            //Establecimiento = establecimiento;
+            Establecimiento = establecimiento;
             Habilitado = habilitado;
         }
         #endregion
 
         #region propiedades
         public bool Habilitado { get; set; }
-        public int ServicioId {  get; set; }
+        public int ServicioId { get; set; }
+        public int EstablecimientoId { get; set; }
 
         [ForeignKey("Id")]
-        public SuperServicio Servicio {  get; set; }
-        //public Establecimiento Establecimiento;
+        public virtual SuperServicio Servicio { get; set; }
+        [ForeignKey("Id")]
+        public virtual Establecimiento Establecimiento { get; set; }
         #endregion
     }
 }

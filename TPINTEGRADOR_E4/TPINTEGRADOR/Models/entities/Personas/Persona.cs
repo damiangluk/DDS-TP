@@ -30,6 +30,7 @@ namespace TPINTEGRADOR.Models
         public virtual Usuario Usuario { get; set; }
         [InverseProperty("Personas")]
         public virtual ICollection<SuperServicio> Intereses { get; set; }
+        [InverseProperty("Personas")]
         public virtual ICollection<Entidad> EntidadesInteresadas { get; set; }
         public virtual ICollection<Participacion> Participaciones { get; set; }
         public virtual ICollection<FechasNotificacion> HorariosParaNotificacion { get; set; }

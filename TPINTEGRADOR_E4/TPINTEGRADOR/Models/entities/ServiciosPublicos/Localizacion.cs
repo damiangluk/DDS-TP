@@ -8,22 +8,19 @@ namespace TPINTEGRADOR.Models
     {
         #region constructores
         public Localizacion() {}
-        public Localizacion(TipoLocalizacion tipo, string nombre, Entidad entidad) 
+        public Localizacion(TipoLocalizacion tipo, string nombre) 
         {
             TipoLocalizacion = tipo;
             Nombre = nombre;
-            Entidad = entidad;
         }
         #endregion
 
         #region propiedades
+        [Column("TipoLocalizacion")]
         public TipoLocalizacion TipoLocalizacion { get; set; }
         public string Nombre { get; set; }
-        public int EntidadId { get; set; }
-
-        [Column("TipoLocalizacion")]
-        public int TipoLocalizacionValue { get { return (int)TipoLocalizacion; } set { TipoLocalizacion = (TipoLocalizacion)value; } }
-        public virtual Entidad? Entidad { get; set; }
+        [InverseProperty("Localizaciones")]
+        public ICollection<Entidad> Entidades { get; set; }
         #endregion
 
     }

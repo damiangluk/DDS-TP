@@ -29,9 +29,9 @@ namespace TPINTEGRADOR.Models.Sistema
                 .UsingEntity(j => j.ToTable("ServiciosPorGrupos"));
 
             modelBuilder.Entity<Medio>()
-            .HasDiscriminator<int>("TipoMedio")
-            .HasValue<Whatsapp>(1)
-            .HasValue<Correo>(2);
+                .HasDiscriminator<int>("TipoMedio")
+                .HasValue<Whatsapp>(1)
+                .HasValue<Correo>(2);
 
             modelBuilder.Entity<Comunidad>()
                .HasOne(c => c.Administrador)
@@ -49,6 +49,12 @@ namespace TPINTEGRADOR.Models.Sistema
                .HasOne(p => p.LocalizacionActual)
                .WithMany()
                .HasForeignKey(p => p.LocalizacionActualId)
+               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
+
+            modelBuilder.Entity<Incidente>()
+               .HasOne(p => p.Proveedor)
+               .WithMany()
+               .HasForeignKey(p => p.ProveedorId)
                .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
 
             base.OnModelCreating(modelBuilder);

@@ -18,11 +18,10 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public int EncargadoId { get; set; }
         public string Nombre { get; set; }
-        public TipoOrganismo TipoOrganismo { get; set; }
-
-        public ICollection<Entidad> Entidades { get; set; }
         [Column("TipoOrganismo")]
-        public int TipoOrganismoValue { get { return (int)TipoOrganismo; } set { TipoOrganismo = (TipoOrganismo)value; } }
+        public TipoOrganismo TipoOrganismo { get; set; }
+        [InverseProperty("Organismos")]
+        public ICollection<Entidad> Entidades { get; set; }
         [ForeignKey("Id")]
         public virtual Persona Encargado { get; set; }
         #endregion
@@ -39,6 +38,5 @@ namespace TPINTEGRADOR.Models
             return organismosFront;
         }
         #endregion
-
     }
 }
