@@ -34,7 +34,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("IncidentesId");
 
-                    b.ToTable("ComunidadIncidente", (string)null);
+                    b.ToTable("ComunidadIncidente");
                 });
 
             modelBuilder.Entity("ComunidadSuperServicio", b =>
@@ -49,7 +49,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("InteresesId");
 
-                    b.ToTable("ComunidadSuperServicio", (string)null);
+                    b.ToTable("ComunidadSuperServicio");
                 });
 
             modelBuilder.Entity("EntidadLocalizacion", b =>
@@ -64,7 +64,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("LocalizacionesId");
 
-                    b.ToTable("EntidadLocalizacion", (string)null);
+                    b.ToTable("EntidadLocalizacion");
                 });
 
             modelBuilder.Entity("EntidadOrganismo", b =>
@@ -79,7 +79,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("OrganismosId");
 
-                    b.ToTable("EntidadOrganismo", (string)null);
+                    b.ToTable("EntidadOrganismo");
                 });
 
             modelBuilder.Entity("EntidadPersona", b =>
@@ -94,7 +94,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonasId");
 
-                    b.ToTable("EntidadPersona", (string)null);
+                    b.ToTable("EntidadPersona");
                 });
 
             modelBuilder.Entity("EntidadSuperServicio", b =>
@@ -109,7 +109,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("ServiciosId");
 
-                    b.ToTable("EntidadSuperServicio", (string)null);
+                    b.ToTable("EntidadSuperServicio");
                 });
 
             modelBuilder.Entity("PersonaSuperServicio", b =>
@@ -124,7 +124,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonasId");
 
-                    b.ToTable("PersonaSuperServicio", (string)null);
+                    b.ToTable("PersonaSuperServicio");
                 });
 
             modelBuilder.Entity("ServicioServicioAgrupado", b =>
@@ -160,7 +160,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("AdministradorId");
 
-                    b.ToTable("Comunidades", (string)null);
+                    b.ToTable("Comunidades");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Entidad", b =>
@@ -176,12 +176,11 @@ namespace TPINTEGRADOR.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TipoEntidad")
-                        .HasColumnType("int")
-                        .HasColumnName("TipoEntidad");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Entidades", (string)null);
+                    b.ToTable("Entidades");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Establecimiento", b =>
@@ -189,6 +188,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -199,7 +200,9 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Establecimiento", (string)null);
+                    b.HasIndex("UbicacionId");
+
+                    b.ToTable("Establecimiento");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.FechasNotificacion", b =>
@@ -220,7 +223,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("FechasNotificacion", (string)null);
+                    b.ToTable("FechasNotificacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Incidente", b =>
@@ -228,6 +231,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Estado")
                         .IsRequired()
@@ -246,9 +251,6 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("LocalizacionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProveedorDeServicioId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ProveedorId")
                         .HasColumnType("int");
 
@@ -257,11 +259,13 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProveedorDeServicioId");
+                    b.HasIndex("LocalizacionId");
 
                     b.HasIndex("ProveedorId");
 
-                    b.ToTable("Incidentes", (string)null);
+                    b.HasIndex("ServicioId");
+
+                    b.ToTable("Incidentes");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Localizacion", b =>
@@ -277,12 +281,11 @@ namespace TPINTEGRADOR.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TipoLocalizacion")
-                        .HasColumnType("int")
-                        .HasColumnName("TipoLocalizacion");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Localizacion", (string)null);
+                    b.ToTable("Localizacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Medio", b =>
@@ -302,7 +305,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Medios", (string)null);
+                    b.ToTable("Medios");
 
                     b.HasDiscriminator<int>("TipoMedio");
 
@@ -315,6 +318,8 @@ namespace TPINTEGRADOR.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("EncargadoId")
                         .HasColumnType("int");
 
@@ -323,12 +328,13 @@ namespace TPINTEGRADOR.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TipoOrganismo")
-                        .HasColumnType("int")
-                        .HasColumnName("TipoOrganismo");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Organismo", (string)null);
+                    b.HasIndex("EncargadoId");
+
+                    b.ToTable("Organismo");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Participacion", b =>
@@ -336,6 +342,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ComunidadId")
                         .HasColumnType("int");
@@ -347,12 +355,17 @@ namespace TPINTEGRADOR.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Rol")
-                        .HasColumnType("int")
-                        .HasColumnName("Rol");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Participacion", (string)null);
+                    b.HasIndex("ComunidadId");
+
+                    b.HasIndex("MedioId");
+
+                    b.HasIndex("PersonaId");
+
+                    b.ToTable("Participacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Persona", b =>
@@ -367,10 +380,10 @@ namespace TPINTEGRADOR.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LocalizacionActualId")
+                    b.Property<int?>("LocalizacionActualId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocalizacionDeInteresId")
+                    b.Property<int?>("LocalizacionDeInteresId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -383,7 +396,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasIndex("LocalizacionDeInteresId");
 
-                    b.ToTable("Persona", (string)null);
+                    b.ToTable("Persona");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Prestacion", b =>
@@ -391,6 +404,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("EstablecimientoId")
                         .HasColumnType("int");
@@ -403,7 +418,11 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Prestacion", (string)null);
+                    b.HasIndex("EstablecimientoId");
+
+                    b.HasIndex("ServicioId");
+
+                    b.ToTable("Prestacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.ProveedorDeServicio", b =>
@@ -420,7 +439,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProveedorDeServicio", (string)null);
+                    b.ToTable("ProveedorDeServicio");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Sucursal", b =>
@@ -428,6 +447,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("EntidadId")
                         .HasColumnType("int");
@@ -440,7 +461,11 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sucursal", (string)null);
+                    b.HasIndex("EntidadId");
+
+                    b.HasIndex("EstablecimientoId");
+
+                    b.ToTable("Sucursal");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.SuperServicio", b =>
@@ -448,6 +473,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -462,7 +489,9 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SuperServicio", (string)null);
+                    b.HasIndex("ProveedorId");
+
+                    b.ToTable("SuperServicio");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("SuperServicio");
 
@@ -485,7 +514,7 @@ namespace TPINTEGRADOR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ubicacion", (string)null);
+                    b.ToTable("Ubicacion");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Usuario", b =>
@@ -493,6 +522,8 @@ namespace TPINTEGRADOR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
@@ -505,12 +536,16 @@ namespace TPINTEGRADOR.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int?>("PersonaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios", (string)null);
+                    b.HasIndex("PersonaId")
+                        .IsUnique()
+                        .HasFilter("[PersonaId] IS NOT NULL");
+
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("TPINTEGRADOR.Models.Correo", b =>
@@ -670,7 +705,7 @@ namespace TPINTEGRADOR.Migrations
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Administrador")
                         .WithMany()
                         .HasForeignKey("AdministradorId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Administrador");
@@ -680,7 +715,7 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Ubicacion", "Ubicacion")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("UbicacionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -702,24 +737,19 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Localizacion", "Localizacion")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("LocalizacionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TPINTEGRADOR.Models.ProveedorDeServicio", "Proveedor")
+                        .WithMany("Incidentes")
+                        .HasForeignKey("ProveedorId");
 
                     b.HasOne("TPINTEGRADOR.Models.SuperServicio", "Servicio")
                         .WithMany("Incidentes")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ServicioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TPINTEGRADOR.Models.ProveedorDeServicio", null)
-                        .WithMany("Incidentes")
-                        .HasForeignKey("ProveedorDeServicioId");
-
-                    b.HasOne("TPINTEGRADOR.Models.ProveedorDeServicio", "Proveedor")
-                        .WithMany()
-                        .HasForeignKey("ProveedorId")
-                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Localizacion");
 
@@ -732,7 +762,7 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Encargado")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("EncargadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -743,19 +773,19 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Comunidad", "Comunidad")
                         .WithMany("Miembros")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ComunidadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TPINTEGRADOR.Models.Medio", "Medio")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("MedioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Persona")
                         .WithMany("Participaciones")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -770,15 +800,11 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Localizacion", "LocalizacionActual")
                         .WithMany()
-                        .HasForeignKey("LocalizacionActualId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("LocalizacionActualId");
 
                     b.HasOne("TPINTEGRADOR.Models.Localizacion", "LocalizacionDeInteres")
                         .WithMany()
-                        .HasForeignKey("LocalizacionDeInteresId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("LocalizacionDeInteresId");
 
                     b.Navigation("LocalizacionActual");
 
@@ -789,13 +815,13 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Establecimiento", "Establecimiento")
                         .WithMany("Prestaciones")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("EstablecimientoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TPINTEGRADOR.Models.SuperServicio", "Servicio")
                         .WithMany("Prestaciones")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ServicioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -808,13 +834,13 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Entidad", "Entidad")
                         .WithMany("Sucursales")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("EntidadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TPINTEGRADOR.Models.Establecimiento", "Establecimiento")
                         .WithMany("Sucursales")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("EstablecimientoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -827,7 +853,7 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.ProveedorDeServicio", "Proveedor")
                         .WithMany("SuperServicio")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("ProveedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -838,9 +864,7 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Persona")
                         .WithOne("Usuario")
-                        .HasForeignKey("TPINTEGRADOR.Models.Usuario", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TPINTEGRADOR.Models.Usuario", "PersonaId");
 
                     b.Navigation("Persona");
                 });

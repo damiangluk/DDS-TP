@@ -21,9 +21,9 @@ namespace TPINTEGRADOR.Models
         public int EntidadId { get; set; }
         public int NumeroSucursal { get; set; }
         
-        [ForeignKey("Id")]
+        [ForeignKey("EntidadId")]
         public virtual Entidad Entidad { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("EstablecimientoId")]
         public virtual Establecimiento Establecimiento { get; set; }
         #endregion
     }

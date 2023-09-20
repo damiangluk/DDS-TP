@@ -20,15 +20,12 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public int CantidadMiembrosAfectados { get; set; }
         public int AdministradorId { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("AdministradorId")]
         public virtual Persona Administrador { get; set; }
 
         public virtual ICollection<Participacion> Miembros { get; set; }
-
-        [InverseProperty("Comunidades")]
         public ICollection<SuperServicio> Intereses { get; set; }
 
-        [InverseProperty("Comunidades")]
         public ICollection<Incidente> Incidentes{ get; set; }
         #endregion
 

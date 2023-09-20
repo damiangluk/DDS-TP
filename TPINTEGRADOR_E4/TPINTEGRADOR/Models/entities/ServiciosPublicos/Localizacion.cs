@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPINTEGRADOR.Models
@@ -16,10 +17,10 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
-        [Column("TipoLocalizacion")]
+        [EnumDataType(typeof(TipoLocalizacion))]
+        [Column(TypeName = "int")]
         public TipoLocalizacion TipoLocalizacion { get; set; }
         public string Nombre { get; set; }
-        [InverseProperty("Localizaciones")]
         public ICollection<Entidad> Entidades { get; set; }
         #endregion
 

@@ -27,15 +27,12 @@ namespace TPINTEGRADOR.Models
         public DateTime FechaApertura { get; set; }
         public DateTime? FechaCierre { get; set; }
 
-        [ForeignKey("Id")]
+        [ForeignKey("ServicioId")]
         public virtual SuperServicio Servicio { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("LocalizacionId")]
         public virtual Localizacion Localizacion { get; set; }
-
-        [ForeignKey("Id")]
-        public virtual ProveedorDeServicio Proveedor { get; set; }
-
-        [InverseProperty("Incidentes")]
+        [ForeignKey("ProveedorId")]
+        public virtual ProveedorDeServicio? Proveedor { get; set; }
         public ICollection<Comunidad> Comunidades { get; set; }
         #endregion
 

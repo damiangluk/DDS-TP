@@ -17,7 +17,6 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public string Descripcion { get; set; }
 
-        [InverseProperty("Servicios")]
         public ICollection<ServicioAgrupado> Agrupaciones { get; set; }
         #endregion
     }

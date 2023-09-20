@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPINTEGRADOR.Models
@@ -15,15 +16,12 @@ namespace TPINTEGRADOR.Models
         }
 
         public string Nombre { get; set; }
-        [Column("TipoEntidad")]
+        [EnumDataType(typeof(TipoEntidad))]
+        [Column(TypeName = "int")]
         public TipoEntidad TipoEntidad { get; set; }
-        [InverseProperty("Entidades")]
         public ICollection<Localizacion> Localizaciones { get; set; }
-        [InverseProperty("Entidades")]
         public ICollection<SuperServicio> Servicios { get; set; }
-        [InverseProperty("Entidades")]
         public ICollection<Organismo> Organismos{ get; set; }
-        [InverseProperty("EntidadesInteresadas")]
         public virtual ICollection<Persona> Personas { get; set; }
         public virtual ICollection<Sucursal> Sucursales { get; set; }
     }

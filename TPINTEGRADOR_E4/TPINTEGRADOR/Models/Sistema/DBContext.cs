@@ -33,7 +33,7 @@ namespace TPINTEGRADOR.Models.Sistema
                 .HasValue<Whatsapp>(1)
                 .HasValue<Correo>(2);
 
-            modelBuilder.Entity<Comunidad>()
+            /*modelBuilder.Entity<Comunidad>()
                .HasOne(c => c.Administrador)
                .WithMany()
                .HasForeignKey(p => p.AdministradorId)
@@ -55,7 +55,7 @@ namespace TPINTEGRADOR.Models.Sistema
                .HasOne(p => p.Proveedor)
                .WithMany()
                .HasForeignKey(p => p.ProveedorId)
-               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
+               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada*/
 
             base.OnModelCreating(modelBuilder);
         }

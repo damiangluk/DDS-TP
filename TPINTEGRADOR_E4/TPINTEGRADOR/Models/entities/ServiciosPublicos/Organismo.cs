@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TPINTEGRADOR.Models;
 
@@ -18,11 +19,11 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public int EncargadoId { get; set; }
         public string Nombre { get; set; }
-        [Column("TipoOrganismo")]
+        [EnumDataType(typeof(TipoOrganismo))]
+        [Column(TypeName = "int")]
         public TipoOrganismo TipoOrganismo { get; set; }
-        [InverseProperty("Organismos")]
         public ICollection<Entidad> Entidades { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("EncargadoId")]
         public virtual Persona Encargado { get; set; }
         #endregion
 

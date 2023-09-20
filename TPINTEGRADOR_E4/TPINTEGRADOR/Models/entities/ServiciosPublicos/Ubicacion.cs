@@ -16,7 +16,7 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
-        public double Latitud{ get; set; }
+        public double Latitud { get; set; }
         public double Longitud { get; set; }
         #endregion
     }

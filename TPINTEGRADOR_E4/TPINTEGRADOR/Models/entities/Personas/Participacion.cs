@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPINTEGRADOR.Models
 {
@@ -16,17 +17,18 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
-        [Column("Rol")]
+        [EnumDataType(typeof(Rol))]
+        [Column(TypeName = "int")]
         public Rol Rol { get; set; }
         public int ComunidadId { get; set; }
         public int PersonaId { get; set; }
         public int MedioId { get; set; }
 
-        [ForeignKey("Id")]
+        [ForeignKey("ComunidadId")]
         public virtual Comunidad Comunidad { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("PersonaId")]
         public virtual Persona Persona { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("MedioId")]
         public virtual Medio Medio { get; set; }
         #endregion
 

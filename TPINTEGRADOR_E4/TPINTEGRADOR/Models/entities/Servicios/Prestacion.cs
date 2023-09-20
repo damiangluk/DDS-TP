@@ -21,9 +21,9 @@ namespace TPINTEGRADOR.Models
         public int ServicioId { get; set; }
         public int EstablecimientoId { get; set; }
 
-        [ForeignKey("Id")]
+        [ForeignKey("ServicioId")]
         public virtual SuperServicio Servicio { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("EstablecimientoId")]
         public virtual Establecimiento Establecimiento { get; set; }
         #endregion
     }

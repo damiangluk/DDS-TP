@@ -20,17 +20,15 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public int LocalizacionActualId { get; set; }
-        public int LocalizacionDeInteresId { get; set; }
+        public int? LocalizacionActualId { get; set; }
+        public int? LocalizacionDeInteresId { get; set; }
 
         [ForeignKey("LocalizacionDeInteresId")]
-        public virtual Localizacion LocalizacionDeInteres { get; set; }
+        public virtual Localizacion? LocalizacionDeInteres { get; set; }
         [ForeignKey("LocalizacionActualId")]
-        public virtual Localizacion LocalizacionActual { get; set; }
+        public virtual Localizacion? LocalizacionActual { get; set; }
         public virtual Usuario Usuario { get; set; }
-        [InverseProperty("Personas")]
         public virtual ICollection<SuperServicio> Intereses { get; set; }
-        [InverseProperty("Personas")]
         public virtual ICollection<Entidad> EntidadesInteresadas { get; set; }
         public virtual ICollection<Participacion> Participaciones { get; set; }
         public virtual ICollection<FechasNotificacion> HorariosParaNotificacion { get; set; }

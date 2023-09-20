@@ -17,9 +17,8 @@ namespace TPINTEGRADOR.Models
 
         #region propiedades
         public int PersonaId { get; set; }
-        [ForeignKey("Id")]
         public DateTime Fecha { get; set; }
-
+        [ForeignKey("PersonaId")]
         public virtual Persona Persona { get; set; }
         #endregion
     }

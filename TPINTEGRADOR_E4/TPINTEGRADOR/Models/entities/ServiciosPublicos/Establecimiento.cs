@@ -16,10 +16,10 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
-        public string Nombre{ get; set; }
+        public string Nombre { get; set; }
         public int UbicacionId { get; set; }
         
-        [ForeignKey("Id")]
+        [ForeignKey("UbicacionId")]
         public virtual Ubicacion Ubicacion { get; set; }
         public virtual ICollection<Sucursal> Sucursales { get; set; }
         public virtual ICollection<Prestacion> Prestaciones { get; set; }
