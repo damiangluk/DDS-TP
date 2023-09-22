@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Web.Helpers;
 using TPINTEGRADOR.Models;
 
@@ -19,6 +20,14 @@ namespace TPINTEGRADOR.Models.Sistema
         public DbSet<Entidad> Entidades { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
 
+        public DBContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=NewBookStore;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("Conexion"));
+            string occupation = ConfigurationManager.AppSettings["occupation"];
+            return new DBContext(optionsBuilder.Options);
+        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

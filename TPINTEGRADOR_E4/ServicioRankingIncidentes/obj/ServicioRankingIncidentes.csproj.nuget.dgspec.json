@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj": {}
+    "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj": {
+    "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj",
+        "projectUniqueName": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj",
         "projectName": "ServicioRankingIncidentes",
-        "projectPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj",
-        "packagesPath": "C:\\Users\\damig\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\obj\\",
+        "projectPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\ServicioRankingIncidentes.csproj",
+        "packagesPath": "C:\\Users\\ilant\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\ServicioRankingIncidentes\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\damig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilant\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
-                "projectPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj"
+              "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
+                "projectPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj"
               }
             }
           }
@@ -87,24 +84,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
+    "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
+        "projectUniqueName": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
         "projectName": "TPINTEGRADOR",
-        "projectPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
-        "packagesPath": "C:\\Users\\damig\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\obj\\",
+        "projectPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
+        "packagesPath": "C:\\Users\\ilant\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E4\\TPINTEGRADOR\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\damig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilant\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -172,7 +166,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
