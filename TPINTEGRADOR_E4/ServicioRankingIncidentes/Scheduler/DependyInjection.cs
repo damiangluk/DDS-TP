@@ -16,7 +16,7 @@ namespace ServicioRankingIncidentes.Scheduler
                 options.WaitForJobsToComplete = true;
             });
 
-            services.ConfigureOptions<RankingImpactoIncidentesJob>();
+            services.ConfigureOptions<RankingImpactoIncidentesJobSetup>();
         }
     }
 }

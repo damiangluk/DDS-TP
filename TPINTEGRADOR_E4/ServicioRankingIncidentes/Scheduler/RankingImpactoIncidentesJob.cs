@@ -1,4 +1,5 @@
 using Quartz;
+using ServicioRankingIncidentes.Models;
 
 namespace ServicioRankingIncidentes.Scheduler
 {
@@ -15,6 +16,8 @@ namespace ServicioRankingIncidentes.Scheduler
         public Task Execute(IJobExecutionContext context)
         {
             _logger.LogInformation("Iniciando tarea: {UtcNow}", DateTime.UtcNow);
+
+            Ranking.generarRanking();
 
             return Task.CompletedTask;
         }

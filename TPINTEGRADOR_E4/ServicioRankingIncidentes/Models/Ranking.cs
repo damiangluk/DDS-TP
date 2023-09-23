@@ -1,28 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.Xml;
-using TPINTEGRADOR.Models;
+﻿using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.Sistema;
-
 
 namespace ServicioRankingIncidentes.Models
 {
     public class Ranking
     {
-        public List<Entidad> generarRanking()
+        public static List<Entidad> generarRanking()
         {
 
+            var DB = DBContext.CreateDbContext();
+            List<Entidad> entities = DB.Entidades.ToList();
 
-            using (var DB = new DBContext())
-            {
-               // List<Entidad> entidades_ordenadas = new List<Entidad>();
-               // DBContext sistema_servicios = SistemaServiciosPublicos.GetInstance;
-            }
-
-
-
-
-
-            return entidades_ordenadas;
+            return entities;
         }
 
     }

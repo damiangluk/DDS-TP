@@ -7,9 +7,11 @@ namespace TPINTEGRADOR.Models.Sistema
 {
     public class DBContext : DbContext
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options)
-        {
+        private static IConfiguration _configuration;
 
+        public DBContext(DbContextOptions<DBContext> options, IConfiguration configuration) : base(options)
+        {
+            _configuration = configuration;
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
@@ -20,13 +22,11 @@ namespace TPINTEGRADOR.Models.Sistema
         public DbSet<Entidad> Entidades { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
 
-        public DBContext CreateDbContext(string[] args)
+        public static DBContext CreateDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=NewBookStore;Trusted_Connection=True;MultipleActiveResultSets=true");
-            optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("Conexion"));
-            string occupation = ConfigurationManager.AppSettings["occupation"];
-            return new DBContext(optionsBuilder.Options);
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Conexion"));
+            return new DBContext(optionsBuilder.Options, _configuration);
         }
 
 
@@ -41,30 +41,6 @@ namespace TPINTEGRADOR.Models.Sistema
                 .HasDiscriminator<int>("TipoMedio")
                 .HasValue<Whatsapp>(1)
                 .HasValue<Correo>(2);
-
-            /*modelBuilder.Entity<Comunidad>()
-               .HasOne(c => c.Administrador)
-               .WithMany()
-               .HasForeignKey(p => p.AdministradorId)
-               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
-
-            modelBuilder.Entity<Persona>()
-               .HasOne(p => p.LocalizacionDeInteres)
-               .WithMany()
-               .HasForeignKey(p => p.LocalizacionDeInteresId)
-               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
-
-            modelBuilder.Entity<Persona>()
-               .HasOne(p => p.LocalizacionActual)
-               .WithMany()
-               .HasForeignKey(p => p.LocalizacionActualId)
-               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada
-
-            modelBuilder.Entity<Incidente>()
-               .HasOne(p => p.Proveedor)
-               .WithMany()
-               .HasForeignKey(p => p.ProveedorId)
-               .OnDelete(DeleteBehavior.NoAction); // Cambia la regla de cascada*/
 
             base.OnModelCreating(modelBuilder);
         }
