@@ -8,6 +8,10 @@ namespace TPINTEGRADOR.Models.entities.ServicioRanking
         #region constructores
         public ImpactoIncidentes() { }
 
+        public ImpactoIncidentes(string ranking, DateTime fechaRanking) {
+            Ranking = ranking;
+            FechaRanking = fechaRanking;
+        }
         #endregion
 
         #region propiedades

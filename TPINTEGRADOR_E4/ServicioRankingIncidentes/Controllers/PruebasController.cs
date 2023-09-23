@@ -32,29 +32,27 @@ namespace TPINTEGRADOR.Controllers
             return JsonHelper.SerializeObject(result, 1);
         }
 
-        [Route("save")]
+        [Route("rankings/get-last")]
         [HttpPost]
-        public string SavePrueba([FromBody] Usuario user) //[FromQuery]
+        public string GetLastIncidente()
         {
             // validar propiedades del usuario
 
-            Usuario usuarioACrear = new Usuario();
-            usuarioACrear.Activo = true;
-            if(user.PersonaId != 0) usuarioACrear.PersonaId = user.PersonaId;
-            usuarioACrear.Contrasenia = user.Contrasenia;
-            usuarioACrear.CorreoElectronico = user.CorreoElectronico;
+            var impactoIncidente = _context.ImpactoIncidentes
+                .OrderByDescending(t => t.FechaRanking).FirstOrDefault();
 
-            _context.Usuarios.Add(usuarioACrear);
-            _context.SaveChanges();
+            _context.Dispose();
 
             object result = new
             {
                 status = true,
                 message = "Persona guardada correctamente",
-                content = new {}
+                content = new { 
+                    ranking = impactoIncidente 
+                }
             };
 
-            return JsonHelper.SerializeObject(result, 1);
+            return JsonHelper.SerializeObject(result, 2);
         }
     }
 }

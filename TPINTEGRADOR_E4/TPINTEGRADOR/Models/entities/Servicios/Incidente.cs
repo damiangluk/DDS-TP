@@ -47,6 +47,12 @@ namespace TPINTEGRADOR.Models
             TimeSpan diferencia = FechaCierre.Value - FechaApertura;
             return (int)diferencia.TotalSeconds;
         }
+
+        public bool ImpactoEnLaSemana() {  
+
+            if (EstaAbierto() || (FechaCierre.Value > DateTime.Now.AddDays(-7) && DateTime.Now > FechaCierre.Value)) return true;
+            return false;
+        }
         #endregion
     }
 }
