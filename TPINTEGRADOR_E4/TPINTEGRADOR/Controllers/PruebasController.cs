@@ -18,7 +18,7 @@ namespace TPINTEGRADOR.Controllers
             _context = context;
         }
 
-        [Route("test")]
+       /* [Route("test")]
         [HttpGet]
         public string GetDePrueba()
         {
@@ -56,5 +56,6 @@ namespace TPINTEGRADOR.Controllers
 
             return JsonHelper.SerializeObject(result, 1);
         }
+       */
     }
 }
