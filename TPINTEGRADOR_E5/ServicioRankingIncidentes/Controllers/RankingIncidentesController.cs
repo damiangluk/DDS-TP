@@ -23,7 +23,7 @@ namespace TPINTEGRADOR.Controllers
         public string GetLastIncidente()
         {
             var impactoIncidente = _context.ImpactoIncidentes
-                .OrderByDescending(t => t.FechaRanking).FirstOrDefault();
+                .OrderByDescending(t => t.Fecha).FirstOrDefault();
 
             _context.Dispose();
 
@@ -45,7 +45,7 @@ namespace TPINTEGRADOR.Controllers
         {
             var impactoIncidente = _context.ImpactoIncidentes.ToList()
 
-                .OrderBy(t => Math.Abs((fecha - t.FechaRanking).TotalHours)).FirstOrDefault();
+                .OrderBy(t => Math.Abs((fecha - t.Fecha).TotalHours)).FirstOrDefault();
 
             _context.Dispose();
 
@@ -68,7 +68,7 @@ namespace TPINTEGRADOR.Controllers
         {
             var impactoIncidente = _context.ImpactoIncidentes
 
-                .Where(t => t.FechaRanking > fechaInicio && t.FechaRanking < fechaFin).ToList();
+                .Where(t => t.Fecha > fechaInicio && t.Fecha < fechaFin).ToList();
 
             _context.Dispose();
 

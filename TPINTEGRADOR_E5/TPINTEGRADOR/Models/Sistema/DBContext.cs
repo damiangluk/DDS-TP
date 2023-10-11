@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Web.Helpers;
-using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.entities.ServicioRanking;
 
 namespace TPINTEGRADOR.Models.Sistema
@@ -22,7 +19,7 @@ namespace TPINTEGRADOR.Models.Sistema
         public DbSet<ServicioAgrupado> ServiciosAgrupados { get; set; }
         public DbSet<Entidad> Entidades { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
-        public DbSet<ImpactoIncidentes> ImpactoIncidentes { get; set; }
+        public DbSet<Ranking> ImpactoIncidentes { get; set; }
         public DbSet<Participacion> Participaciones { get; set; }
         public DbSet<Organismo> Organismos { get; set; }
 

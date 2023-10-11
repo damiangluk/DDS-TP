@@ -5,6 +5,9 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using TPINTEGRADOR.Models;
+using TPINTEGRADOR.Models.daos;
+using TPINTEGRADOR.Models.daos.auxClasses;
+using TPINTEGRADOR.Models.Sistema;
 
 namespace TPINTEGRADOR.Controllers
 {
@@ -12,7 +15,7 @@ namespace TPINTEGRADOR.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public OrganismosController(ILogger<HomeController> logger)
+        public OrganismosController(ILogger<HomeController> logger, DBContext context)
         {
             _logger = logger;
         }
@@ -25,7 +28,6 @@ namespace TPINTEGRADOR.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<string> ValidarArchivo(IFormFile archivoCSV)
         {
-            SistemaServiciosPublicos system = SistemaServiciosPublicos.GetInstance;
             LectorCSV lectorCSV = new LectorCSV();
             List<string[]> rows = await lectorCSV.LeerArchivo(archivoCSV);
             if(!lectorCSV.Valido) 
@@ -44,7 +46,7 @@ namespace TPINTEGRADOR.Controllers
 
             for(int i = 1; i < rows.Count; i++)
             {
-                if (!system.AgregarOrganismo(rows[i]))
+                if (!DataFactory.OrganismoDao.AgregarOrganismo(rows[i]))
                     rowsError += (i + ",");
             }
 
@@ -59,7 +61,7 @@ namespace TPINTEGRADOR.Controllers
                 validation = true,
                 content = new { 
                     rowsError,
-                    organismos = system.Organismos.Select(org => org.OrganismosForFront()).ToList(),
+                    organismos = DataFactory.OrganismoDao.GetAll().Select(org => org.OrganismosForFront()).ToList(),
                 }
             };
 

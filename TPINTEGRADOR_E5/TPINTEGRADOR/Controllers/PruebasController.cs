@@ -10,12 +10,10 @@ namespace TPINTEGRADOR.Controllers
     public class PruebasController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private DBContext _context;
 
         public PruebasController(ILogger<HomeController> logger, DBContext context)
         {
             _logger = logger;
-            _context = context;
         }
 
        /* [Route("test")]

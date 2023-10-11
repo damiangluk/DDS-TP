@@ -48,11 +48,7 @@ namespace TPINTEGRADOR.Models
             return (int)diferencia.TotalSeconds;
         }
 
-        public bool ImpactoEnLaSemana() {  
-
-            if (EstaAbierto() || (FechaCierre.Value > DateTime.Now.AddDays(-7) && DateTime.Now > FechaCierre.Value)) return true;
-            return false;
-        }
+        public bool ImpactoEnLaSemana() => EstaAbierto() || (FechaCierre.Value > DateTime.Now.AddDays(-7));
         #endregion
     }
 }

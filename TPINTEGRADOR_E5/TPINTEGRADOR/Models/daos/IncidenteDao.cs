@@ -1,85 +1,51 @@
-﻿using TPINTEGRADOR.Models.Sistema;
+﻿using Microsoft.EntityFrameworkCore;
+using TPINTEGRADOR.Models.daos.auxClasses;
+using TPINTEGRADOR.Models.Sistema;
 
 namespace TPINTEGRADOR.Models.daos
 {
-    public static class IncidenteDao
+    public class IncidenteDao : GenericDao<Incidente>
     {
-        private static DBContext context = DBContext.CreateDbContext();
-
-        public static void CrearIncidente(Incidente incidente, int idServicio)
+        public void CrearIncidente(Incidente incidente, int idServicio)
         {
-            SuperServicio servicio = context.Servicios.ToList().Find(s => s.Id == idServicio);
+            SuperServicio servicio = DataFactory.ServicioDao.GetById(idServicio);
             incidente.Servicio = servicio;
-            context.Incidentes.Add(incidente);
-            servicio.Incidentes.Add(incidente);
+            Insert(incidente);
             servicio.Comunidades.ToList().ForEach(c => c.NotificarMiembros(incidente));
         }
 
-        public static void CerrarIncidente(int idIncidente)
+        public void CerrarIncidente(int idIncidente)
         {
-            Incidente incidente = context.Incidentes.ToList().Find(i => i.Id == idIncidente);
+            Incidente incidente = GetById(idIncidente);
             incidente.FechaCierre = DateTime.Now;
+            Update(incidente);
         }
 
-        public static List<Incidente> ConsultarIncidentePorEstado(bool? estado)
+        public List<Incidente> ConsultarIncidentePorEstado(bool? estado)
         {
             if (!estado.HasValue)
-                return context.Incidentes.ToList();
+                return GetAll();
 
-            return context.Incidentes.ToList().Where(i => i.EstaAbierto() == estado).ToList();
+            return context.Incidentes.Where(i => i.EstaAbierto() == estado).ToList();
         }
 
-        public static List<Entidad> RankingEntidadesTiempoPromedioIncidentesParaProveedor(ProveedorDeServicio proveedor)
+        public List<Incidente> FindCloseWeeklyWithoutToday()
         {
-            var incidentesNecesarios = context.Incidentes.ToList().Where(i => i.Servicio.Proveedor.Equals(proveedor) && !i.EstaAbierto() && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
-            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
-            return diccionario.Keys.OrderByDescending(e => diccionario[e].Average(e => e.CalcularTiempoDeCierre())).ToList();
+            var from = DateTime.Now.AddDays(-7);
+            var to = DateTime.Now.AddDays(-1);
+            return context.Incidentes.Where(i => (i.FechaCierre != null || i.FechaApertura < to) && i.FechaApertura >= from).ToList();
         }
 
-
-        public static List<Entidad> RankingEntidadesMayorCantidadIncidentesParaProveedor(ProveedorDeServicio proveedor)
+        public List<Incidente> FindCloseWeekly()
         {
-            var incidentesNecesarios = context.Incidentes.ToList().Where(i => i.Servicio.Proveedor.Equals(proveedor) && (!i.EstaAbierto() || (DateTime.Now - i.FechaApertura).TotalHours > 24) && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
-            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
-            return diccionario.Keys.OrderByDescending(e => diccionario[e].Count()).ToList();
+            var from = DateTime.Now.AddDays(-7);
+            return context.Incidentes.Where(i => i.FechaCierre != null && i.FechaApertura >= from).ToList();
         }
 
-        public static List<Entidad> RankingEntidadesTiempoPromedioIncidentesParaOrganismo(Organismo organismo)
+        public List<Incidente> FindWithWeeklyImpact()
         {
-            var incidentesNecesarios = organismo.Entidades.SelectMany(e => e.Servicios).SelectMany(s => s.Incidentes)
-                .Where(i => !i.EstaAbierto() && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
-            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
-            return diccionario.Keys.OrderByDescending(e => diccionario[e].Average(e => e.CalcularTiempoDeCierre())).ToList();
+            var from = DateTime.Now.AddDays(-7);
+            return context.Incidentes.Where(i => i.FechaCierre == null || i.FechaApertura >= from).ToList();
         }
-
-
-        public static List<Entidad> RankingEntidadesMayorCantidadIncidentesParaOrganismo(Organismo organismo)
-        {
-            var incidentesNecesarios = organismo.Entidades.SelectMany(e => e.Servicios).SelectMany(s => s.Incidentes)
-                .Where(i => (!i.EstaAbierto() || (DateTime.Now - i.FechaApertura).TotalHours > 24) && (DateTime.Now - i.FechaApertura).TotalDays <= 7).ToList();
-            var diccionario = AgruparIncidentesPorEntidad(incidentesNecesarios);
-            return diccionario.Keys.OrderByDescending(e => diccionario[e].Count()).ToList();
-        }
-
-        private static Dictionary<Entidad, List<Incidente>> AgruparIncidentesPorEntidad(List<Incidente> incidentes)
-        {
-            Dictionary<Entidad, List<Incidente>> diccionario = new Dictionary<Entidad, List<Incidente>>();
-
-            foreach (var incidente in incidentes)
-            {
-                foreach (var entidad in incidente.Servicio.Entidades)
-                {
-                    if (!diccionario.ContainsKey(entidad))
-                    {
-                        diccionario[entidad] = new List<Incidente>();
-                    }
-
-                    diccionario[entidad].Add(incidente);
-                }
-            }
-
-            return diccionario;
-        }
-
     }
 }

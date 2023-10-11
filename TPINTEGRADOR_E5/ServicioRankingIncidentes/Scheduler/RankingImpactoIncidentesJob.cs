@@ -1,8 +1,6 @@
 using Quartz;
-using ServicioRankingIncidentes.Models;
-using TPINTEGRADOR.Models;
+using TPINTEGRADOR.Models.daos.auxClasses;
 using TPINTEGRADOR.Models.entities.ServicioRanking;
-using TPINTEGRADOR.Models.Sistema;
 
 namespace ServicioRankingIncidentes.Scheduler
 {
@@ -19,16 +17,13 @@ namespace ServicioRankingIncidentes.Scheduler
         public Task Execute(IJobExecutionContext context)
         {
             _logger.LogInformation("Iniciando tarea: {UtcNow}", DateTime.UtcNow);
-            var DB = DBContext.CreateDbContext();
 
-            var ranking = Ranking.generarRankingImpactoIncidentes(DB);
+            var rankingGenerator = new RankingMayorImpacto();
+            var ranking = rankingGenerator.GenerarRanking();
 
-            ImpactoIncidentes impactoSemanal = new ImpactoIncidentes();
-            impactoSemanal.FechaRanking = DateTime.Now;
-            impactoSemanal.Ranking = JsonHelper.SerializeObject(ranking, 2);
-            DB.ImpactoIncidentes.Add(impactoSemanal);
-            DB.SaveChanges();
-            DB.Dispose();
+            DataFactory.RankingDao.Insert(ranking);
+
+            _logger.LogInformation("Tarea terminada: {UtcNow}", DateTime.UtcNow);
 
             return Task.CompletedTask;
         }

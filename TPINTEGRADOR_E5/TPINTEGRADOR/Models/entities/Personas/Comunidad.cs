@@ -1,5 +1,6 @@
-
 using System.ComponentModel.DataAnnotations.Schema;
+using TPINTEGRADOR.Models.daos;
+using TPINTEGRADOR.Models.daos.auxClasses;
 
 namespace TPINTEGRADOR.Models
 {
@@ -40,19 +41,17 @@ namespace TPINTEGRADOR.Models
         public void AgregarUsuario(Persona persona, Rol rol, Medio medio)
         {
             Participacion participacion = new Participacion(persona, this, rol, medio);
-            Miembros.Add(participacion);
-            persona.Participaciones.Add(participacion);
-            SistemaPersonas sistema = SistemaPersonas.GetInstance;
-            sistema.Participaciones.Add(participacion);
+            //Miembros.Add(participacion);
+            //persona.Participaciones.Add(participacion);
+            DataFactory.ParticipacionDao.Insert(participacion);
         }
 
         public void EliminiarUsuario(int idPersona)
         {
             Participacion participacion = Miembros.ToList().Find(p => p.Persona.Id == idPersona);
-            Miembros.Remove(participacion);
-            participacion.Persona.Participaciones.Remove(participacion);
-            SistemaPersonas sistema = SistemaPersonas.GetInstance;
-            sistema.Participaciones.Remove(participacion);
+            //Miembros.Remove(participacion);
+            //participacion.Persona.Participaciones.Remove(participacion);
+            DataFactory.ParticipacionDao.Delete(participacion);
         }
 
         public int calcularCantMiembrosAfectados()
