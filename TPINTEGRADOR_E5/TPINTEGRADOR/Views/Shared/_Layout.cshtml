@@ -25,6 +25,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Organismos" asp-action="Index">Organismos</a>
                         </li>
+                        <li>
+                            <form action="/Login/LogoutAuth" method="post">
+                                <input type="submit" value="Cerrar sesion Auth0" class="btn btn-primary" style="margin-top: 10px;">
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

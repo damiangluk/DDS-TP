@@ -17,6 +17,7 @@ namespace TPINTEGRADOR.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         [System.Web.Mvc.HttpPost]
         public async Task LoginAuth(string returnUrl = "/")
         {
@@ -28,7 +29,6 @@ namespace TPINTEGRADOR.Controllers
 
         }
 
-        [Authorize]
         public async Task LogoutAuth()
         {
             var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
@@ -42,6 +42,7 @@ namespace TPINTEGRADOR.Controllers
         }
         #region routes
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             ViewBag.ContraseniaSugerida = Validador.GetVerificador().GenerarContraseniaSugerida();
