@@ -1,4 +1,5 @@
-﻿using TPINTEGRADOR.Models.Sistema;
+﻿using TPINTEGRADOR.Models.daos.auxClasses;
+using TPINTEGRADOR.Models.Sistema;
 
 namespace TPINTEGRADOR.Models.daos
 {
@@ -15,12 +16,12 @@ namespace TPINTEGRADOR.Models.daos
             if (context.Organismos.Any(o => o.Nombre.Equals(columns[1]))) return false;
 
             Organismo organismo = new Organismo(tipoOrganismo.Value, columns[1].Trim());
-
+            organismo.EncargadoId = 1;
+            organismo.Encargado = DataFactory.PersonaDao.GetById(1);
             Insert(organismo);
 
             return true;
         }
-
         public bool AgregarOrganismo(Organismo organismo)
         {
             if (context.Organismos.Any(o => o.Nombre.Equals(organismo.Nombre)))

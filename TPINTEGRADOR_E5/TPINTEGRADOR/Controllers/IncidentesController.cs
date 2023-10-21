@@ -4,16 +4,21 @@ using TPINTEGRADOR.Models;
 
 namespace TPINTEGRADOR.Controllers
 {
-    public class RankingsController : Controller
+    public class IncidentesController : Controller
     {
-        private readonly ILogger<RankingsController> _logger;
+        private readonly ILogger<IncidentesController> _logger;
 
-        public RankingsController(ILogger<RankingsController> logger)
+        public IncidentesController(ILogger<IncidentesController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult AbrirIncidente()
         {
             return View();
         }

@@ -30,6 +30,7 @@
         public static ParticipacionDao ParticipacionDao => GetDao<ParticipacionDao>();
         public static ServicioDao ServicioDao => GetDao<ServicioDao>();
         public static RankingDao RankingDao => GetDao<RankingDao>();
+        public static PersonaDao PersonaDao => GetDao<PersonaDao>();
 
         #endregion
     }

@@ -7,7 +7,7 @@ namespace TPINTEGRADOR.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         public bool Equals(object obj)
         {

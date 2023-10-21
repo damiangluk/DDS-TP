@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Mvc.Razor
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+
+@{
+    ViewData["Title"] = "Incidentes";
+}
+
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/jstr/loginConoller.js")"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+}
+
+
+<div class="container-rankings">
+    <div class="rankings-title">
+        <div class="rectangle-title">
+            <span class="container-span-title"> RANKINGS </span>
+        </div>
+    </div>
+    <div class="rankings-data">
+        <div class="container-filters">
+            <h1>Filtros</h1>
+            <span class="span-filters">Ranking</span>
+
+            <div class="mb-3">
+                <select class="form-select" aria-label="Disabled select example">
+                    <option selected>Impacto de incidentes</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <button class="button">Buscar</button>
+        </div>
+        <div class="container-table">
+            <table class="table table-dark large-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

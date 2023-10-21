@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TPINTEGRADOR</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
     <link rel="stylesheet" href="~/TPINTEGRADOR.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="background-container">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -25,9 +28,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Organismos" asp-action="Index">Organismos</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Incidentes" asp-action="Index">Incidentes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rankings" asp-action="Index">Rankings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Comunidades" asp-action="Index">Comunidades</a>
+                        </li>
+                        <li style="margin-left: auto;">
                             <form action="/Login/LogoutAuth" method="post">
-                                <input type="submit" value="Cerrar sesion Auth0" class="btn btn-primary" style="margin-top: 10px;">
+                                <input type="submit" value="Cerrar sesion Auth0" class="btn btn-primary">
                             </form>
                         </li>
                     </ul>

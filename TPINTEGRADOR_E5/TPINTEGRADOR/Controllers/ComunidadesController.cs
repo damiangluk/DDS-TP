@@ -4,11 +4,11 @@ using TPINTEGRADOR.Models;
 
 namespace TPINTEGRADOR.Controllers
 {
-    public class RankingsController : Controller
+    public class ComunidadesController : Controller
     {
-        private readonly ILogger<RankingsController> _logger;
+        private readonly ILogger<ComunidadesController> _logger;
 
-        public RankingsController(ILogger<RankingsController> logger)
+        public ComunidadesController(ILogger<ComunidadesController> logger)
         {
             _logger = logger;
         }

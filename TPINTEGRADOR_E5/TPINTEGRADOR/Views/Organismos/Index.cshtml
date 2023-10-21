@@ -8,17 +8,25 @@
 }
 
 <div>
-    <div class="text-center imp-file">
-        <div class="mb-3">
-            <input class="form-control" type="file" id="formFile">
+    <div class="content-square">
+        <div class="rectangle-title">
+            <span class="container-span-title">ORGANISMOS</span>
         </div>
-        <button id="importButton" type="button" class="btn btn-sm btn-dark" onclick="validarArchivo()">
-            <span id="textButton">Importar CSV</span>
-            <div id="loadingButton" style="display:none"  class="spinner-border spinner-border-sm text-light" role="status">
-                <span class="sr-only"></span>
+
+        <div class="container-auth0">
+            <div class="mb-3">
+                <input class="form-control" type="file" id="formFile">
             </div>
-        </button>
+            <button id="importButton" type="button" onclick="validarArchivo()" class="button-auth">
+                <span id="textButton">Importar CSV</span>
+                <div id="loadingButton" style="display:none" class="spinner-border spinner-border-sm text-light" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </button>
+        </div>
     </div>
     <div id="msg" class="text-center error"></div>
     <div id="tableContainer" class="text-center mt-3"></div>
 </div>
+
+

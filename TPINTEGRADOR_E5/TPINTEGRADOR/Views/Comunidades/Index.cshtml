@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Mvc.Razor
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+
+@{
+    ViewData["Title"] = "Incidentes";
+}
+
+@section Scripts {
+    <script type="text/javascript" src="@Url.Content("~/jstr/loginConoller.js")"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+}
+
+<div class="container-incidentes">
+    <div class="incidentes-title">
+        <div class="rectangle-title">
+            <span class="container-span-title"> Comunidades </span>
+        </div>
+    </div>
+    <div class="incidentes-data">
+        <div class="container-filters">
+            <div class="actions-filter">
+                <button class="button">Buscar</button>
+            </div>
+        </div>
+        <div class="container-table">
+            <div class="informe-incidente" style="width:800px;">
+                <span class="title-card">COMUNIDAD 1</span>
+                <div class="actions-incidente" style="display: flex;">
+                    <select class="form-select" style="margin-right: 5px;" aria-label="Disabled select example">
+                        <option selected>Observador</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>                    
+                    <button type="button" class="btn btn-warning btn-50px">Mas</button>
+                </div>
+            </div>
+            <div class="informe-incidente" style="width:800px;">
+                <span class="title-card">COMUNIDAD 2</span>
+                <div class="actions-incidente" style="display: flex;">
+                    <select class="form-select" style="margin-right: 5px;" aria-label="Disabled select example">
+                        <option selected>Observador</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <button type="button" class="btn btn-warning btn-50px">Mas</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

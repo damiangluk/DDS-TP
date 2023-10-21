@@ -17,10 +17,17 @@ namespace TPINTEGRADOR.Models.daos
             return context.Set<TDaotype>().ToList();
         }
 
-        public void Insert(TDaotype obj)
+        public virtual void Insert(TDaotype obj)
         {
-            context.Set<TDaotype>().Add(obj);
-            context.SaveChanges();
+            try
+            {
+                context.Set<TDaotype>().Update(obj); //Add(obj);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void Update(TDaotype entity)
