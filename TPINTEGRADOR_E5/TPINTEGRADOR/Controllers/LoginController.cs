@@ -45,6 +45,10 @@ namespace TPINTEGRADOR.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ContraseniaSugerida = Validador.GetVerificador().GenerarContraseniaSugerida();
 
 			return View();

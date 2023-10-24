@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {}
+    "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {}
   },
   "projects": {
-    "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
+    "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
+        "projectUniqueName": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
         "projectName": "TPINTEGRADOR",
-        "projectPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
-        "packagesPath": "C:\\Users\\damig\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\damig\\Documents\\Documentos\\UTN_Repositorios\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\obj\\",
+        "projectPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\TPINTEGRADOR.csproj",
+        "packagesPath": "C:\\Users\\ilant\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilant\\source\\repos\\damiangluk\\DDS-TP\\TPINTEGRADOR_E1\\TPINTEGRADOR\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\damig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilant\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

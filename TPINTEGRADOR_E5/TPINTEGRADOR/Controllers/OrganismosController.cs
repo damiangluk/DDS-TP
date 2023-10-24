@@ -47,7 +47,7 @@ namespace TPINTEGRADOR.Controllers
             for(int i = 1; i < rows.Count; i++)
             {
                 if (!DataFactory.OrganismoDao.AgregarOrganismo(rows[i]))
-                    rowsError += (i + ",");
+                    rowsError += ((i + 1) + ",");
             }
 
             if (!string.IsNullOrEmpty(rowsError))
