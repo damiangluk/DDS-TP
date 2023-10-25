@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
+using TPINTEGRADOR.Models.daos.auxClasses;
 
 namespace TPINTEGRADOR.Controllers
 {
@@ -15,6 +16,7 @@ namespace TPINTEGRADOR.Controllers
 
         public IActionResult Index()
         {
+            // ViewBag.Servicios = DataFactory.ComunidadDao.GetAllByUser(User);
             return View();
         }
 

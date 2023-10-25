@@ -13,9 +13,9 @@ namespace TPINTEGRADOR.Controllers
 {
     public class OrganismosController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<OrganismosController> _logger;
 
-        public OrganismosController(ILogger<HomeController> logger, DBContext context)
+        public OrganismosController(ILogger<OrganismosController> logger, DBContext context)
         {
             _logger = logger;
         }

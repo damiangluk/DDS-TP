@@ -31,6 +31,8 @@
         public static ServicioDao ServicioDao => GetDao<ServicioDao>();
         public static RankingDao RankingDao => GetDao<RankingDao>();
         public static PersonaDao PersonaDao => GetDao<PersonaDao>();
+        public static LocalizacionDao LocalizacionDao => GetDao<LocalizacionDao>();
+        public static ComunidadDao ComunidadDao => GetDao<ComunidadDao>();
 
         #endregion
     }

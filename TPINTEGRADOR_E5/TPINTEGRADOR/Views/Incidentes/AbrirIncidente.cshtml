@@ -21,30 +21,34 @@
         </div>
     </div>
     <div class="incidentes-data">
-        <div class="container-filters">
-            <span class="span-filters">Servicio</span>
-            <div class="mb-3">
-                <select class="form-select" aria-label="Disabled select example">
-                    <option selected>Seleccione el servicio</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <span class="span-filters">Informe</span>
-            <div class="mb-3">
-                <input class="form-input" placeholder="Ingrese el informe" aria-label="Disabled select example" />
-            </div>
-            <span class="span-filters">Localizacion</span>
-            <div class="mb-3">
-                <select class="form-select" aria-label="Disabled select example">
-                    <option selected>Seleccione localización</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <button class="reportar-button">Reportar</button>
+        <div class="container-filters-incidentes">
+            <form class="container-filters-incidentes" asp-area="" asp-controller="Incidentes" asp-action="agregarIncidente" method="post">
+                <span class="span-filters">Servicio</span>
+                <div class="mb-3 full-width">
+                    <select class="form-select" name="servicio"  aria-label="Disabled  select example">
+                        <option selected>Seleccione el servicio</option>
+                        @foreach (var item in ViewBag.Servicios)
+                        {
+                            <option value="@item.Id">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <span class="span-filters">Informe</span>
+                <div class="mb-3 full-width">
+                    <input class="form-input form-control" style="resize: vertical;" name="informe" placeholder="Ingrese el informe" aria-label="Disabled select example" />
+                </div>
+                <span class="span-filters">Localizacion</span>
+                <div class="mb-3 full-width">
+                    <select class="form-select" name="localizacion" aria-label="Disabled select example">
+                        <option selected>Seleccione la localizacion</option>
+                        @foreach (var item in ViewBag.Localizaciones)
+                        {
+                            <option value="@item.Id">@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <button class="reportar-button" style="width: auto;">Reportar</button>
+            </form>
         </div>
     </div>
 </div>

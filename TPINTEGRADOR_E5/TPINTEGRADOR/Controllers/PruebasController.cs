@@ -9,9 +9,9 @@ namespace TPINTEGRADOR.Controllers
     [ApiController]
     public class PruebasController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<PruebasController> _logger;
 
-        public PruebasController(ILogger<HomeController> logger, DBContext context)
+        public PruebasController(ILogger<PruebasController> logger, DBContext context)
         {
             _logger = logger;
         }

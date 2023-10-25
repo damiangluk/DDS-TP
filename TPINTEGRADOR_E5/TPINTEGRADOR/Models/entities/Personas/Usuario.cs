@@ -18,6 +18,7 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public string CorreoElectronico { get; set; }
         public string Contrasenia { get; set; }
+        public string Token { get; set; }
         public bool Activo { get; set; }
         public int? PersonaId { get; set; }
 

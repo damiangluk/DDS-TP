@@ -15,13 +15,13 @@ namespace TPINTEGRADOR.Models.Sistema
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Medio> Medios { get; set; }
         public DbSet<Comunidad> Comunidades { get; set; }
-        public DbSet<Servicio> Servicios { get; set; }
-        public DbSet<ServicioAgrupado> ServiciosAgrupados { get; set; }
         public DbSet<Entidad> Entidades { get; set; }
         public DbSet<Incidente> Incidentes { get; set; }
         public DbSet<Ranking> ImpactoIncidentes { get; set; }
         public DbSet<Participacion> Participaciones { get; set; }
         public DbSet<Organismo> Organismos { get; set; }
+        public DbSet<SuperServicio> SuperServicios { get; set; }
+        public DbSet<Localizacion> Localizaciones { get; set; }
 
         public static DBContext CreateDbContext()
         {
@@ -43,6 +43,10 @@ namespace TPINTEGRADOR.Models.Sistema
                 .HasValue<Whatsapp>(1)
                 .HasValue<Correo>(2);
 
+            modelBuilder.Entity<SuperServicio>().ToTable("SuperServicio")
+                .HasDiscriminator<string>("Discriminator")
+                .HasValue<Servicio>("SERVICIO")
+                .HasValue<ServicioAgrupado>("SERVICIOAGRUPADO");
             base.OnModelCreating(modelBuilder);
         }
     }

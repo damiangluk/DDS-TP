@@ -7,13 +7,12 @@ namespace TPINTEGRADOR.Models
     {
         #region constructores
         public Incidente() {}
-        public Incidente(SuperServicio servicio, DateTime fechaApertura, DateTime fechaCierre, Localizacion localizacion, string informe, string estado)
+        public Incidente(SuperServicio servicio, Localizacion localizacion, string informe, string estado)
         {
             Servicio = servicio;
-            FechaApertura = fechaApertura;
-            FechaCierre = fechaCierre;
             Localizacion = localizacion;
             Informe = informe;
+            FechaApertura = DateTime.Now;
             Estado = estado;
         }
         #endregion

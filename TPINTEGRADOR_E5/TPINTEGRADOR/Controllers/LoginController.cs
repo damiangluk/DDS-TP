@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
+using Auth0.AuthenticationApi;
+using Auth0.AuthenticationApi.Models;
 
 namespace TPINTEGRADOR.Controllers
 {
@@ -28,6 +30,37 @@ namespace TPINTEGRADOR.Controllers
             await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
 
         }
+
+        /*public async Task LoginAuth(string returnUrl = "/")
+        {
+            string toMove = string.IsNullOrEmpty(returnUrl) ? Url?.Action("Index", "Home") ?? "" : returnUrl;
+            var authenticationApiClient = new AuthenticationApiClient("your-auth0-domain");
+
+            var authorizeUrl = authenticationApiClient.BuildAuthorizationUrl()
+                .WithResponseType(AuthorizationResponseType.Code)
+                .WithRedirectUrl("your-redirect-uri")
+                .WithScope("openid profile email")
+                .Build();
+
+            // Redirect the user to the authorize URL to start the authentication process
+            var tokenRequest = new AuthorizationCodeTokenRequest
+            {
+                ClientId = "your-client-id",
+                ClientSecret = "your-client-secret",
+                Code = code,
+                RedirectUri = "your-redirect-uri"
+            };
+
+            var tokenResponse = await authenticationApiClient.GetTokenAsync(tokenRequest);
+
+            // Use the access token to get the user information
+            var userInfoRequest = new UserInfoRequest
+            {
+                Address = tokenResponse.AccessToken
+            };
+
+            var userInfo = await authenticationApiClient.GetUserInfoAsync(userInfoRequest);
+        }*/
 
         public async Task LogoutAuth()
         {
