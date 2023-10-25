@@ -7,6 +7,8 @@ using System.Diagnostics;
 using TPINTEGRADOR.Models;
 using Auth0.AuthenticationApi;
 using Auth0.AuthenticationApi.Models;
+using System.Security.Claims;
+using TPINTEGRADOR.Models.daos.auxClasses;
 
 namespace TPINTEGRADOR.Controllers
 {
@@ -21,46 +23,24 @@ namespace TPINTEGRADOR.Controllers
 
         [AllowAnonymous]
         [System.Web.Mvc.HttpPost]
-        public async Task LoginAuth(string returnUrl = "/")
+        public async Task LoginAuth()
         {
-            string toMove = string.IsNullOrEmpty(returnUrl) ? Url?.Action("Index", "Home") ?? "" : returnUrl;
             var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-                      .WithRedirectUri(Url?.Action("Index", "Home") ?? "")
+                      .WithRedirectUri(Url?.Action("LoginCallback", "Login") ?? "")
                       .Build();
             await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
-
         }
 
-        /*public async Task LoginAuth(string returnUrl = "/")
+        [System.Web.Mvc.HttpPost]
+        public async Task<IActionResult> LoginCallback()
         {
-            string toMove = string.IsNullOrEmpty(returnUrl) ? Url?.Action("Index", "Home") ?? "" : returnUrl;
-            var authenticationApiClient = new AuthenticationApiClient("your-auth0-domain");
-
-            var authorizeUrl = authenticationApiClient.BuildAuthorizationUrl()
-                .WithResponseType(AuthorizationResponseType.Code)
-                .WithRedirectUrl("your-redirect-uri")
-                .WithScope("openid profile email")
-                .Build();
-
-            // Redirect the user to the authorize URL to start the authentication process
-            var tokenRequest = new AuthorizationCodeTokenRequest
+            if (User != null && User.Identity.IsAuthenticated)
             {
-                ClientId = "your-client-id",
-                ClientSecret = "your-client-secret",
-                Code = code,
-                RedirectUri = "your-redirect-uri"
-            };
+                await SessionManager.Login(User);
+            }
 
-            var tokenResponse = await authenticationApiClient.GetTokenAsync(tokenRequest);
-
-            // Use the access token to get the user information
-            var userInfoRequest = new UserInfoRequest
-            {
-                Address = tokenResponse.AccessToken
-            };
-
-            var userInfo = await authenticationApiClient.GetUserInfoAsync(userInfoRequest);
-        }*/
+            return RedirectToAction("Index", "Home");
+        }
 
         public async Task LogoutAuth()
         {
@@ -72,6 +52,7 @@ namespace TPINTEGRADOR.Controllers
             // Logout from the application
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
+            await SessionManager.Logout();
         }
         #region routes
 

@@ -7,17 +7,18 @@ namespace TPINTEGRADOR.Models
     {
         #region constructores
         public Usuario() { }
-        public Usuario(string correoElectronico, string contrasenia, bool activo)
+        public Usuario(string correoElectronico, string token, Persona? persona)
         {
             CorreoElectronico = correoElectronico;
-            Contrasenia = contrasenia;
-            Activo = activo;
+            Token = token;
+            Persona = persona;
+            PersonaId = Persona?.Id;
+            Activo = true;
         }
         #endregion
 
         #region propiedades
         public string CorreoElectronico { get; set; }
-        public string Contrasenia { get; set; }
         public string Token { get; set; }
         public bool Activo { get; set; }
         public int? PersonaId { get; set; }

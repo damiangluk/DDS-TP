@@ -33,6 +33,7 @@
         public static PersonaDao PersonaDao => GetDao<PersonaDao>();
         public static LocalizacionDao LocalizacionDao => GetDao<LocalizacionDao>();
         public static ComunidadDao ComunidadDao => GetDao<ComunidadDao>();
+        public static UsuarioDao UsuarioDao => GetDao<UsuarioDao>();
 
         #endregion
     }

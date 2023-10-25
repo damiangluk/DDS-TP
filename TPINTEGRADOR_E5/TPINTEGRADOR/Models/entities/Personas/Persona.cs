@@ -7,13 +7,10 @@ namespace TPINTEGRADOR.Models
     {
         #region constructores
         public Persona() { }
-        public Persona(string nombre, string apellido, Localizacion localizacionDeInteres, Localizacion localizacionActual, Usuario usuario) 
+        public Persona(string nombre, string apellido) 
         {
             Nombre = nombre;
             Apellido = apellido;
-            LocalizacionDeInteres = localizacionDeInteres;
-            LocalizacionActual = localizacionActual;
-            Usuario = usuario;
         }
         #endregion
 
