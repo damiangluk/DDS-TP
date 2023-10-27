@@ -24,7 +24,7 @@ namespace TPINTEGRADOR.Models
         public int? PersonaId { get; set; }
 
         [ForeignKey("PersonaId")]
-        public virtual Persona? Persona { get; set; }
+        public virtual Persona Persona { get; set; }
         #endregion
     }
 }

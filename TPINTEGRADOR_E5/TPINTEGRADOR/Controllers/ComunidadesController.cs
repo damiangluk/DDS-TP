@@ -16,7 +16,7 @@ namespace TPINTEGRADOR.Controllers
 
         public IActionResult Index()
         {
-            // ViewBag.Servicios = DataFactory.ComunidadDao.GetAllByUser(User);
+            ViewBag.Comunidades = DataFactory.ComunidadDao.GetAllByUser(SessionManager.GetPersona());
             return View();
         }
 

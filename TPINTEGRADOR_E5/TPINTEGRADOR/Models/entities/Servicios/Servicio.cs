@@ -17,7 +17,7 @@ namespace TPINTEGRADOR.Models
         #region propiedades
         public string Descripcion { get; set; }
 
-        public ICollection<ServicioAgrupado> Agrupaciones { get; set; }
+        public virtual ICollection<ServicioAgrupado> Agrupaciones { get; set; }
         #endregion
     }
 }

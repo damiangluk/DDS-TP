@@ -21,7 +21,7 @@ namespace TPINTEGRADOR.Models
         [Column(TypeName = "int")]
         public TipoLocalizacion TipoLocalizacion { get; set; }
         public string Nombre { get; set; }
-        public ICollection<Entidad> Entidades { get; set; }
+        public virtual ICollection<Entidad> Entidades { get; set; }
         #endregion
 
     }

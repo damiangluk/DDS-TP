@@ -22,7 +22,7 @@ namespace TPINTEGRADOR.Models
         [EnumDataType(typeof(TipoOrganismo))]
         [Column(TypeName = "int")]
         public TipoOrganismo TipoOrganismo { get; set; }
-        public ICollection<Entidad> Entidades { get; set; }
+        public virtual ICollection<Entidad> Entidades { get; set; }
         [ForeignKey("EncargadoId")]
         public virtual Persona Encargado { get; set; }
         #endregion

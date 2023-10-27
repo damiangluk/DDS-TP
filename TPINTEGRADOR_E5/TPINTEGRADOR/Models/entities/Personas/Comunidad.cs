@@ -25,9 +25,9 @@ namespace TPINTEGRADOR.Models
         public virtual Persona Administrador { get; set; }
 
         public virtual ICollection<Participacion> Miembros { get; set; }
-        public ICollection<SuperServicio> Intereses { get; set; }
+        public virtual ICollection<SuperServicio> Intereses { get; set; }
 
-        public ICollection<Incidente> Incidentes{ get; set; }
+        public virtual ICollection<Incidente> Incidentes{ get; set; }
         #endregion
 
         #region metodos

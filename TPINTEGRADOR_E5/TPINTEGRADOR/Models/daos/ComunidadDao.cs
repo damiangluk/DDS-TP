@@ -4,13 +4,12 @@ namespace TPINTEGRADOR.Models.daos
 {
     public class ComunidadDao : GenericDao<Comunidad>
     {
-        public List<object> GetAllByUser(Usuario user)
+        public List<Comunidad> GetAllByUser(Persona persona)
         {
-            return context.Localizaciones.Select(t => new
-            {
-                Id = t.Id,
-                Text = t.Nombre
-            }).ToList<object>();
+            return context.Participaciones.Where(p => 
+                p.PersonaId == persona.Id).ToList().Select(p => p.Comunidad).ToList();
         }
+
+
     }
 }

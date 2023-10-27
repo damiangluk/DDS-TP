@@ -14,7 +14,7 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
-        public ICollection<Servicio> Servicios { get; set; }
+        public virtual ICollection<Servicio> Servicios { get; set; }
         #endregion
     }
 }

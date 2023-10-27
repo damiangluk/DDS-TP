@@ -30,6 +30,11 @@ namespace TPINTEGRADOR.Models.Sistema
             return new DBContext(optionsBuilder.Options, _configuration);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -19,9 +19,9 @@ namespace TPINTEGRADOR.Models
         [EnumDataType(typeof(TipoEntidad))]
         [Column(TypeName = "int")]
         public TipoEntidad TipoEntidad { get; set; }
-        public ICollection<Localizacion> Localizaciones { get; set; }
-        public ICollection<SuperServicio> Servicios { get; set; }
-        public ICollection<Organismo> Organismos{ get; set; }
+        public virtual ICollection<Localizacion> Localizaciones { get; set; }
+        public virtual ICollection<SuperServicio> Servicios { get; set; }
+        public virtual ICollection<Organismo> Organismos{ get; set; }
         public virtual ICollection<Persona> Personas { get; set; }
         public virtual ICollection<Sucursal> Sucursales { get; set; }
     }

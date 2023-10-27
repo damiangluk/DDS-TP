@@ -27,6 +27,7 @@ namespace TPINTEGRADOR.Controllers
         {
             var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
                       .WithRedirectUri(Url?.Action("LoginCallback", "Login") ?? "")
+                      .WithScope("email profile")
                       .Build();
             await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
         }
@@ -34,6 +35,8 @@ namespace TPINTEGRADOR.Controllers
         [System.Web.Mvc.HttpPost]
         public async Task<IActionResult> LoginCallback()
         {
+            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
             if (User != null && User.Identity.IsAuthenticated)
             {
                 await SessionManager.Login(User);

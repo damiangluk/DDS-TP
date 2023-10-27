@@ -32,7 +32,7 @@ namespace TPINTEGRADOR.Models
         public virtual Localizacion Localizacion { get; set; }
         [ForeignKey("ProveedorId")]
         public virtual ProveedorDeServicio? Proveedor { get; set; }
-        public ICollection<Comunidad> Comunidades { get; set; }
+        public virtual ICollection<Comunidad> Comunidades { get; set; }
         #endregion
 
         #region metodos
