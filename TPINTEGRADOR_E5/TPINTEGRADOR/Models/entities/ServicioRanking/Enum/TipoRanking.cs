@@ -25,7 +25,7 @@ namespace TPINTEGRADOR.Models
             }
         }
 
-        public static string GetTipo(TipoRanking type)
+        public static string GetTipo(this TipoRanking type)
         {
             switch (type)
             {

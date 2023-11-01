@@ -117,9 +117,8 @@ nav{
     }
     .rankings-data {
         display: flex;
-        flex-wrap: wrap;
         flex-direction: row;
-        margin-right: auto;
+        /*margin-right: auto;*/
     }
     .rankings-title {
         padding: 0 0 23px 0px;
