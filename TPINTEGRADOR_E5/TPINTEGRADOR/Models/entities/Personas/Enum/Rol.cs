@@ -35,5 +35,18 @@ namespace TPINTEGRADOR.Models
 
             }
         }
+        public static List<object> GetAll()
+        {
+            List<object> lista = new List<object>();
+            foreach (Rol rol in Enum.GetValues(typeof(Rol)))
+            {
+                lista.Add(new
+                {
+                    Id = (int)rol,
+                    Text = RolExtensions.GetTipo(rol)
+                });
+            }
+            return lista;
+        }
     }
 }

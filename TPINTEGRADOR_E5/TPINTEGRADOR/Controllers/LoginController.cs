@@ -60,10 +60,11 @@ namespace TPINTEGRADOR.Controllers
         #region routes
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
             if (User.Identity.IsAuthenticated)
             {
+                await SessionManager.Login(User);
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.ContraseniaSugerida = Validador.GetVerificador().GenerarContraseniaSugerida();

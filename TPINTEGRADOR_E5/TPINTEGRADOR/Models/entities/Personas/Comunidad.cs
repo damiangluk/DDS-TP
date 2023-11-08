@@ -9,8 +9,9 @@ namespace TPINTEGRADOR.Models
         #region constructores
         public Comunidad() { }
 
-        public Comunidad(List<SuperServicio> intereses, int cantidadMiembrosAfectados, Persona administrador) 
+        public Comunidad(string nombre, List<SuperServicio> intereses, int cantidadMiembrosAfectados, Persona administrador) 
         {
+            Nombre = nombre;
             Intereses = intereses;
             CantidadMiembrosAfectados = cantidadMiembrosAfectados;
             Administrador = administrador;
@@ -19,6 +20,7 @@ namespace TPINTEGRADOR.Models
         #endregion
 
         #region propiedades
+        public string Nombre { get; set; }
         public int CantidadMiembrosAfectados { get; set; }
         public int AdministradorId { get; set; }
         [ForeignKey("AdministradorId")]

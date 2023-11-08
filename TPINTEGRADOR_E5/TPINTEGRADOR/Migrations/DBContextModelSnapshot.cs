@@ -17,7 +17,10 @@ namespace TPINTEGRADOR.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -155,6 +158,10 @@ namespace TPINTEGRADOR.Migrations
 
                     b.Property<int>("CantidadMiembrosAfectados")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -533,6 +540,7 @@ namespace TPINTEGRADOR.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PersonaId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Token")
@@ -542,8 +550,7 @@ namespace TPINTEGRADOR.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PersonaId")
-                        .IsUnique()
-                        .HasFilter("[PersonaId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Usuarios");
                 });
@@ -887,7 +894,9 @@ namespace TPINTEGRADOR.Migrations
                 {
                     b.HasOne("TPINTEGRADOR.Models.Persona", "Persona")
                         .WithOne("Usuario")
-                        .HasForeignKey("TPINTEGRADOR.Models.Usuario", "PersonaId");
+                        .HasForeignKey("TPINTEGRADOR.Models.Usuario", "PersonaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Persona");
                 });
