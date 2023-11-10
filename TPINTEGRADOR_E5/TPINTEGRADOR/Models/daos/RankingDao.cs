@@ -13,7 +13,9 @@ namespace TPINTEGRADOR.Models.daos
 
             if (tipo.HasValue)
             {
-                query.Where(t => t.TipoRanking == tipo.Value);     
+                query = context.ImpactoIncidentes
+                .Where(t => t.Fecha > fechaInicio && t.Fecha < fechaFin)
+                .Where(t => t.TipoRanking == tipo.Value);     
             }
 
             return query.ToList();

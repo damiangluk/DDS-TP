@@ -26,7 +26,7 @@ namespace TPINTEGRADOR.Models.Sistema
         public static DBContext CreateDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Conexion"));
             return new DBContext(optionsBuilder.Options, _configuration);
         }
 

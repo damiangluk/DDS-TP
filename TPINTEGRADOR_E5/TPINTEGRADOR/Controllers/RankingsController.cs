@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.daos.auxClasses;
@@ -27,16 +29,16 @@ namespace TPINTEGRADOR.Controllers
                     Fecha = t.Fecha,
                     Ranking = t.DeserializarRanking().Select(x => new
                     {
-                        Entidad = x.Item2,
-                        Valor = x.Item3
+                        Entidad = x.nombreEnt,
+                        Valor = x.impacto
                     }).ToList(),
                     TipoRanking = t.TipoRanking.GetTipo()
                 });
-
+            ViewBag.TiposRanking = TipoRankingExtensions.GetAll();
             return View();
         }
 
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

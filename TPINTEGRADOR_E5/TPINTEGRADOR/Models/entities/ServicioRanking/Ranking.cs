@@ -27,9 +27,21 @@ namespace TPINTEGRADOR.Models.entities.ServicioRanking
         #region metodos
         //{{idEnt: int,  nombreEnt: string, impacto: int}, ....}
 
-        public List<Tuple<int, string, int>> DeserializarRanking()
+        public class Entidad
         {
-            return JsonConvert.DeserializeObject<List<Tuple<int, string, int>>>(Json);
+            public int idEnt { get; set; }
+            public string nombreEnt { get; set; }
+            public int impacto { get; set; }
+
+      
+        }
+
+        public List<Entidad> DeserializarRanking()
+        {
+            //List<Tuple<int, string, int>> variable = JsonConvert.DeserializeObject<List<Tuple<int, string, int>>>(Json);
+            List<Entidad> listaDeserializada = JsonConvert.DeserializeObject<List<Entidad>>(Json);
+
+            return listaDeserializada;
         }
         #endregion
     }

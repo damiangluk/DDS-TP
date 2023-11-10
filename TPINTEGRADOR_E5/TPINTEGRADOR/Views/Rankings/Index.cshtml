@@ -27,20 +27,24 @@
         </div>
     </div>
     <div class="rankings-data">
-        <div class="container-filters">
-            <h1>Filtros</h1>
-            <span class="span-filters">Ranking</span>
-
-            <div class="mb-3">
-                <select class="form-select" aria-label="Disabled select example">
-                    <option selected>Impacto de incidentes</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+        <form class="agregar" asp-area="" asp-controller="Rankings" asp-action="index" method="post">
+            <div class="container-filters">
+                <h1>Filtros</h1>
+                <span class="span-filters">Ranking</span>
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Disabled select example" name="tipo">
+                        @foreach (var tipo in ViewBag.TiposRanking)
+                        {
+                            <option value="@tipo.Id">@tipo.Text</option>
+                        }
+                    </select>
+                    <input type="date" placeholder="Desde" name="fechaInicio" />
+                    <input type="date" placeholder="Hasta" name="fechaFin" />
+                </div>
+                <button class="button">Buscar</button>
             </div>
-            <button class="button">Buscar</button>
-        </div>
+        </form>
+
         <div class="container-table">
             <div id="accordion">
                 <!-- Panel 1 -->

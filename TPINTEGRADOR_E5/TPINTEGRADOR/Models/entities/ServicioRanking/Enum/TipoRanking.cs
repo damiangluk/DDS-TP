@@ -40,5 +40,19 @@ namespace TPINTEGRADOR.Models
 
             }
         }
+
+        public static List<object> GetAll()
+        {
+            List<object> lista = new List<object>();
+            foreach (TipoRanking tipo in Enum.GetValues(typeof(TipoRanking)))
+            {
+                lista.Add(new
+                {
+                    Id = (int)tipo,
+                    Text = TipoRankingExtensions.GetTipo(tipo)
+                });
+            }
+            return lista;
+        }
     }
 }
