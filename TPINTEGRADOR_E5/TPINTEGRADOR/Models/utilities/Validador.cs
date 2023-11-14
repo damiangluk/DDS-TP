@@ -53,11 +53,12 @@ namespace TPINTEGRADOR.Models
 		#region private methods
 		private (bool, string) noEsClaveComun(string password)
 		{
-			string message = $"La contraseña ingresada no debe ser comun";
+			/*string message = $"La contraseña ingresada no debe ser comun";
 			string rutaArchivo = "./static/claves_comunes.txt";
 			string contenidoArchivo = File.ReadAllText(rutaArchivo);
 			List<string> clavesComunes = contenidoArchivo.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.None).ToList();
-			return (!clavesComunes.Contains(password), message);
+			return (!clavesComunes.Contains(password), message);*/
+			return (true, "");
 		}
 
 		private (bool, string) tieneMinimoDeCaracteres(string password)

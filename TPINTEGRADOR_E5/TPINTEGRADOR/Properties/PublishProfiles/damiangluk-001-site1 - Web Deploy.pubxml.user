@@ -6,8 +6,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
 <Project>
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAE6lo7PS0pUGj4x8NczWpkwAAAAACAAAAAAAQZgAAAAEAACAAAABGOGZtqUPuw/uozrCFLBxFcLLk1Dz8OE1hll9kCormvQAAAAAOgAAAAAIAACAAAAAItboW41NBH3st8sLHF2nAtbG0zxAcnGTO9ufY5+3g+iAAAABQ9l359vsWkTF3/gA7j8Xw4rUvu+bbASP1L7FraBooMkAAAADDXIQ0yPB+B1peI8HO74QX2nfzyhrt8p/M1CA6y8dqdCtPTl6a7K9htfgQ8+rpOxTIAEgGC5bDZkAhNHltzmMN</EncryptedPassword>
-    <History>True|2023-11-09T14:59:04.6063953Z;True|2023-11-09T11:43:56.3952969-03:00;True|2023-11-09T11:37:19.6533897-03:00;True|2023-11-08T14:02:55.1537468-03:00;True|2023-11-08T13:57:02.6361773-03:00;True|2023-11-08T13:48:23.7279507-03:00;True|2023-11-08T13:31:38.0683634-03:00;</History>
+    <EncryptedPassword />
+    <History>True|2023-11-10T04:23:07.3961296Z;False|2023-11-10T01:22:32.1847112-03:00;False|2023-11-10T01:21:20.8098533-03:00;True|2023-11-10T01:04:56.7426760-03:00;True|2023-11-10T01:01:14.5104316-03:00;True|2023-11-10T01:00:14.3448167-03:00;True|2023-11-10T00:58:52.4462560-03:00;True|2023-11-10T00:57:46.5361035-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL8004.site4now.net%3bInitial Catalog=db_aa1351_dds%3bUser Id=db_aa1351_dds_admin%3bPassword=!bddds1!%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>

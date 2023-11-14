@@ -17,7 +17,7 @@ disableButton = () => {
 }
 
 LoginWithAuth = () => {
-    var url = "/Login/LoginAuth";
+    var url = "/Account/LoginAuth";
 
     return new Promise((resolve, reject) => {
 
