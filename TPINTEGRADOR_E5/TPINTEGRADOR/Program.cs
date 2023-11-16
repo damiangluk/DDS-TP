@@ -32,6 +32,16 @@ builder.Services.AddAuth0WebAppAuthentication(options =>
     options.ClientId = "BsXXrfUk3nQtje73B3iyOUIeXtydkSna";
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("https://localhost:44385")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 using(var scope = app.Services.CreateScope())
@@ -55,6 +65,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors();
+
 
 app.MapControllerRoute(
     name: "default",

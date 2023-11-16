@@ -25,8 +25,7 @@ namespace TPINTEGRADOR.Models.daos
         {
             if (!estado.HasValue)
                 return GetAll();
-
-            return context.Incidentes.Where(i => i.EstaAbierto() == estado).ToList();
+            return context.Incidentes.AsEnumerable().Where(i => i.EstaAbierto() == estado).ToList();
         }
 
         public List<Incidente> FindCloseWeeklyWithoutToday()

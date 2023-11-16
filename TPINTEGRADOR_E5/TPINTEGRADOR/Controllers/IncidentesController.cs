@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.daos.auxClasses;
@@ -38,6 +39,41 @@ namespace TPINTEGRADOR.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [AllowAnonymous]
+        [Route("Incidentes/get-all")]
+        [HttpPost]
+        public string GetAllIncidentes([FromBody] string estado)
+        {
+            bool e = int.Parse(estado) == 1;
+            var incidentes = DataFactory.IncidenteDao.ConsultarIncidentePorEstado(e);
+            string tabla = "";
+            foreach (var incidente in incidentes)
+            {
+                if (incidente.EstaAbierto())
+                {
+                    tabla += @$"<div class=""informe-incidente"">
+                                <span class=""title-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                <div class=""actions-incidente"">
+                                    <button type=""button"" class=""btn btn-info btn-100px"" onclick=""solicitarRevision({incidente.Id})"" >Solicitar revision</button>
+                                    <button type=""button"" class=""btn btn-warning btn-50px"">Editar</button>
+                                    <button type=""button"" class=""btn btn-danger btn-50px"" onclick=""cerrarIncidente({incidente.Id})"">Cerrar</button>
+                                </div>
+                            </div>";
+                }
+                else
+                {
+                    tabla += @$"<div class=""informe-incidente"">
+                                <span class=""title-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                <div class=""actions-incidente"">
+                                    <span class=""description-card"">Cerrado en: {incidente.FechaCierre.ToString()}</span>
+                                </div>
+                            </div>";
+                }
+
+            }
+            return tabla;
         }
     }
 }
