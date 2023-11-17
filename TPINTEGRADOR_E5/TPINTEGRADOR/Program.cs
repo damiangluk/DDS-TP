@@ -22,7 +22,7 @@ builder.Services.AddMvc(config =>
 
 builder.Services.AddDbContext<DBContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Conexion"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 // builder.Services.AddControllersWithViews();
 

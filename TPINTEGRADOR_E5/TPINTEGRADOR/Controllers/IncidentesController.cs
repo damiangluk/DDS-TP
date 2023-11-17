@@ -46,17 +46,29 @@ namespace TPINTEGRADOR.Controllers
         [HttpPost]
         public string GetAllIncidentes([FromBody] string estado)
         {
-            bool e = int.Parse(estado) == 1;
-            var incidentes = DataFactory.IncidenteDao.ConsultarIncidentePorEstado(e);
+            List<Incidente> incidentes;
+            try
+            {
+                bool e = int.Parse(estado) == 1;
+                incidentes = DataFactory.IncidenteDao.ConsultarIncidentePorEstado(e);
+            }
+            catch(Exception)
+            {
+                incidentes = DataFactory.IncidenteDao.GetAll();
+            }
+
             string tabla = "";
             foreach (var incidente in incidentes)
             {
                 if (incidente.EstaAbierto())
                 {
                     tabla += @$"<div class=""informe-incidente"">
-                                <span class=""title-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                <div class=""title-card-container"">
+                                    <span class=""title-card"">{incidente.Servicio.Nombre}</span>
+                                    <span class=""subtitle-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                </div>
                                 <div class=""actions-incidente"">
-                                    <button type=""button"" class=""btn btn-info btn-100px"" onclick=""solicitarRevision({incidente.Id})"" >Solicitar revision</button>
+                                    <button type=""button"" class=""btn btn-info btn-100px"" onclick=""solicitarRevision('{incidente.Servicio.Nombre}','{incidente.Informe}')"" >Solicitar revision</button>
                                     <button type=""button"" class=""btn btn-warning btn-50px"">Editar</button>
                                     <button type=""button"" class=""btn btn-danger btn-50px"" onclick=""cerrarIncidente({incidente.Id})"">Cerrar</button>
                                 </div>
@@ -65,7 +77,10 @@ namespace TPINTEGRADOR.Controllers
                 else
                 {
                     tabla += @$"<div class=""informe-incidente"">
-                                <span class=""title-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                <div class=""title-card-container"">
+                                    <span class=""title-card"">{incidente.Servicio.Nombre}</span>
+                                    <span class=""subtitle-card"">{incidente.Informe} - {incidente.Estado}</span>
+                                </div>
                                 <div class=""actions-incidente"">
                                     <span class=""description-card"">Cerrado en: {incidente.FechaCierre.ToString()}</span>
                                 </div>
@@ -73,7 +88,27 @@ namespace TPINTEGRADOR.Controllers
                 }
 
             }
+            if (string.IsNullOrEmpty(tabla)) tabla = "<h4>No se encontraron incidentes</h4>";
             return tabla;
+        }
+
+        [AllowAnonymous]
+        [Route("Incidentes/close")]
+        [HttpPost]
+        public string CerrarIncidente([FromBody] int id)
+        {
+            string result = "Incidente cerrado exitosamente";
+            try
+            {
+                var incidente = DataFactory.IncidenteDao.GetById(id);
+                incidente.FechaCierre = DateTime.Now;
+                DataFactory.IncidenteDao.Update(incidente);  
+            }
+            catch (Exception)
+            {
+                result = "Ocurrio un error al cerrar el incidente";
+            }
+            return result;
         }
     }
 }
