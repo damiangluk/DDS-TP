@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
@@ -34,7 +36,7 @@ namespace TPINTEGRADOR.Controllers
             Participacion part = DataFactory.ParticipacionDao.GetById(Participacion);
             part.Rol = (Rol)Enum.ToObject(typeof(Rol), Rol);
             DataFactory.ParticipacionDao.Update(part);
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -43,6 +45,52 @@ namespace TPINTEGRADOR.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [AllowAnonymous]
+        [Route("Comunidades/get-all")]
+        [HttpPost]
+        public string GetAllComunidades()
+        {
+            var persona = SessionManager.GetPersona();
+            var participaciones = DataFactory.ParticipacionDao.GetAllByPerson(persona);
+            List<Rol> roles = RolExtensions.GetAllRoles();
+            string tabla = "";
+            foreach (var participacion in participaciones)
+            {
+                tabla += @$"<div class=""informe-incidente"" style=""width:800px;"">
+                    <span class=""title-card"">{participacion.Comunidad.Nombre}</span>
+                    <div class=""actions-incidente"" style=""display: flex;"">
+                            <select class=""form-select"" id=""select-form"" style=""margin-right: 5px;"" aria-label=""Disabled select example"" onchange=""changeRol()"" name=""Rol"">";
 
+                foreach (var rol in roles)
+                {
+                    if ((int)rol == (int)participacion.Rol)
+                    {
+                        tabla += $@"<option selected value = ""{((int)rol).ToString()}"" > {rol.GetTipo()} </option>";
+                    }
+                    else
+                    {
+                        tabla += $@"<option value = ""{((int)rol).ToString()}"" > {rol.GetTipo()} </option>";
+                    }
+                }
+                tabla += @$"</select>
+                    <input type=""hidden"" name=""Participacion"" value=""{participacion.Id}"" />
+                    <button type=""button"" class=""btn btn-warning btn-50px"">Mas</button>
+                    </div>
+                </div>";
+            }
+            if (!participaciones.Any()) tabla = "<h4>No se encontraron comunidades</h4>";
+            return tabla;
+        }
+
+        [AllowAnonymous]
+        [Route("Comunidades/cambiar-rol")]
+        [HttpPost]
+        public string CambiarRol([FromBody] string rol, [FromBody] int Participacion)
+        {
+            Participacion part = DataFactory.ParticipacionDao.GetById(Participacion);
+            part.Rol = (Rol)Enum.ToObject(typeof(Rol), rol);
+            DataFactory.ParticipacionDao.Update(part);
+            return "Listo";
+        }
     }
 }

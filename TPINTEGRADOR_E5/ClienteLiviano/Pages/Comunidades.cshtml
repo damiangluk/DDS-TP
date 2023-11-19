@@ -1,0 +1,30 @@
+﻿@page
+@model IncidentesModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@section Scripts {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/comunidadesController.js" asp-append-version="true"></script>
+}
+
+
+
+<div class="container-incidentes">
+    <div class="incidentes-title">
+        <div class="rectangle-title">
+            <span class="container-span-title"> Comunidades </span>
+        </div>
+    </div>
+    <div class="incidentes-data">
+        <div class="container-table" id="comunidades-container">
+        </div>
+        <button type="button" class="btn btn-warning" onclick="getAllComunidades()" btn-50px">Buscar</button>
+
+    </div>
+</div>

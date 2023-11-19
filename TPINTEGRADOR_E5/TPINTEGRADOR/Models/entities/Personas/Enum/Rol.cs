@@ -22,7 +22,7 @@ namespace TPINTEGRADOR.Models
             }
         }
 
-        public static string GetTipo(Rol type)
+        public static string GetTipo(this Rol type)
         {
             switch (type)
             {
@@ -45,6 +45,16 @@ namespace TPINTEGRADOR.Models
                     Id = (int)rol,
                     Text = RolExtensions.GetTipo(rol)
                 });
+            }
+            return lista;
+        }
+
+        public static List<Rol> GetAllRoles()
+        {
+            List<Rol> lista = new List<Rol>();
+            foreach (Rol rol in Enum.GetValues(typeof(Rol)))
+            {
+                lista.Add(rol);
             }
             return lista;
         }
