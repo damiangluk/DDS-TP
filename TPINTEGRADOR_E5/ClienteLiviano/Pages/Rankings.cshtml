@@ -1,0 +1,45 @@
+﻿@page
+@model IncidentesModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@section Scripts {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="~/js/rankingsController.js" asp-append-version="true"></script>
+}
+
+<div class="container-rankings">
+    <div class="rankings-title">
+        <div class="rectangle-title">
+            <span class="container-span-title"> RANKINGS </span>
+        </div>
+    </div>
+    <div class="rankings-data">
+        <div class="container-filters" style="min-width: 500px">
+            <h1>Filtros</h1>
+            <span class="span-filters">Ranking</span>
+            <div class="mb-3">
+                <div id="select-rankings">
+
+                </div>
+                <input class="mt-3 form-control form-select" type="date" placeholder="Desde" name="fechaInicio" />
+                <input class="mt-3 form-control form-select" type="date" placeholder="Hasta" name="fechaFin" />
+            </div>
+            <button onclick="getAllRankings()" type="submit" class="button">Buscar</button>
+        </div>
+
+        <div class="container-table" style="min-width: 800px">
+            <div id="accordion">
+                <!-- Panel 1 -->
+                
+            </div>
+        </div>
+    </div>
+</div>

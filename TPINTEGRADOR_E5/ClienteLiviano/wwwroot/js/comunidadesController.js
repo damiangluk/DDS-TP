@@ -1,6 +1,5 @@
 ﻿var urlbase = "https://localhost:44320"
 
-
 getAllComunidades = () => {
     var url = urlbase + `/Comunidades/get-all`;
     return new Promise((resolve, reject) => {
@@ -9,7 +8,7 @@ getAllComunidades = () => {
             url: url,
             type: 'POST',
             data: null, //JSON.stringify(select.toString()),
-            contentType: 'application/json',
+            contentType: null,//'application/json',
             success: function (response) {
                 document.getElementById("comunidades-container").innerHTML = response;
             },
@@ -22,20 +21,23 @@ getAllComunidades = () => {
     });
 }
 
-changeRol = (prop) => {
-    var select = document.getElementById("select-form");
-    var url = urlbase + `/Comunidades/cambiar-rol`;
-    var json = new {
-         rol: select.value,
-        participacion: document.querySelector('input[name="Participacion"]').value
+window.onload = getAllComunidades;
 
+
+changeRol = (prop) => {
+    var url = urlbase + `/Comunidades/cambiar-rol`;
+    var select = document.getElementById("select-form");
+    var participacion = document.querySelector('input[name="Participacion"]').value;
+    var json = {
+        rol: parseInt(select.value),
+        participacion: parseInt(participacion)
     }
     return new Promise((resolve, reject) => {
 
         $.ajax({
             url: url,
             type: 'POST',
-            data: JSON.stringify(select.toString()),
+            data: JSON.stringify(json),
             contentType: 'application/json',
             success: function (response) {
                 location.reload();

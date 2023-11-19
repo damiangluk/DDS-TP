@@ -32,8 +32,6 @@ namespace TPINTEGRADOR.Models.entities.ServicioRanking
             public int idEnt { get; set; }
             public string nombreEnt { get; set; }
             public int impacto { get; set; }
-
-      
         }
 
         public List<Entidad> DeserializarRanking()

@@ -60,3 +60,4 @@ Mkfile.old
 dkms.conf
 appsettings.json
 appsettings.Development.json
+*.json

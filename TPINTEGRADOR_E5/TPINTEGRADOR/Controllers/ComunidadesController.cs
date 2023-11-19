@@ -85,12 +85,21 @@ namespace TPINTEGRADOR.Controllers
         [AllowAnonymous]
         [Route("Comunidades/cambiar-rol")]
         [HttpPost]
-        public string CambiarRol([FromBody] string rol, [FromBody] int Participacion)
+        public string CambiarRolLiviano([FromBody] CambiarRolRequest data)
         {
-            Participacion part = DataFactory.ParticipacionDao.GetById(Participacion);
+            int rol = data.Rol;
+            int participacion = data.Participacion;
+
+            Participacion part = DataFactory.ParticipacionDao.GetById(participacion);
             part.Rol = (Rol)Enum.ToObject(typeof(Rol), rol);
             DataFactory.ParticipacionDao.Update(part);
             return "Listo";
+        }
+
+        public class CambiarRolRequest
+        {
+            public int Rol { get; set; }
+            public int Participacion { get; set; }
         }
     }
 }

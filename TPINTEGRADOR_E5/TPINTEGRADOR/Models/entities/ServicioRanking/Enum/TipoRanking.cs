@@ -54,5 +54,15 @@ namespace TPINTEGRADOR.Models
             }
             return lista;
         }
+
+        public static List<TipoRanking> GetAllTiposRankings()
+        {
+            List<TipoRanking> lista = new List<TipoRanking>();
+            foreach (TipoRanking tipoRanking in Enum.GetValues(typeof(TipoRanking)))
+            {
+                lista.Add(tipoRanking);
+            }
+            return lista;
+        }
     }
 }

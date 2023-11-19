@@ -15,16 +15,19 @@
 
 
 
-<div class="container-incidentes">
+<div onload="getAllComunidades()" class="container-incidentes">
     <div class="incidentes-title">
         <div class="rectangle-title">
             <span class="container-span-title"> Comunidades </span>
         </div>
     </div>
     <div class="incidentes-data">
+        <div class="container-filters">
+            <div class="actions-filter">
+                <button class="button" onclick="getAllComunidades()">Buscar</button>
+            </div>
+        </div>
         <div class="container-table" id="comunidades-container">
         </div>
-        <button type="button" class="btn btn-warning" onclick="getAllComunidades()" btn-50px">Buscar</button>
-
     </div>
 </div>

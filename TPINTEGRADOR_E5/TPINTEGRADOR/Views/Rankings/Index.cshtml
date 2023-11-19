@@ -27,7 +27,7 @@
     </div>
     <div class="rankings-data">
         <form class="agregar" asp-area="" asp-controller="Rankings" asp-action="index" method="post">
-            <div class="container-filters">
+            <div class="container-filters" style="min-width: 500px">
                 <h1>Filtros</h1>
                 <span class="span-filters">Ranking</span>
                 <div class="mb-3">
@@ -37,28 +37,28 @@
                             <option value="@tipo.Id">@tipo.Text</option>
                         }
                     </select>
-                    <input type="date" placeholder="Desde" name="fechaInicio" />
-                    <input type="date" placeholder="Hasta" name="fechaFin" />
+                    <input class="mt-3 form-control form-select" type="date" placeholder="Desde" name="fechaInicio" />
+                    <input class="mt-3 form-control form-select" type="date" placeholder="Hasta" name="fechaFin" />
                 </div>
-                <button class="button">Buscar</button>
+                <button type="submit" class="button">Buscar</button>
             </div>
         </form>
 
-        <div class="container-table">
+        <div class="container-table" style="min-width: 800px">
             <div id="accordion">
                 <!-- Panel 1 -->
                 @foreach (var item in ViewBag.Rankings)
                 {
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div class="card-header" id="heading @item.Id">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="@item.Id">
                                     @(item.TipoRanking.ToString()) - @(item.Fecha.ToString())
                                 </button>
                             </h5>
                         </div>
 
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="@item.Id" class="collapse" aria-labelledby="heading @item.Id" data-parent="#accordion">
                             <div class="card-body">
                                 <table class="table table-dark large-table">
                                     <thead>
