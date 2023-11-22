@@ -80,21 +80,31 @@ namespace TPINTEGRADOR.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         #endregion
+        [AllowAnonymous]
+        [Route("Account/login-liviano")]
+        [HttpPost]
+        public async Task LoginAuthClienteLiviano()
+        {
+            var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
+                      .WithRedirectUri(Url?.Action("LoginCallbackClienteLiviano", "Account") ?? "")
+                      .WithScope("email profile")
+                      .Build();
+            await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+        }
 
-        /*[HttpPost]
-		public IActionResult Login(LoginViewModel model)
-		{
-            (bool, string) resultado = Validador.GetVerificador().EsClaveSegura(model.Password);
-			if (resultado.Item1)
-			{
-				return RedirectToAction("Index", "Home");
-			}
-			else
-			{
-				ViewBag.ContraseniaSugerida = Validador.GetVerificador().GenerarContraseniaSugerida();
-				ViewBag.MensajeError = resultado.Item2;
-				return View("login", model);
-			}
-        } */
+        [AllowAnonymous]
+        [System.Web.Mvc.HttpPost]
+        public async Task<IActionResult> LoginCallbackClienteLiviano()
+        {
+            _logger.Log(LogLevel.Information, "Entre al callback");
+            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+            if (User != null && User.Identity.IsAuthenticated)
+            {
+                await SessionManager.Login(User);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

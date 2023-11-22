@@ -1,9 +1,27 @@
 ﻿@page
-@model IncidentesModel
+@model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    Layout = "~/Pages/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Log in";
+}
+@section Scripts {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 }
 
-<div class="text-center">
-    <h1>Bienvenidos al cliente liviano</h1>
+<div>
+    <div class="content-square">
+        <div class="rectangle-title">
+            <span class="container-span-title"> INICIAR SESIÓN </span>
+        </div>
+
+        <div class="container-auth0">
+            <form action="https://localhost:44320/Account/LoginAuth" method="post">
+                <!-- Campos y elementos del formulario -->
+                <input type="submit" value="Auth0" class="button-auth">
+            </form>
+        </div>
+    </div>
 </div>

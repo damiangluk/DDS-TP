@@ -10,4 +10,9 @@
     <Folder Include="Pages\Views\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.3.1" />
+    <PackageReference Include="Auth0.AuthenticationApi" Version="7.24.0" />
+  </ItemGroup>
+
 </Project>
