@@ -9,6 +9,7 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/loginController.js" asp-append-version="true"></script>
 }
 
 <div>
@@ -18,10 +19,7 @@
         </div>
 
         <div class="container-auth0">
-            <form action="https://localhost:44320/Account/LoginAuth" method="post">
-                <!-- Campos y elementos del formulario -->
-                <input type="submit" value="Auth0" class="button-auth">
-            </form>
+            <button onclick="login()" class="button-auth">Auth0</button>
         </div>
     </div>
 </div>

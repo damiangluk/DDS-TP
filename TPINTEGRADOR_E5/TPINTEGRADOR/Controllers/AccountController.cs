@@ -22,7 +22,6 @@ namespace TPINTEGRADOR.Controllers
         }
 
         [AllowAnonymous]
-        [System.Web.Mvc.HttpPost]
         public async Task LoginAuth()
         {
             var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
@@ -33,7 +32,6 @@ namespace TPINTEGRADOR.Controllers
         }
 
         [AllowAnonymous]
-        [System.Web.Mvc.HttpPost]
         public async Task<IActionResult> LoginCallback()
         {
             _logger.Log(LogLevel.Information, "Entre al callback");
@@ -59,7 +57,6 @@ namespace TPINTEGRADOR.Controllers
 
             await SessionManager.Logout();
         }
-        #region routes
 
         [AllowAnonymous]
         public async Task<IActionResult> Login()
@@ -78,33 +75,6 @@ namespace TPINTEGRADOR.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        #endregion
-        [AllowAnonymous]
-        [Route("Account/login-liviano")]
-        [HttpPost]
-        public async Task LoginAuthClienteLiviano()
-        {
-            var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-                      .WithRedirectUri(Url?.Action("LoginCallbackClienteLiviano", "Account") ?? "")
-                      .WithScope("email profile")
-                      .Build();
-            await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
-        }
-
-        [AllowAnonymous]
-        [System.Web.Mvc.HttpPost]
-        public async Task<IActionResult> LoginCallbackClienteLiviano()
-        {
-            _logger.Log(LogLevel.Information, "Entre al callback");
-            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-
-            if (User != null && User.Identity.IsAuthenticated)
-            {
-                await SessionManager.Login(User);
-            }
-
-            return RedirectToAction("Index", "Home");
         }
     }
 }

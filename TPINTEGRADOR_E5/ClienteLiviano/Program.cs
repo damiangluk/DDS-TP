@@ -2,11 +2,6 @@ using Auth0.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuth0WebAppAuthentication(options =>
-{
-    options.Domain = "nicogol.us.auth0.com";
-    options.ClientId = "BsXXrfUk3nQtje73B3iyOUIeXtydkSna";
-});
 // Add services to the container.
 builder.Services.AddRazorPages();
 var app = builder.Build();
