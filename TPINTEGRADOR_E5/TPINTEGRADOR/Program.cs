@@ -39,7 +39,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("https://localhost:44385", "https://nicogol.us.auth0.com")
+        builder.WithOrigins("https://localhost:44385")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
@@ -63,7 +63,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("AllowSpecificOrigin");
+app.UseCors();
 app.MapControllerRoute(
 name: "default",
 pattern: "{controller=Home}/{action=Index}/{id?}");

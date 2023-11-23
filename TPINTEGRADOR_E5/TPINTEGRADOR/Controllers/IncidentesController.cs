@@ -20,7 +20,7 @@ namespace TPINTEGRADOR.Controllers
             var Localizacion = DataFactory.LocalizacionDao.GetById(localizacion);
             Incidente incidente = new Incidente(SuperServicio, Localizacion, informe, "Incidente recien creado");
             DataFactory.IncidenteDao.Insert(incidente);
-            return View("Index");
+            return AbrirIncidente();
         }
         public IActionResult Index()
         {
@@ -32,7 +32,7 @@ namespace TPINTEGRADOR.Controllers
             ViewBag.Servicios = DataFactory.ServicioDao.GetAllFromDropdown();
             ViewBag.Localizaciones = DataFactory.LocalizacionDao.GetAllFromDropdown();
 
-            return View();
+            return View("AbrirIncidente");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
