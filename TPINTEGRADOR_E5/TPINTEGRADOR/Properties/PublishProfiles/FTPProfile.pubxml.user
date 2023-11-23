@@ -7,15 +7,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAE3q2P27cqE+wfMTcOZ4zNwAAAAACAAAAAAAQZgAAAAEAACAAAABGWBcEzmLuwLI1iIdScYPehNG5QkX6S6Oogpdt2QfdRQAAAAAOgAAAAAIAACAAAABgPWfD59bNbK88CbE4BhJU3n1tFog3r/b4WD6fthjbsCAAAAAJtzfokIpijWHqE6DO9Moax4T2mMY84tFi7dl1Gf5H90AAAAAPuGk3YzY88cRr2HpXq7nZtuwTgsIx3dw8YfYNTw+WfYUw0kj4z0CzCJpNfPN0xwYGJ6xtNltd643ezAHJX1ja</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.244.37/www.tpddsgrupo3.somee.com</_PublishTargetUrl>
-    <History>True|2023-11-10T16:23:21.2143331Z;False|2023-11-10T13:17:07.8500396-03:00;True|2023-11-10T11:37:37.0081118-03:00;False|2023-11-10T11:30:40.9334530-03:00;True|2023-11-10T00:48:09.3056928-03:00;True|2023-11-09T23:57:09.6639602-03:00;</History>
+    <History>True|2023-11-23T14:22:26.9658041Z;True|2023-11-23T11:12:07.2690655-03:00;True|2023-11-10T13:23:21.2143331-03:00;False|2023-11-10T13:17:07.8500396-03:00;True|2023-11-10T11:37:37.0081118-03:00;False|2023-11-10T11:30:40.9334530-03:00;True|2023-11-10T00:48:09.3056928-03:00;True|2023-11-09T23:57:09.6639602-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>11/10/2023 13:07:39</publishTime>
+      <publishTime>11/23/2023 11:14:39</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>11/10/2023 11:29:17</publishTime>
+      <publishTime>11/23/2023 11:14:25</publishTime>
     </File>
     <File Include="Auth0.AspNetCore.Authentication.dll">
       <publishTime>07/18/2023 23:56:58</publishTime>
@@ -177,22 +177,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 20:49:44</publishTime>
     </File>
     <File Include="TPINTEGRADOR.deps.json">
-      <publishTime>11/10/2023 13:17:29</publishTime>
+      <publishTime>11/23/2023 11:14:55</publishTime>
     </File>
     <File Include="TPINTEGRADOR.dll">
-      <publishTime>11/10/2023 13:17:26</publishTime>
+      <publishTime>11/23/2023 11:14:48</publishTime>
     </File>
     <File Include="TPINTEGRADOR.exe">
-      <publishTime>11/10/2023 13:17:26</publishTime>
+      <publishTime>11/23/2023 11:14:48</publishTime>
     </File>
     <File Include="TPINTEGRADOR.pdb">
-      <publishTime>11/10/2023 13:17:26</publishTime>
+      <publishTime>11/23/2023 11:14:48</publishTime>
     </File>
     <File Include="TPINTEGRADOR.runtimeconfig.json">
       <publishTime>11/09/2023 18:24:33</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/10/2023 13:17:30</publishTime>
+      <publishTime>11/23/2023 11:14:56</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
       <publishTime>10/11/2023 09:24:43</publishTime>
@@ -204,10 +204,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2023 09:24:43</publishTime>
     </File>
     <File Include="wwwroot/js/loginController.js">
-      <publishTime>11/10/2023 01:30:59</publishTime>
+      <publishTime>11/14/2023 09:46:27</publishTime>
     </File>
     <File Include="wwwroot/js/organismosController.js">
       <publishTime>10/11/2023 09:24:43</publishTime>
+    </File>
+    <File Include="wwwroot/js/rankingsController.js">
+      <publishTime>11/14/2023 09:43:38</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
       <publishTime>10/11/2023 09:24:43</publishTime>
