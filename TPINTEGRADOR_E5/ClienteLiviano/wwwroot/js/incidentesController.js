@@ -23,8 +23,23 @@ getAllIncidentes = () => {
     });
 }
 
-solicitarRevision = (servicio, informe) => {
-    alert(`Se solicito la revision de "${informe}" sobre el servicio ${servicio}`);
+solicitarRevision = (servicio, informe, id) => {
+
+
+    var url = urlbase + `/Incidentes/solicitar-revision`;
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(id.toString()),
+        contentType: 'application/json',
+        success: function (response) {
+            alert(`Se solicito la revision de "${informe}" sobre el servicio ${servicio}`);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
 }
 
 cerrarIncidente = id => {

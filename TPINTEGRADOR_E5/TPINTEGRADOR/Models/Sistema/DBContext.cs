@@ -22,6 +22,7 @@ namespace TPINTEGRADOR.Models.Sistema
         public DbSet<Organismo> Organismos { get; set; }
         public DbSet<SuperServicio> SuperServicios { get; set; }
         public DbSet<Localizacion> Localizaciones { get; set; }
+        public DbSet<Notificacion> Notificaciones { get; set; }
 
         public static DBContext CreateDbContext()
         {

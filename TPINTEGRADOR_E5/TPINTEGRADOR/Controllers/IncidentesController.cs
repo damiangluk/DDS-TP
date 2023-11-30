@@ -68,7 +68,7 @@ namespace TPINTEGRADOR.Controllers
                                     <span class=""subtitle-card"">{incidente.Informe} - {incidente.Estado}</span>
                                 </div>
                                 <div class=""actions-incidente"">
-                                    <button type=""button"" class=""btn btn-info btn-100px"" onclick=""solicitarRevision('{incidente.Servicio.Nombre}','{incidente.Informe}')"" >Solicitar revision</button>
+                                    <button type=""button"" class=""btn btn-info btn-100px"" onclick=""solicitarRevision('{incidente.Servicio.Nombre}','{incidente.Informe}', {incidente.Id})"" >Solicitar revision</button>
                                     <button type=""button"" class=""btn btn-warning btn-50px"">Editar</button>
                                     <button type=""button"" class=""btn btn-danger btn-50px"" onclick=""cerrarIncidente({incidente.Id})"">Cerrar</button>
                                 </div>
@@ -109,6 +109,20 @@ namespace TPINTEGRADOR.Controllers
                 result = "Ocurrio un error al cerrar el incidente";
             }
             return result;
+        }
+
+        [AllowAnonymous]
+        [Route("Incidentes/solicitar-revision")]
+        [HttpPost]
+        public void SolicitarRevision([FromBody] int id)
+        {
+            var incidente = DataFactory.IncidenteDao.GetById(id);
+            var personas = incidente.Comunidades.SelectMany(c => c.Miembros).Select(m => m.Persona).ToList();
+            foreach (var persona in personas) {
+                var obj = DataFactory.PersonaDao.GetById(persona.Id);
+                var notificacion = new Notificacion(DateTime.Now, obj, "Te solicitaron que revises el incidete: " + incidente.Informe + " del servicio: " + incidente.Servicio.Nombre);
+                DataFactory.NotificacionDao.Insert(notificacion);
+            }
         }
     }
 }

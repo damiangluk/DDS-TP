@@ -34,6 +34,7 @@
         public static LocalizacionDao LocalizacionDao => GetDao<LocalizacionDao>();
         public static ComunidadDao ComunidadDao => GetDao<ComunidadDao>();
         public static UsuarioDao UsuarioDao => GetDao<UsuarioDao>();
+        public static NotificacionDao NotificacionDao => GetDao<NotificacionDao>();
 
         #endregion
     }
