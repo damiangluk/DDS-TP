@@ -37,7 +37,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Comunidades" asp-action="Index">Comunidades</a>
                         </li>
-                        <li style="margin-left: auto;">
+                        <li class="nav-item notification-icon-center" style="margin: 0 15px 0px auto;">
+                            <div class="icon-container" >
+                                <div class="notification-icon">
+                                    <span >🔔</span>
+                                </div>
+                                <div class="notification-popup" id="notificationPopup">
+                                    <!-- Contenido de las notificaciones -->
+                                    <ul class="notification-list" id="lista-notificaciones">
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
                             <form action="/Account/LogoutAuth" method="post">
                                 <input type="submit" value="Cerrar sesion Auth0" class="btn btn-primary">
                             </form>
@@ -58,3 +70,56 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const notificationIcon = document.querySelector('.notification-icon');
+        const notificationPopup = document.querySelector('#notificationPopup');
+
+        notificationIcon.addEventListener('click', function () {
+            if (notificationPopup.style.display === 'none' || notificationPopup.style.display === '') {
+                notificationPopup.style.display = 'block';
+                var url = `/Incidentes/obtener-notificaciones`;
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: null,
+                    contentType: null,
+                    success: function (response) {
+                        console.log("Ajax", response);
+                        if (response.content.notificaciones.length) {
+
+                            response.content.notificaciones.forEach(function (notificacion) {
+                                console.log("notificacion", notificacion);
+                                const notificationLi = 
+                                `<li class="seen">
+                                                    <i class="far fa-university"></i>
+                                                        <div><span>${notificacion.Mensaje}</span><time >${notificacion.Fecha}</time></div>
+                                                </li>`;
+
+                                notificationPopup.appendChild(notificationLi)
+                            });
+                        } else {
+                            const notificationLi = `
+                                < div >  < b class="fw-m" > <span>SIN NOTIFICACIONES < /span></b > </span> </div>
+                            `;
+                            notificationPopup.appendChild(notificationLi)
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                notificationPopup.style.display = 'none';
+            }
+        });
+    });
+
+
+
+</script>
+

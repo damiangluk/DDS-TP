@@ -124,5 +124,37 @@ namespace TPINTEGRADOR.Controllers
                 DataFactory.NotificacionDao.Insert(notificacion);
             }
         }
+
+        [Route("Incidentes/obtener-notificaciones")]
+        [HttpPost]
+        public string ObtenerNotificaciones()
+        {
+            var persona = SessionManager.GetPersona();
+            var notificaciones = DataFactory.NotificacionDao.GetAllByPerson(persona);
+
+            object result = new
+            {
+                status = true,
+                message = "Notificaciones encontrado exitosamente",
+                content = new
+                {
+                    notificaciones
+                }
+            };
+            var response = "";
+            try
+            {
+               response = JsonHelper.SerializeObject(result, 2);
+            } catch (Exception ex) {
+                var hola = ex;
+            }
+            foreach (var notificacion in notificaciones)
+            {
+                // notificacion.Entregado = true;
+                //DataFactory.NotificacionDao.Update(notificacion);
+            }
+
+            return response;
+        }
     }
 }
