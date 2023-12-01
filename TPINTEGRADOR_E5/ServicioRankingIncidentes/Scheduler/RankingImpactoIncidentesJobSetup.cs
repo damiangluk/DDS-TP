@@ -10,7 +10,7 @@ namespace ServicioRankingIncidentes.Scheduler
             var jobKey = JobKey.Create(nameof(RankingImpactoIncidentesJob));
             options
                 .AddJob<RankingImpactoIncidentesJob>(jobBuilder => jobBuilder.WithIdentity(jobKey))
-                .AddTrigger(trigger => trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(10).RepeatForever()));
+                .AddTrigger(trigger => trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(60).RepeatForever()));
 
             //.WithSchedule(CronScheduleBuilder.CronSchedule("0 0 9 ? * MON"))
         }

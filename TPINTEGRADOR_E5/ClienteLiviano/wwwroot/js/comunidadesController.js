@@ -24,10 +24,10 @@ getAllComunidades = () => {
 window.onload = getAllComunidades;
 
 
-changeRol = (prop) => {
+changeRol = (id) => {
     var url = urlbase + `/Comunidades/cambiar-rol`;
-    var select = document.getElementById("select-form");
-    var participacion = document.querySelector('input[name="Participacion"]').value;
+    var select = document.getElementById(`select-form-${id}`);
+    var participacion = document.querySelector(`input[name="Participacion-${id}"]`).value;
     var json = {
         rol: parseInt(select.value),
         participacion: parseInt(participacion)

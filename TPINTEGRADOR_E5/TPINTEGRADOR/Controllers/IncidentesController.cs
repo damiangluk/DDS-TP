@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.daos;
 using TPINTEGRADOR.Models.daos.auxClasses;
@@ -130,8 +131,8 @@ namespace TPINTEGRADOR.Controllers
         [HttpPost]
         public string ObtenerNotificaciones()
         {
-            var persona = SessionManager.GetPersona();
-            var notificaciones = DataFactory.NotificacionDao.GetAllByPerson(persona);
+            var usuario = DataFactory.UsuarioDao.GetByToken(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var notificaciones = DataFactory.NotificacionDao.GetAllByPerson(usuario.Persona);
             var notificacionesSelect = notificaciones.OrderByDescending(n => n.Fecha).Select(n => new { 
                 Id = n.Id,
                 Mensaje = n.Mensaje,

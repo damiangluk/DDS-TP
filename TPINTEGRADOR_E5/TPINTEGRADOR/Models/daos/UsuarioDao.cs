@@ -14,5 +14,9 @@ namespace TPINTEGRADOR.Models.daos
             return context.Usuarios.FirstOrDefault(u => u.Activo && u.Token == token && u.CorreoElectronico == email);
         }
 
+        public Usuario GetByToken(string token)
+        {
+            return context.Usuarios.FirstOrDefault(u => u.Activo && u.Token == token);
+        }
     }
 }

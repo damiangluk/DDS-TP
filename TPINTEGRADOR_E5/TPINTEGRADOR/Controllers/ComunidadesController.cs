@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
+using System.Security.Claims;
 using TPINTEGRADOR.Models;
 using TPINTEGRADOR.Models.daos.auxClasses;
 
@@ -19,8 +20,9 @@ namespace TPINTEGRADOR.Controllers
 
         public IActionResult Index()
         {
-            var persona = SessionManager.GetPersona();
-            ViewBag.Participaciones = DataFactory.ParticipacionDao.GetAllByPerson(persona).Select(p => new
+            //var persona = SessionManager.GetPersona();
+            var usuario = DataFactory.UsuarioDao.GetByToken(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            ViewBag.Participaciones = DataFactory.ParticipacionDao.GetAllByPerson(usuario.Persona).Select(p => new
             {
                 Id = p.Id,
                 Rol = (int)p.Rol,
@@ -59,7 +61,7 @@ namespace TPINTEGRADOR.Controllers
                 tabla += @$"<div class=""informe-incidente"" style=""width:800px;"">
                     <span class=""title-card"">{participacion.Comunidad.Nombre}</span>
                     <div class=""actions-incidente"" style=""display: flex;"">
-                            <select class=""form-select"" id=""select-form"" style=""margin-right: 5px;"" aria-label=""Disabled select example"" onchange=""changeRol()"" name=""Rol"">";
+                            <select class=""form-select"" id=""select-form-{participacion.Id}"" style=""margin-right: 5px;"" aria-label=""Disabled select example"" onchange=""changeRol({participacion.Id})"" name=""Rol"">";
 
                 foreach (var rol in roles)
                 {
@@ -73,7 +75,7 @@ namespace TPINTEGRADOR.Controllers
                     }
                 }
                 tabla += @$"</select>
-                    <input type=""hidden"" name=""Participacion"" value=""{participacion.Id}"" />
+                    <input type=""hidden"" name=""Participacion-{participacion.Id}"" value=""{participacion.Id}"" />
                     <button type=""button"" class=""btn btn-warning btn-50px"">Mas</button>
                     </div>
                 </div>";
