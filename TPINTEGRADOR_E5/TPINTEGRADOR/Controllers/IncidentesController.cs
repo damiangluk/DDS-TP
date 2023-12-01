@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TPINTEGRADOR.Models;
+using TPINTEGRADOR.Models.daos;
 using TPINTEGRADOR.Models.daos.auxClasses;
 
 namespace TPINTEGRADOR.Controllers
@@ -120,7 +121,7 @@ namespace TPINTEGRADOR.Controllers
             var personas = incidente.Comunidades.SelectMany(c => c.Miembros).Select(m => m.Persona).ToList();
             foreach (var persona in personas) {
                 var obj = DataFactory.PersonaDao.GetById(persona.Id);
-                var notificacion = new Notificacion(DateTime.Now, obj, "Te solicitaron que revises el incidete: " + incidente.Informe + " del servicio: " + incidente.Servicio.Nombre);
+                var notificacion = new Notificacion(DateTime.Now, obj, "Te solicitaron que revises el incidete: '" + incidente.Informe + "' del servicio: " + incidente.Servicio.Nombre);
                 DataFactory.NotificacionDao.Insert(notificacion);
             }
         }
@@ -131,6 +132,12 @@ namespace TPINTEGRADOR.Controllers
         {
             var persona = SessionManager.GetPersona();
             var notificaciones = DataFactory.NotificacionDao.GetAllByPerson(persona);
+            var notificacionesSelect = notificaciones.OrderByDescending(n => n.Fecha).Select(n => new { 
+                Id = n.Id,
+                Mensaje = n.Mensaje,
+                Fecha = n.Fecha.ToString(),
+                Entregado = n.Entregado
+            }).ToList();
 
             object result = new
             {
@@ -138,20 +145,16 @@ namespace TPINTEGRADOR.Controllers
                 message = "Notificaciones encontrado exitosamente",
                 content = new
                 {
-                    notificaciones
+                    notificaciones = notificacionesSelect
                 }
             };
-            var response = "";
-            try
-            {
-               response = JsonHelper.SerializeObject(result, 2);
-            } catch (Exception ex) {
-                var hola = ex;
-            }
+
+            string response = JsonHelper.SerializeObject(result, 3);
+
             foreach (var notificacion in notificaciones)
             {
-                // notificacion.Entregado = true;
-                //DataFactory.NotificacionDao.Update(notificacion);
+                notificacion.Entregado = true;
+                DataFactory.NotificacionDao.Update(notificacion);
             }
 
             return response;

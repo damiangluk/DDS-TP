@@ -89,23 +89,27 @@
                     contentType: null,
                     success: function (response) {
                         console.log("Ajax", response);
-                        if (response.content.notificaciones.length) {
 
-                            response.content.notificaciones.forEach(function (notificacion) {
+                        var resp = JSON.parse(response);
+                        var results = resp.content.notificaciones;
+                        if (results.length) {
+                            notificationPopup.innerHTML = '';
+
+                            results.forEach(function (notificacion) {
                                 console.log("notificacion", notificacion);
-                                const notificationLi = 
-                                `<li class="seen">
-                                                    <i class="far fa-university"></i>
-                                                        <div><span>${notificacion.Mensaje}</span><time >${notificacion.Fecha}</time></div>
-                                                </li>`;
 
-                                notificationPopup.appendChild(notificationLi)
+                                var nuevaNotificacion = document.createElement('li');
+                                nuevaNotificacion.className = "seen"
+                                if(notificacion.Entregado)
+                                    nuevaNotificacion.innerHTML = `<i class="far fa-university"></i><div><span>${notificacion.Mensaje}</span><time >${notificacion.Fecha}</time></div>`;
+                                else
+                                    nuevaNotificacion.innerHTML = `<i class="far fa-university"></i><div><b><span>${notificacion.Mensaje}</span><time> - ${notificacion.Fecha}</time><b></div>`;
+                                notificationPopup.appendChild(nuevaNotificacion);
                             });
                         } else {
-                            const notificationLi = `
-                                < div >  < b class="fw-m" > <span>SIN NOTIFICACIONES < /span></b > </span> </div>
-                            `;
-                            notificationPopup.appendChild(notificationLi)
+                            var nuevaNotificacion = document.createElement('div');
+                            nuevaNotificacion.innerHTML = `<b class="fw-m"> <span>No tienes notifiaciones pendientes</span></b> </span>`;
+                            notificationPopup.appendChild(nuevaNotificacion);
 
                         }
                     },
