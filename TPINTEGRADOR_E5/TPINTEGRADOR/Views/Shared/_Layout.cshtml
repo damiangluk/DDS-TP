@@ -104,11 +104,13 @@
                                     nuevaNotificacion.innerHTML = `<i class="far fa-university"></i><div><span>${notificacion.Mensaje}</span><time >${notificacion.Fecha}</time></div>`;
                                 else
                                     nuevaNotificacion.innerHTML = `<i class="far fa-university"></i><div><b><span>${notificacion.Mensaje}</span><time> - ${notificacion.Fecha}</time><b></div>`;
+                                notificationPopup.innerHTML = '';
                                 notificationPopup.appendChild(nuevaNotificacion);
                             });
                         } else {
                             var nuevaNotificacion = document.createElement('div');
                             nuevaNotificacion.innerHTML = `<b class="fw-m"> <span>No tienes notifiaciones pendientes</span></b> </span>`;
+                            notificationPopup.innerHTML = '';
                             notificationPopup.appendChild(nuevaNotificacion);
 
                         }
